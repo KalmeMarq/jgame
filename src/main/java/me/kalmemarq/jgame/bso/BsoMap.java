@@ -41,6 +41,10 @@ public class BsoMap extends BsoTag {
         this.entries.put(name, new BsoByte(value));
     }
 
+    public void putUnsignedByte(String name, short value) {
+        this.entries.put(name, new BsoUByte(value));
+    }
+
     public void putBoolean(String name, boolean value) {
         this.entries.put(name, new BsoBoolean(value));
     }
@@ -49,8 +53,16 @@ public class BsoMap extends BsoTag {
         this.entries.put(name, new BsoShort(value));
     }
 
+    public void putUnsignedShort(String name, int value) {
+        this.entries.put(name, new BsoUShort(value));
+    }
+
     public void putInt(String name, int value) {
         this.entries.put(name, new BsoInt(value));
+    }
+
+    public void putUnsignedInt(String name, long value) {
+        this.entries.put(name, new BsoUInt(value));
     }
 
     public void putLong(String name, long value) {
@@ -98,12 +110,27 @@ public class BsoMap extends BsoTag {
         return this.hasOfType(key, BsoTypes.BYTE) ? ((BsoByte) this.entries.get(key)).byteValue() : 0;
     }
 
+    public short getUnsignedByte(String key) {
+        BsoTag tag;
+        return this.hasOfType(key, BsoTypes.BYTE) && (tag = this.entries.get(key)) instanceof BsoUByte ? ((BsoUByte) tag).unsignedByteValue() : 0;
+    }
+
     public short getShort(String key) {
         return this.hasOfType(key, BsoTypes.SHORT) ? ((BsoShort) this.entries.get(key)).shortValue() : 0;
     }
 
+    public int getUnsignedShort(String key) {
+        BsoTag tag;
+        return this.hasOfType(key, BsoTypes.SHORT) && (tag = this.entries.get(key)) instanceof BsoUShort ? ((BsoUShort) tag).unsignedShortValue() : 0;
+    }
+
     public int getInt(String key) {
         return this.hasOfType(key, BsoTypes.INT) ? ((BsoInt) this.entries.get(key)).intValue() : 0;
+    }
+
+    public long getUnsignedInt(String key) {
+        BsoTag tag;
+        return this.hasOfType(key, BsoTypes.INT) && (tag = this.entries.get(key)) instanceof BsoUInt ? ((BsoUInt) tag).unsignedIntValue() : 0;
     }
 
     public long getLong(String key) {

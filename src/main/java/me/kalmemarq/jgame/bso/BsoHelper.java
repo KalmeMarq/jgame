@@ -19,10 +19,16 @@ public class BsoHelper {
     private static void writeAsString(StringBuilder builder, BsoTag tag, boolean indented, int level) {
         if (tag instanceof BsoBoolean booleanTag) {
             builder.append(booleanTag.booleanValue() ? "true" : "false");
+        } else if (tag instanceof BsoUByte ubyteTag) {
+            builder.append(ubyteTag.unsignedByteValue()).append("ub");
         } else if (tag instanceof BsoByte byteTag) {
             builder.append(byteTag.byteValue()).append('b');
+        } else if (tag instanceof BsoUShort ushortTag) {
+            builder.append(ushortTag.unsignedShortValue()).append("us");
         } else if (tag instanceof BsoShort shortTag) {
             builder.append(shortTag.shortValue()).append('s');
+        } else if (tag instanceof BsoUInt uintTag) {
+            builder.append(uintTag.unsignedIntValue()).append("ui");
         } else if (tag instanceof BsoInt intTag) {
             builder.append(intTag.intValue());
         } else if (tag instanceof BsoLong longTag) {

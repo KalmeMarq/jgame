@@ -42,6 +42,10 @@ public final class BsoTypes {
             short value;
             if (additionalData == 0) {
                 value = input.readShort();
+            } else if (additionalData == 4) {
+                return new BsoUShort(input.readUnsignedShort());
+            } else if (additionalData == 5) {
+                return new BsoUShort(input.readUnsignedByte());
             } else {
                 value = input.readByte();
             }
@@ -50,7 +54,7 @@ public final class BsoTypes {
 
         @Override
         public void write(DataOutput output, BsoShort tag, byte additionalData) throws IOException {
-            if (additionalData == 0) {
+            if ((additionalData & 3) == 0) {
                 output.writeShort(tag.shortValue());
             } else {
                 output.write(tag.byteValue());
@@ -65,21 +69,23 @@ public final class BsoTypes {
 
         @Override
         public BsoInt read(DataInput input, byte additionalData) throws IOException {
-            int value = switch (additionalData) {
+            int value = switch (additionalData & 3) {
                 case 1 -> input.readShort();
                 case 2 -> input.readByte();
                 default -> input.readInt();
             };
-            return new BsoInt(value);
+            return additionalData > 3 ? new BsoUInt(value) : new BsoInt(value);
         }
 
         @Override
         public void write(DataOutput output, BsoInt tag, byte additionalData) throws IOException {
             switch (additionalData) {
                 case 1:
+                case 5:
                     output.writeShort(tag.shortValue());
                     break;
                 case 2:
+                case 6:
                     output.writeByte(tag.byteValue());
                     break;
                 default:
@@ -298,8 +304,7 @@ public final class BsoTypes {
 
         @Override
         public void write(DataOutput output, BsoByteArray tag, byte additionalData) throws IOException {
-            byte ad = additionalData;
-            switch (ad & 3) {
+            switch (additionalData & 3) {
                 case 1:
                     output.writeShort((byte) (tag.size() & 0xFFFF));
                     break;
@@ -310,7 +315,7 @@ public final class BsoTypes {
                     output.writeInt(tag.size());
                     break;
             }
-            if (ad > 3) {
+            if (additionalData > 3) {
                 byte[] values = tag.getValues();
                 for (int i = 0, len = values.length; i < len; ++i) {
                     byte b = (byte) (values[i] << 4);
@@ -349,8 +354,7 @@ public final class BsoTypes {
 
         @Override
         public void write(DataOutput output, BsoShortArray tag, byte additionalData) throws IOException {
-            byte ad = additionalData;
-            switch (ad & 3) {
+            switch (additionalData & 3) {
                 case 1:
                     output.writeShort((byte) (tag.size() & 0xFFFF));
                     break;
@@ -362,7 +366,7 @@ public final class BsoTypes {
                     break;
             }
 
-            boolean writeAsByte = ad > 3;
+            boolean writeAsByte = additionalData > 3;
             for (short value : tag.getValues()) {
                 if (writeAsByte) output.write((byte) (value & 0xFF));
                 else output.writeShort(value);
@@ -391,8 +395,7 @@ public final class BsoTypes {
 
         @Override
         public void write(DataOutput output, BsoIntArray tag, byte additionalData) throws IOException {
-            byte ad = additionalData;
-            switch (ad & 3) {
+            switch (additionalData & 3) {
                 case 1:
                     output.writeShort((byte) (tag.size() & 0xFFFF));
                     break;
@@ -405,8 +408,8 @@ public final class BsoTypes {
             }
 
             for (int value : tag.getValues()) {
-                if (ad > 7) output.write((byte) (value & 0xFF));
-                else if (ad > 3) output.writeShort((byte) (value & 0xFFFF));
+                if (additionalData > 7) output.write((byte) (value & 0xFF));
+                else if (additionalData > 3) output.writeShort((byte) (value & 0xFFFF));
                 else output.writeShort(value);
             }
         }
