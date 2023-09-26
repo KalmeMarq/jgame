@@ -5,13 +5,13 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class Sound {
-    public static final Sound playerHurt = new Sound("/playerhurt.wav");
-    public static final Sound playerDeath = new Sound("/death.wav");
-    public static final Sound monsterHurt = new Sound("/monsterhurt.wav");
-    public static final Sound test = new Sound("/test.wav");
-    public static final Sound pickup = new Sound("/pickup.wav");
-    public static final Sound bossdeath = new Sound("/bossdeath.wav");
-    public static final Sound craft = new Sound("/craft.wav");
+    public static final Sound playerHurt = new Sound("/sounds/playerhurt.wav");
+    public static final Sound playerDeath = new Sound("/sounds/death.wav");
+    public static final Sound monsterHurt = new Sound("/sounds/monsterhurt.wav");
+    public static final Sound test = new Sound("/sounds/test.wav");
+    public static final Sound pickup = new Sound("/sounds/pickup.wav");
+    public static final Sound bossdeath = new Sound("/sounds/bossdeath.wav");
+    public static final Sound craft = new Sound("/sounds/craft.wav");
 
     private final Clip[] clip = new Clip[5];
 

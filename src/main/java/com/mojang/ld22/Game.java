@@ -324,6 +324,8 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        double rW = Game.WIDTH / (double) Game.HEIGHT;
+        double rH = Game.HEIGHT / (double) Game.WIDTH;
         int ww = Game.WIDTH * Game.SCALE;
         int hh = Game.HEIGHT * Game.SCALE;
         int xo = (getWidth() - ww) / 2;
@@ -418,7 +420,7 @@ public class Game extends Canvas implements Runnable {
         JFrame frame = new JFrame(Game.NAME);
 
         try {
-            frame.setIconImages(Arrays.asList(ImageIO.read(Game.class.getResourceAsStream("/icon16.png")), ImageIO.read(Game.class.getResourceAsStream("/icon32.png")), ImageIO.read(Game.class.getResourceAsStream("/icon48.png")), ImageIO.read(Game.class.getResourceAsStream("/icon64.png"))));
+            frame.setIconImages(Arrays.asList(ImageIO.read(Game.class.getResourceAsStream("/icons/icon16.png")), ImageIO.read(Game.class.getResourceAsStream("/icons/icon32.png")), ImageIO.read(Game.class.getResourceAsStream("/icons/icon48.png")), ImageIO.read(Game.class.getResourceAsStream("/icons/icon64.png"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
