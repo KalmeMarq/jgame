@@ -16,8 +16,9 @@ public final class StringHelper {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                builder.append(line);
+                builder.append(line).append('\n');
             }
+            builder.deleteCharAt(builder.length() - 1);
         } catch (Exception ignored) {
         }
         return builder.toString();
