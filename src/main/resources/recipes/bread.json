@@ -1,0 +1,13 @@
+{
+  "for": ["oven"],
+  "type": "resource_recipe",
+  "cost": [
+    {
+      "resource": "wheat",
+      "count": 4
+    }
+  ],
+  "result": {
+    "resource": "bread"
+  }
+}

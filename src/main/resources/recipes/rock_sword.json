@@ -1,0 +1,18 @@
+{
+  "for": ["workbench"],
+  "type": "tool_recipe",
+  "cost": [
+    {
+      "resource": "stone",
+      "count": 5
+    },
+    {
+      "resource": "stone",
+      "count": 5
+    }
+  ],
+  "result": {
+    "tool_type": "sword",
+    "level": 1
+  }
+}

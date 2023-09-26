@@ -1,0 +1,18 @@
+{
+  "for": ["anvil"],
+  "type": "tool_recipe",
+  "cost": [
+    {
+      "resource": "wood",
+      "count": 5
+    },
+    {
+      "resource": "ironIngot",
+      "count": 5
+    }
+  ],
+  "result": {
+    "tool_type": "pickaxe",
+    "level": 2
+  }
+}

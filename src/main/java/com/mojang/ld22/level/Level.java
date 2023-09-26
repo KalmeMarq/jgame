@@ -103,13 +103,6 @@ public class Level {
         }
     }
 
-    public void saveLevel(BsoMap map) {
-        map.putInt("width", this.w);
-        map.putInt("height", this.h);
-        map.putByteArray("tiles", this.tiles);
-        map.putByteArray("data", this.data);
-    }
-
     public void renderBackground(Screen screen, int xScroll, int yScroll) {
         int xo = xScroll >> 4;
         int yo = yScroll >> 4;

@@ -1,0 +1,13 @@
+{
+  "for": ["workbench"],
+  "type": "furniture_recipe",
+  "cost": [
+    {
+      "resource": "wood",
+      "count": 20
+    }
+  ],
+  "result": {
+    "furniture": "com.mojang.ld22.entity.Chest"
+  }
+}

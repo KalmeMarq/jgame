@@ -1,0 +1,17 @@
+{
+  "for": ["furnace"],
+  "type": "resource_recipe",
+  "cost": [
+    {
+      "resource": "ironOre",
+      "count": 5
+    },
+    {
+      "resource": "coal",
+      "count": 1
+    }
+  ],
+  "result": {
+    "resource": "ironIngot"
+  }
+}

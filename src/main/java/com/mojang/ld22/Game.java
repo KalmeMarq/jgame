@@ -26,6 +26,7 @@ import com.mojang.ld22.screen.LevelTransitionMenu;
 import com.mojang.ld22.screen.Menu;
 import com.mojang.ld22.screen.TitleMenu;
 import com.mojang.ld22.screen.WonMenu;
+import me.kalmemarq.jgame.logging.LogManager;
 
 public class Game extends Canvas implements Runnable {
     public static final String NAME = "Minicraft Minus";
@@ -409,6 +410,9 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) {
+        LogManager.addStream(System.out);
+        LogManager.enableAnsi();
+
         JFrame frame = new JFrame(Game.NAME);
 
         try {

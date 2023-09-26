@@ -11,6 +11,18 @@ public final class StringHelper {
     private StringHelper() {
     }
 
+    public static String readString(InputStream inputStream) {
+        StringBuilder builder = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+        } catch (Exception ignored) {
+        }
+        return builder.toString();
+    }
+
     public static List<String> readLines(InputStream inputStream) {
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {

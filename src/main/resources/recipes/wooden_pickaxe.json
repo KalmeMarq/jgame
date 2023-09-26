@@ -1,0 +1,14 @@
+{
+  "for": ["workbench"],
+  "type": "tool_recipe",
+  "cost": [
+    {
+      "resource": "wood",
+      "count": 5
+    }
+  ],
+  "result": {
+    "tool_type": "pickaxe",
+    "level": 0
+  }
+}

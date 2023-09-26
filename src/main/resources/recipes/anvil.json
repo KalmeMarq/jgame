@@ -1,0 +1,13 @@
+{
+  "for": ["workbench"],
+  "type": "furniture_recipe",
+  "cost": [
+    {
+      "resource": "ironIngot",
+      "count": 5
+    }
+  ],
+  "result": {
+    "furniture": "com.mojang.ld22.entity.Anvil"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "for": ["workbench"],
+  "type": "furniture_recipe",
+  "cost": [
+    {
+      "resource": "stone",
+      "count": 20
+    }
+  ],
+  "result": {
+    "furniture": "com.mojang.ld22.entity.Furnace"
+  }
+}
