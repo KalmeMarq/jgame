@@ -19,8 +19,8 @@ public class DirectoryResourcePack implements ResourcePack {
 
     @Nullable
     @Override
-    public InputSupplier get(String path) {
-        return () -> Files.newInputStream(this.root.resolve(path));
+    public PackResource get(String path) {
+        return new PackResource(path, () -> Files.newInputStream(this.root.resolve(path)));
     }
 
     @Override
@@ -29,11 +29,11 @@ public class DirectoryResourcePack implements ResourcePack {
     }
 
     @Override
-    public List<InputSupplier> getFiles(String path, Predicate<String> namePredicate) {
-        List<InputSupplier> list = new ArrayList<>();
+    public List<PackResource> getFiles(String path, Predicate<String> namePredicate) {
+        List<PackResource> list = new ArrayList<>();
         try (Stream<Path> stream = Files.list(this.root.resolve(path))) {
             for (Path file : stream.toList()) {
-                list.add(() -> Files.newInputStream(this.root.resolve(file)));
+                if (namePredicate.test(file.getFileName().toString())) list.add(new PackResource(file.getFileName().toString(), () -> Files.newInputStream(file)));
             }
         } catch (IOException ignored) {
         }

@@ -21,6 +21,7 @@ import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.gfx.SpriteSheet;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
+import com.mojang.ld22.resource.VanillaResourcePack;
 import com.mojang.ld22.screen.DeadMenu;
 import com.mojang.ld22.screen.LevelTransitionMenu;
 import com.mojang.ld22.screen.Menu;
@@ -60,6 +61,7 @@ public class Game extends Canvas implements Runnable {
 
     private final JFrame frame;
     public final Font font;
+    public final VanillaResourcePack vanillaResourcePack;
 
     public Game(JFrame frame) {
         Game.instance = this;
@@ -72,6 +74,7 @@ public class Game extends Canvas implements Runnable {
             }
         });
         this.font = new Font();
+        this.vanillaResourcePack = new VanillaResourcePack();
     }
 
     public static Game getInstance() {
