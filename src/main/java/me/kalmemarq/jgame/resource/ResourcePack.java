@@ -1,4 +1,4 @@
-package com.mojang.ld22.resource;
+package me.kalmemarq.jgame.resource;
 
 import java.util.List;
 import java.util.function.Predicate;

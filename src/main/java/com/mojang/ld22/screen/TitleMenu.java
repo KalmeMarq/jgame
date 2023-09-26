@@ -12,10 +12,7 @@ import java.util.Random;
 public class TitleMenu extends Menu {
     private static final Random RANDOM = new Random();
     private static final List<String> splashes = new ArrayList<>();
-    private int selected = 0;
-    private String splash;
-
-    private static final String[] options = {"Start game", "How to play", "About", "Quit"};
+    private final String splash;
 
     public TitleMenu() {
         if (TitleMenu.splashes.size() == 0) {
@@ -27,40 +24,21 @@ public class TitleMenu extends Menu {
         } else {
             this.splash = TitleMenu.splashes.get(TitleMenu.RANDOM.nextInt(TitleMenu.splashes.size()));
         }
-    }
 
-    public void tick() {
-        if (this.input.up.clicked) {
-            this.selected--;
-        }
-        if (this.input.down.clicked) {
-            this.selected++;
-        }
-
-        int len = TitleMenu.options.length;
-        if (this.selected < 0) {
-            this.selected += len;
-        }
-        if (this.selected >= len) {
-            this.selected -= len;
-        }
-
-        if (this.input.attack.clicked || this.input.menu.clicked) {
-            if (this.selected == 0) {
-                Sound.test.play();
-                this.game.resetGame();
-                this.game.setMenu(null);
-            }
-            if (this.selected == 1) {
-                this.game.setMenu(new InstructionsMenu(this));
-            }
-            if (this.selected == 2) {
-                this.game.setMenu(new AboutMenu(this));
-            }
-            if (this.selected == 3) {
-                this.game.stop();
-            }
-        }
+        this.selectEntries.add(new SelectEntry("Start Game", () -> {
+            Sound.test.play();
+            this.game.resetGame();
+            this.game.setMenu(null);
+        }));
+        this.selectEntries.add(new SelectEntry("How to play", () -> {
+            this.game.setMenu(new InstructionsMenu(this));
+        }));
+        this.selectEntries.add(new SelectEntry("About", () -> {
+            this.game.setMenu(new AboutMenu(this));
+        }));
+        this.selectEntries.add(new SelectEntry("Quit", () -> {
+            this.game.stop();
+        }));
     }
 
     public void render(Screen screen) {
@@ -81,12 +59,10 @@ public class TitleMenu extends Menu {
 
         this.font.drawCentered(this.splash, screen, screen.w / 2, 55, Color.get(0, 550, 550, 550));
 
-        for (int i = 0;
-             i < options.length;
-             i++) {
-            String msg = TitleMenu.options[i];
+        for (int i = 0; i < this.selectEntries.size(); i++) {
+            String msg = this.selectEntries.get(i).getText();
             int col = Color.get(0, 222, 222, 222);
-            if (i == this.selected) {
+            if (i == this.selectedEntryIndex) {
                 msg = "> " + msg + " <";
                 col = Color.get(0, 555, 555, 555);
             }

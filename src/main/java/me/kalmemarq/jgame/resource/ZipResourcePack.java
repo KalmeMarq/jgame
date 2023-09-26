@@ -1,4 +1,4 @@
-package com.mojang.ld22.resource;
+package me.kalmemarq.jgame.resource;
 
 import org.jetbrains.annotations.Nullable;
 

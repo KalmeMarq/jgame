@@ -9,7 +9,7 @@ import com.mojang.ld22.Game;
 import com.mojang.ld22.entity.Furniture;
 import com.mojang.ld22.item.ToolType;
 import com.mojang.ld22.item.resource.Resource;
-import com.mojang.ld22.resource.PackResource;
+import me.kalmemarq.jgame.resource.PackResource;
 import me.kalmemarq.jgame.JsonHelper;
 import me.kalmemarq.jgame.StringHelper;
 import me.kalmemarq.jgame.logging.LogManager;
