@@ -1,11 +1,8 @@
 package com.mojang.ld22.sound;
 
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import me.kalmemarq.jgame.JsonHelper;
-import me.kalmemarq.jgame.Lazy;
-import me.kalmemarq.jgame.StringHelper;
 import me.kalmemarq.jgame.logging.LogManager;
 import me.kalmemarq.jgame.logging.Logger;
 import me.kalmemarq.jgame.resource.PackResource;
@@ -15,7 +12,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineEvent;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -42,7 +38,6 @@ public class Sound {
                     ObjectNode obj = (ObjectNode) item.getValue();
                     String soundPath = obj.get("sound").textValue();
                     if (resourcePack.has("sounds/" + soundPath)) {
-                        LOGGER.info("Added {}: {}", item.getKey(), soundPath);
                         try {
                            Sound.map0.put(item.getKey(), AudioSystem.getAudioInputStream(new BufferedInputStream(Objects.requireNonNull(resourcePack.get("sounds/" + soundPath)).getInputStream())));
                         } catch (Exception e) {
@@ -88,6 +83,7 @@ public class Sound {
                 gainControl.setValue((float) (20.0f * Math.log10(volume)));
                 clip.start();
             }).start();
+            Sound.clips.add(clip);
         } else {
             LOGGER.warn("Sound '{}' is not registered", sound.name());
         }

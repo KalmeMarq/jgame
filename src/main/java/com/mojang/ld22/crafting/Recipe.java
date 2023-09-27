@@ -21,9 +21,8 @@ public abstract class Recipe implements ListItem {
         this.resultTemplate = resultTemplate;
     }
 
-    public Recipe addCost(Resource resource, int count) {
+    public void addCost(Resource resource, int count) {
         this.costs.add(new ResourceItem(resource, count));
-        return this;
     }
 
     public void checkCanCraft(Player player) {

@@ -15,7 +15,7 @@ public class ZipResourcePack implements ResourcePack {
     protected ZipFile zipFile;
     protected boolean failedToOpen;
 
-    private Path filePath;
+    private final Path filePath;
 
     public ZipResourcePack(Path zipFilePath) {
         this.filePath = zipFilePath;
