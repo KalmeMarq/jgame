@@ -75,7 +75,7 @@ public class GrassTile extends Tile {
             if (tool.type == ToolType.shovel) {
                 if (player.payStamina(4 - tool.level)) {
                     level.setTile(xt, yt, Tile.dirt, 0);
-                    Sound.monsterHurt.play();
+                    Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
                     if (this.random.nextInt(5) == 0) {
                         level.add(new ItemEntity(new ResourceItem(Resource.seeds), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
                         return true;
@@ -84,7 +84,7 @@ public class GrassTile extends Tile {
             }
             if (tool.type == ToolType.hoe) {
                 if (player.payStamina(4 - tool.level)) {
-                    Sound.monsterHurt.play();
+                    Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
                     if (this.random.nextInt(5) == 0) {
                         level.add(new ItemEntity(new ResourceItem(Resource.seeds), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
                         return true;

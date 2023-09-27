@@ -34,6 +34,7 @@ public class ZipResourcePack implements ResourcePack {
         return this.zipFile;
     }
 
+    @Nullable
     @Override
     public PackResource get(String path) {
         ZipFile zip = this.getZipFile();

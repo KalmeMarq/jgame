@@ -169,7 +169,7 @@ public class AirWizard extends Mob {
             this.level.player.score += 1000;
             this.level.player.gameWon();
         }
-        Sound.bossdeath.play();
+        Sound.play(Sound.Event.AIR_WIZARD_DEATH, 1.0f);
     }
 
 }

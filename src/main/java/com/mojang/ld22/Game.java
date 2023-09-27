@@ -22,6 +22,7 @@ import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.gfx.SpriteSheet;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
+import com.mojang.ld22.sound.Sound;
 import me.kalmemarq.jgame.resource.VanillaResourcePack;
 import com.mojang.ld22.screen.DeadMenu;
 import com.mojang.ld22.screen.LevelTransitionMenu;
@@ -176,6 +177,7 @@ public class Game extends Canvas implements Runnable {
         int ticks = 0;
         long lastTimer1 = System.currentTimeMillis();
 
+        Sound.load(this.vanillaResourcePack);
         init();
 
         while (this.running) {
@@ -209,18 +211,13 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-//        BsoMap map = new BsoMap();
-//        for (int i = 0; i < this.levels.length; ++i) {
-//            this.levels[i].writeLevelData(map);
-//            BsoIo.writeGzipCompressed(this.savePath.resolve("level" + i + ".bso"), map);
-//        }
-
         System.out.println("Closing game");
         this.frame.dispose();
     }
 
     public void tick() {
         this.tickCount++;
+        Sound.tick();
         if (!hasFocus()) {
             this.input.releaseAll();
         } else {

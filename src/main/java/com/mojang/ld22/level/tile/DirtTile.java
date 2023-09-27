@@ -31,14 +31,14 @@ public class DirtTile extends Tile {
                 if (player.payStamina(4 - tool.level)) {
                     level.setTile(xt, yt, Tile.hole, 0);
                     level.add(new ItemEntity(new ResourceItem(Resource.dirt), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
-                    Sound.monsterHurt.play();
+                    Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
                     return true;
                 }
             }
             if (tool.type == ToolType.hoe) {
                 if (player.payStamina(4 - tool.level)) {
                     level.setTile(xt, yt, Tile.farmland, 0);
-                    Sound.monsterHurt.play();
+                    Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
                     return true;
                 }
             }

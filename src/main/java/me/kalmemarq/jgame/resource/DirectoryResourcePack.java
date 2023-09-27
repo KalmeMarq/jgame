@@ -20,6 +20,7 @@ public class DirectoryResourcePack implements ResourcePack {
     @Nullable
     @Override
     public PackResource get(String path) {
+        if (!this.has(path)) return null;
         return new PackResource(path, () -> Files.newInputStream(this.root.resolve(path)));
     }
 

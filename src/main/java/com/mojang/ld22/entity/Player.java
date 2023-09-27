@@ -435,7 +435,7 @@ public class Player extends Mob {
 
     protected void die() {
         super.die();
-        Sound.playerDeath.play();
+        Sound.play(Sound.Event.DEATH, 1.0f);
     }
 
     protected void touchedBy(Entity entity) {
@@ -449,7 +449,7 @@ public class Player extends Mob {
             return;
         }
 
-        Sound.playerHurt.play();
+        Sound.play(Sound.Event.PLAYER_HURT, 1.0f);
         this.level.add(new TextParticle("" + damage, this.x, this.y, Color.get(-1, 504, 504, 504)));
         this.health -= damage;
         if (attackDir == 0) {

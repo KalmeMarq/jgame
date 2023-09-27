@@ -1,0 +1,23 @@
+{
+  "entity.generic.death": {
+    "sound": "death.wav"
+  },
+  "entity.air_wizard.death": {
+    "sound": "bossdeath.wav"
+  },
+  "entity.player.hurt": {
+    "sound": "playerhurt.wav"
+  },
+  "entity.monster.hurt": {
+    "sound": "monsterhurt.wav"
+  },
+  "random.test": {
+    "sound": "test.wav"
+  },
+  "random.pickup": {
+    "sound": "pickup.wav"
+  },
+  "random.craft": {
+    "sound": "craft.wav"
+  }
+}

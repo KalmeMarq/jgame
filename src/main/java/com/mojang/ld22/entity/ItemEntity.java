@@ -85,7 +85,7 @@ public class ItemEntity extends Entity {
     }
 
     public void take(Player player) {
-        Sound.pickup.play();
+        Sound.play(Sound.Event.PICKUP, 1.0f);
         player.score++;
         this.item.onTake(this);
         remove();

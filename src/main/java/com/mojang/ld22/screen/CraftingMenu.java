@@ -65,7 +65,7 @@ public class CraftingMenu extends Menu {
             if (r.canCraft) {
                 r.deductCost(this.player);
                 r.craft(this.player);
-                Sound.craft.play();
+                Sound.play(Sound.Event.CRAFT, 1.0f);
             }
             for (Recipe recipe : this.recipes) {
                 recipe.checkCanCraft(this.player);

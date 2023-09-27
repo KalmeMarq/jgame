@@ -122,7 +122,7 @@ public class Mob extends Entity {
             int xd = this.level.player.x - this.x;
             int yd = this.level.player.y - this.y;
             if (xd * xd + yd * yd < 80 * 80) {
-                Sound.monsterHurt.play();
+                Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
             }
         }
         this.level.add(new TextParticle("" + damage, this.x, this.y, Color.get(-1, 500, 500, 500)));

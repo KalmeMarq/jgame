@@ -11,7 +11,7 @@ public class SmashParticle extends Entity {
     public SmashParticle(int x, int y) {
         this.x = x;
         this.y = y;
-        Sound.monsterHurt.play();
+        Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
     }
 
     public void tick() {
