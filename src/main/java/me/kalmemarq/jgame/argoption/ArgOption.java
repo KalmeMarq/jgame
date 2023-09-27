@@ -3,6 +3,7 @@ package me.kalmemarq.jgame.argoption;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ArgOption<T> {
     protected final String name;
@@ -11,6 +12,7 @@ public class ArgOption<T> {
     protected final Class<T> type;
     protected T defaultValue;
     protected T value;
+    protected Function<String, T> creator;
 
     protected ArgOption(Class<T> clazz, String name, String alias) {
         this.type = clazz;
@@ -26,6 +28,11 @@ public class ArgOption<T> {
 
     public ArgOption<T> defaultsTo(T value) {
         this.defaultValue = value;
+        return this;
+    }
+
+    public ArgOption<T> creator(Function<String, T> callback) {
+        this.creator = callback;
         return this;
     }
 
@@ -78,7 +85,7 @@ public class ArgOption<T> {
                 }
             } else {
                 try {
-                    this.value = this.type.getConstructor(String.class).newInstance(value);
+                    this.value = this.creator != null ? this.creator.apply(value) : this.type.getConstructor(String.class).newInstance(value);
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                          | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                     System.out.println("(B) Failed to parse arg " + this.name);

@@ -6,7 +6,9 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -27,6 +29,8 @@ import com.mojang.ld22.screen.Menu;
 import com.mojang.ld22.screen.TitleMenu;
 import com.mojang.ld22.screen.WonMenu;
 import me.kalmemarq.jgame.logging.LogManager;
+import me.kalmemarq.jgame.argoption.ArgOption;
+import me.kalmemarq.jgame.argoption.ArgOptionParser;
 
 public class Game extends Canvas implements Runnable {
     public static final String NAME = "Minicraft Minus";
@@ -61,10 +65,12 @@ public class Game extends Canvas implements Runnable {
     private final JFrame frame;
     public final Font font;
     public final VanillaResourcePack vanillaResourcePack;
+    private final Path savePath;
 
-    public Game(JFrame frame) {
+    public Game(JFrame frame, Path savePath) {
         Game.instance = this;
         this.frame = frame;
+        this.savePath = savePath;
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -202,6 +208,12 @@ public class Game extends Canvas implements Runnable {
                 ticks = 0;
             }
         }
+
+//        BsoMap map = new BsoMap();
+//        for (int i = 0; i < this.levels.length; ++i) {
+//            this.levels[i].writeLevelData(map);
+//            BsoIo.writeGzipCompressed(this.savePath.resolve("level" + i + ".bso"), map);
+//        }
 
         System.out.println("Closing game");
         this.frame.dispose();
@@ -417,6 +429,12 @@ public class Game extends Canvas implements Runnable {
         LogManager.addStream(System.out);
         LogManager.enableAnsi();
 
+        ArgOptionParser optionParser = new ArgOptionParser();
+        ArgOption<Path> savePathArg = optionParser.add("savePath", Path.class).defaultsTo(Path.of(".")).creator(Path::of);
+        optionParser.parseArgs(args);
+
+        Path savePath = optionParser.getValue(savePathArg).toAbsolutePath();
+
         JFrame frame = new JFrame(Game.NAME);
 
         try {
@@ -425,7 +443,7 @@ public class Game extends Canvas implements Runnable {
             e.printStackTrace();
         }
 
-        Game game = new Game(frame);
+        Game game = new Game(frame, savePath);
         game.setMinimumSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
         game.setMaximumSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
         game.setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));

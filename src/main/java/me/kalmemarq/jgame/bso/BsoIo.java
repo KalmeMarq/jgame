@@ -5,10 +5,20 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
+import java.util.zip.GZIPOutputStream;
 
 public class BsoIo {
     public static void write(Path filePath, BsoTag tag) {
         try (DataOutputStream output = new DataOutputStream(new FileOutputStream(filePath.toFile()))) {
+            output.write(tag.getIdWithAdditionalData());
+            tag.write(output);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeGzipCompressed(Path filePath, BsoTag tag) {
+        try (DataOutputStream output = new DataOutputStream(new GZIPOutputStream(new FileOutputStream(filePath.toFile())))) {
             output.write(tag.getIdWithAdditionalData());
             tag.write(output);
         } catch (Exception e) {

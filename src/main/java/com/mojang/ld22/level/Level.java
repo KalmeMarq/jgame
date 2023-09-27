@@ -9,7 +9,6 @@ import com.mojang.ld22.entity.Zombie;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.level.levelgen.LevelGen;
 import com.mojang.ld22.level.tile.Tile;
-import me.kalmemarq.jgame.bso.BsoMap;
 
 import java.util.ArrayList;
 import java.util.Comparator;
