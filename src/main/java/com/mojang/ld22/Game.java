@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
 
     private static Game instance;
 
-    private final BufferedImage image = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private final BufferedImage image = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
     private final int[] pixels = ((DataBufferInt) this.image.getRaster().getDataBuffer()).getData();
     private boolean running = false;
     private Screen screen;
@@ -162,15 +162,16 @@ public class Game extends Canvas implements Runnable {
                 }
             }
         }
+
         try {
             SpriteSheet iconsSheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png"))));
+            SpriteSheet newIconsSheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/new_icons.png"))));
             SpriteSheet icons2Sheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons2.png"))));
-            this.screen = new Screen(Game.WIDTH, Game.HEIGHT, new SpriteSheet[]{ iconsSheet, icons2Sheet });
+            this.screen = new Screen(Game.WIDTH, Game.HEIGHT, new SpriteSheet[]{ iconsSheet, icons2Sheet, newIconsSheet });
             this.lightScreen = new Screen(Game.WIDTH, Game.HEIGHT, iconsSheet);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         setMenu(new TitleMenu());
     }
 
@@ -298,12 +299,8 @@ public class Game extends Canvas implements Runnable {
         if (this.level != null && this.player != null) {
             if (this.currentLevel > 3) {
                 int col = Color.get(20, 20, 121, 121);
-                for (int y = 0;
-                     y < 14;
-                     y++)
-                    for (int x = 0;
-                         x < 24;
-                         x++) {
+                for (int y = 0; y < 14; y++)
+                    for (int x = 0; x < 24; x++) {
                         this.screen.render(x * 8 - ((xScroll / 4) & 7), y * 8 - ((yScroll / 4) & 7), 0, col, 0);
                     }
             }
@@ -324,24 +321,25 @@ public class Game extends Canvas implements Runnable {
             renderFocusNagger();
         }
 
-        for (int y = 0;
-             y < this.screen.h;
-             y++) {
-            for (int x = 0;
-                 x < this.screen.w;
-                 x++) {
-                int cc = this.screen.pixels[x + y * this.screen.w];
-                if (cc < 255) {
-                    this.pixels[x + y * Game.WIDTH] = this.colors[cc];
-                }
+        for (int y = 0; y < this.screen.h; y++) {
+            for (int x = 0; x < this.screen.w; x++) {
+                this.pixels[x + y * Game.WIDTH] = this.screen.pixels[x + y * this.screen.w] | 255 << 24;
             }
         }
+
+//        for (int y = 0; y < this.screen.h; y++) {
+//            for (int x = 0; x < this.screen.w; x++) {
+//                int cc = this.screen.pixels[x + y * this.screen.w];
+//                if (cc < 255) {
+//                    this.pixels[x + y * Game.WIDTH] = this.colors[cc];
+//                }
+//                this.pixels[x + y * Game.WIDTH] = cc;
+//            }
+//        }
 
         Graphics g = bs.getDrawGraphics();
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        double rW = Game.WIDTH / (double) Game.HEIGHT;
-        double rH = Game.HEIGHT / (double) Game.WIDTH;
         int ww = Game.WIDTH * Game.SCALE;
         int hh = Game.HEIGHT * Game.SCALE;
         int xo = (getWidth() - ww) / 2;

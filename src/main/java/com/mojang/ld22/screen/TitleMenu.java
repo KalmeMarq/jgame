@@ -46,18 +46,15 @@ public class TitleMenu extends Menu {
 
         int h = 2;
         int w = 13;
-        int titleColor = Color.get(0, 010, 131, 551);
         int xo = (screen.w - w * 8) / 2;
         int yo = 24;
         for (int y = 0; y < h; y++) {
-            for (int x = 0;
-                 x < w;
-                 x++) {
-                screen.render(xo + x * 8, yo + y * 8, x + (y + 6) * 32, titleColor, 0);
+            for (int x = 0; x < w; x++) {
+                screen.renderSprite(xo + x * 8, yo + y * 8, x + (y) * 32, 2, 0xFF_FFFFFF, 0);
             }
         }
 
-        this.font.drawCentered(this.splash, screen, screen.w / 2, 55, Color.get(0, 550, 550, 550));
+        this.font.drawCentered(this.splash, screen, screen.w / 2, 55, 0xFFFFFF);
 
         for (int i = 0; i < this.selectEntries.size(); i++) {
             String msg = this.selectEntries.get(i).getText();
@@ -69,6 +66,6 @@ public class TitleMenu extends Menu {
             this.font.draw(msg, screen, (screen.w - msg.length() * 8) / 2, 10 + (8 + i) * 8, col);
         }
 
-        this.font.draw("(Arrow keys,X and C)", screen, 0, screen.h - 8, Color.get(0, 111, 111, 111));
+        this.font.draw("(Arrow keys,X and C)", screen, 0, screen.h - 8, 0xFF_FF0000);
     }
 }

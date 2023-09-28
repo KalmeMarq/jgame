@@ -55,6 +55,54 @@ public class Screen {
         this.render(xp, yp, tile, this.sheets[sheet], colors, bits);
     }
 
+    public void renderSprite(int xp, int yp, int tile, int sheet, int tint, int bits) {
+        this.renderSprite(xp, yp, tile, this.sheets[sheet], tint, bits);
+    }
+
+    public void renderSprite(int xp, int yp, int tile, SpriteSheet sheet, int tint, int bits) {
+        xp -= this.xOffset;
+        yp -= this.yOffset;
+        boolean mirrorX = (bits & Screen.BIT_MIRROR_X) > 0;
+        boolean mirrorY = (bits & Screen.BIT_MIRROR_Y) > 0;
+
+        int xTile = tile % 32;
+        int yTile = tile / 32;
+        int toffs = xTile * 8 + yTile * 8 * sheet.width;
+
+        for (int y = 0; y < 8; y++) {
+            int ys = y;
+            if (mirrorY) {
+                ys = 7 - y;
+            }
+            if (y + yp < 0 || y + yp >= this.h) {
+                continue;
+            }
+            for (int x = 0; x < 8; x++) {
+                if (x + xp < 0 || x + xp >= this.w) {
+                    continue;
+                }
+
+                int xs = x;
+                if (mirrorX) {
+                    xs = 7 - x;
+                }
+//                int col = (colors >> (sheet.pixels[xs + ys * sheet.width + toffs] * 8)) & 255;
+//                if (col < 255) {
+//                    this.pixels[(x + xp) + (y + yp) * this.w] = col;
+//                }
+                int col = sheet.pixels[xs + ys * sheet.width + toffs];
+                int r = col >> 16;
+                int g = col >> 8;
+                int b = col & 0xFF;
+                if (r == 255 && g == 255 && b == 255) {
+                    this.pixels[(x + xp) + (y + yp) * this.w] = 0xFF_FF0000;
+                } else {
+                    this.pixels[(x + xp) + (y + yp) * this.w] = col;
+                }
+            }
+        }
+    }
+
     public void render(int xp, int yp, int tile, SpriteSheet sheet, int colors, int bits) {
         xp -= this.xOffset;
         yp -= this.yOffset;
@@ -82,10 +130,12 @@ public class Screen {
                 if (mirrorX) {
                     xs = 7 - x;
                 }
-                int col = (colors >> (sheet.pixels[xs + ys * sheet.width + toffs] * 8)) & 255;
-                if (col < 255) {
-                    this.pixels[(x + xp) + (y + yp) * this.w] = col;
-                }
+//                int col = (colors >> (sheet.pixels[xs + ys * sheet.width + toffs] * 8)) & 255;
+//                if (col < 255) {
+//                    this.pixels[(x + xp) + (y + yp) * this.w] = col;
+//                }
+                int col = sheet.pixels[xs + ys * sheet.width + toffs];
+                this.pixels[(x + xp) + (y + yp) * this.w] = col;
             }
         }
     }

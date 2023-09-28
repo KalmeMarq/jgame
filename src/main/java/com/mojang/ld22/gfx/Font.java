@@ -10,7 +10,7 @@ public class Font {
         for (int i = 0; i < msg.length(); i++) {
             int ix = Font.chars.indexOf(msg.charAt(i));
             if (ix >= 0) {
-                screen.render(x + i * 8, y, ix + 29 * 32, 1, col, 0);
+                screen.renderSprite(x + i * 8, y, ix + 29 * 32, 1, col, 0);
             }
         }
     }
@@ -20,7 +20,7 @@ public class Font {
         for (int i = 0; i < msg.length(); i++) {
             int ix = Font.chars.indexOf(msg.charAt(i));
             if (ix >= 0) {
-                screen.render(x + i * 8 - width / 2, y, ix + 29 * 32, 1, col, 0);
+                screen.renderSprite(x + i * 8 - width / 2, y, ix + 29 * 32, 1, col, 0);
             }
         }
     }
