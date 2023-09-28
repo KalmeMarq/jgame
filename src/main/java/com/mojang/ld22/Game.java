@@ -160,8 +160,10 @@ public class Game extends Canvas implements Runnable {
             }
         }
         try {
-            this.screen = new Screen(Game.WIDTH, Game.HEIGHT, new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png")))));
-            this.lightScreen = new Screen(Game.WIDTH, Game.HEIGHT, new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png")))));
+            SpriteSheet iconsSheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png"))));
+            SpriteSheet icons2Sheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons2.png"))));
+            this.screen = new Screen(Game.WIDTH, Game.HEIGHT, new SpriteSheet[]{ iconsSheet, icons2Sheet });
+            this.lightScreen = new Screen(Game.WIDTH, Game.HEIGHT, iconsSheet);
         } catch (IOException e) {
             e.printStackTrace();
         }
