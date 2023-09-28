@@ -15,6 +15,7 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import com.mojang.ld22.entity.AirWizard;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Font;
@@ -67,11 +68,13 @@ public class Game extends Canvas implements Runnable {
     public final Font font;
     public final VanillaResourcePack vanillaResourcePack;
     private final Path savePath;
+    public final GameSettings settings;
 
     public Game(JFrame frame, Path savePath) {
         Game.instance = this;
         this.frame = frame;
         this.savePath = savePath;
+        this.settings = new GameSettings(this.savePath);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -180,6 +183,7 @@ public class Game extends Canvas implements Runnable {
         long lastTimer1 = System.currentTimeMillis();
 
         Sound.load(this.vanillaResourcePack);
+        this.settings.load();
         init();
 
         while (this.running) {
@@ -214,6 +218,7 @@ public class Game extends Canvas implements Runnable {
         }
 
         System.out.println("Closing game");
+        this.settings.save();
         this.frame.dispose();
     }
 

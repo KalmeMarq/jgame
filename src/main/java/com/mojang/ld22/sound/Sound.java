@@ -2,6 +2,7 @@ package com.mojang.ld22.sound;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mojang.ld22.Game;
 import me.kalmemarq.jgame.JsonHelper;
 import me.kalmemarq.jgame.logging.LogManager;
 import me.kalmemarq.jgame.logging.Logger;
@@ -68,6 +69,10 @@ public class Sound {
     }
 
     public static void play(Sound.Event sound, float volume) {
+        if (!Game.getInstance().settings.sound) {
+            return;
+        }
+
         if (Sound.map0.get(sound.name()) != null) {
             AudioInputStream audioInputStream = Sound.map0.get(sound.name());
             Clip clip;
