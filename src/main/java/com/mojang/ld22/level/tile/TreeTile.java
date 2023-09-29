@@ -35,25 +35,27 @@ public class TreeTile extends Tile {
         boolean dl = level.getTile(x - 1, y + 1) == this;
         boolean dr = level.getTile(x + 1, y + 1) == this;
 
+        Tile.grass.render(screen, level, x, y);
+
         if (u && ul && l) {
-            screen.render(x * 16, y * 16, 10 + 32, col, 0);
+            screen.renderSprite(x * 16, y * 16, 10 + 32 + 21, 2, 0);
         } else {
-            screen.render(x * 16, y * 16, 9, col, 0);
+            screen.renderSprite(x * 16, y * 16, 9 + 21, 2, 0);
         }
         if (u && ur && r) {
-            screen.render(x * 16 + 8, y * 16, 10 + 2 * 32, barkCol2, 0);
+            screen.renderSprite(x * 16 + 8, y * 16, 10 + 2 * 32 + 21, 2, 0);
         } else {
-            screen.render(x * 16 + 8, y * 16, 10, col, 0);
+            screen.renderSprite(x * 16 + 8, y * 16, 10 + 21, 2, 0);
         }
         if (d && dl && l) {
-            screen.render(x * 16, y * 16 + 8, 10 + 2 * 32, barkCol2, 0);
+            screen.renderSprite(x * 16, y * 16 + 8, 10 + 2 * 32 + 21, 2, 0);
         } else {
-            screen.render(x * 16, y * 16 + 8, 9 + 32, barkCol1, 0);
+            screen.renderSprite(x * 16, y * 16 + 8, 9 + 32 + 21, 2, 0);
         }
         if (d && dr && r) {
-            screen.render(x * 16 + 8, y * 16 + 8, 10 + 32, col, 0);
+            screen.renderSprite(x * 16 + 8, y * 16 + 8, 10 + 32 + 21, 2, 0);
         } else {
-            screen.render(x * 16 + 8, y * 16 + 8, 10 + 3 * 32, barkCol2, 0);
+            screen.renderSprite(x * 16 + 8, y * 16 + 8, 10 + 3 * 32 + 21, 2, 0);
         }
     }
 

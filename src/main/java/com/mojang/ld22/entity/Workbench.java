@@ -6,7 +6,7 @@ import com.mojang.ld22.screen.CraftingMenu;
 
 public class Workbench extends Furniture {
     public Workbench() {
-        super("Workbench");
+        super("Workbench", 7 * 32 + 9);
         this.col = Color.get(-1, 100, 321, 431);
         this.sprite = 4;
         this.xr = 3;

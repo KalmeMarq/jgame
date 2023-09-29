@@ -55,8 +55,27 @@ public class Screen {
         this.render(xp, yp, tile, this.sheets[sheet], colors, bits);
     }
 
+    public void renderColored(int xp, int yp, int width, int height, int tint) {
+        xp -= this.xOffset;
+        yp -= this.yOffset;
+
+        for (int y = yp; y < yp + height; ++y) {
+            if (y < 0 || y >= this.h) continue;
+
+            for (int x = xp; x < xp + width; ++x) {
+                if (x < 0 || x >= this.w) continue;
+
+                this.pixels[x + y * this.w] = tint | 0xFF << 24;
+            }
+        }
+    }
+
     public void renderSprite(int xp, int yp, int tile, int sheet, int tint, int bits) {
         this.renderSprite(xp, yp, tile, this.sheets[sheet], tint, bits);
+    }
+
+    public void renderSprite(int xp, int yp, int tile, int sheet, int bits) {
+        this.renderSprite(xp, yp, tile, this.sheets[sheet], -1, bits);
     }
 
     public void renderSprite(int xp, int yp, int tile, SpriteSheet sheet, int tint, int bits) {
@@ -91,12 +110,10 @@ public class Screen {
 //                    this.pixels[(x + xp) + (y + yp) * this.w] = col;
 //                }
                 int col = sheet.pixels[xs + ys * sheet.width + toffs];
-                int r = col >> 16;
-                int g = col >> 8;
-                int b = col & 0xFF;
-                if (r == 255 && g == 255 && b == 255) {
-                    this.pixels[(x + xp) + (y + yp) * this.w] = 0xFF_FF0000;
-                } else {
+                int a = (col >> 24) & 0xFF;
+                if (col == 0xFF_FFFFFF) {
+                    this.pixels[(x + xp) + (y + yp) * this.w] = tint | 255 << 24;
+                } else if (a > 0) {
                     this.pixels[(x + xp) + (y + yp) * this.w] = col;
                 }
             }

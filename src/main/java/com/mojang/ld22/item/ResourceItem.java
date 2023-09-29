@@ -25,17 +25,17 @@ public class ResourceItem extends Item {
     }
 
     public void renderIcon(Screen screen, int x, int y) {
-        screen.render(x, y, this.resource.sprite, this.resource.color, 0);
+        screen.renderSprite(x, y, this.resource.sprite, 2, 0);
     }
 
     public void renderInventory(Screen screen, int x, int y) {
-        screen.render(x, y, this.resource.sprite, this.resource.color, 0);
-        Game.getInstance().font.draw(this.resource.name, screen, x + 32, y, Color.get(-1, 555, 555, 555));
+        screen.renderSprite(x, y, this.resource.sprite, 2, 0);
+        Game.getInstance().font.draw(this.resource.name, screen, x + 32, y, 0xFFFFFF);
         int cc = this.count;
         if (cc > 999) {
             cc = 999;
         }
-        Game.getInstance().font.draw("" + cc, screen, x + 8, y, Color.get(-1, 444, 444, 444));
+        Game.getInstance().font.draw("" + cc, screen, x + 8, y, 0xEEEEEE);
     }
 
     public void onTake(ItemEntity itemEntity) {

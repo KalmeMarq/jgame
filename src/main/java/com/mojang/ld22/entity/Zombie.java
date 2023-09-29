@@ -53,8 +53,8 @@ public class Zombie extends Mob {
     }
 
     public void render(Screen screen) {
-        int xt = 0;
-        int yt = 14;
+        int xt = (this.lvl - 1) * 32;
+        int yt = 28;
 
         int flip1 = (this.walkDist >> 3) & 1;
         int flip2 = (this.walkDist >> 3) & 1;
@@ -74,24 +74,25 @@ public class Zombie extends Mob {
         int xo = this.x - 8;
         int yo = this.y - 11;
 
-        int col = Color.get(-1, 10, 252, 050);
-        if (this.lvl == 2) {
-            col = Color.get(-1, 100, 522, 050);
-        }
-        if (this.lvl == 3) {
-            col = Color.get(-1, 111, 444, 050);
-        }
-        if (this.lvl == 4) {
-            col = Color.get(-1, 000, 111, 020);
-        }
-        if (this.hurtTime > 0) {
-            col = Color.get(-1, 555, 555, 555);
-        }
+//        int col = Color.get(-1, 10, 252, 050);
+//        if (this.lvl == 2) {
+//            col = Color.get(-1, 100, 522, 050);
+//        }
+//        if (this.lvl == 3) {
+//            col = Color.get(-1, 111, 444, 050);
+//        }
+//        if (this.lvl == 4) {
+//            col = Color.get(-1, 000, 111, 020);
+//        }
+        // TODO: Readd hurt tint
+//        if (this.hurtTime > 0) {
+//            col = Color.get(-1, 555, 555, 555);
+//        }
 
-        screen.render(xo + 8 * flip1, yo, xt + yt * 32, col, flip1);
-        screen.render(xo + 8 - 8 * flip1, yo, xt + 1 + yt * 32, col, flip1);
-        screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, col, flip2);
-        screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col, flip2);
+        screen.renderSprite(xo + 8 * flip1, yo, xt + yt * 32, 2, flip1);
+        screen.renderSprite(xo + 8 - 8 * flip1, yo, xt + 1 + yt * 32, 2, flip1);
+        screen.renderSprite(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, 2, flip2);
+        screen.renderSprite(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, 2, flip2);
     }
 
     protected void touchedBy(Entity entity) {

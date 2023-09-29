@@ -351,21 +351,25 @@ public class Game extends Canvas implements Runnable {
 
     private void renderGui() {
         if (this.player != null) {
-            for (int y = 0;
-                 y < 2;
-                 y++) {
-                for (int x = 0;
-                     x < 20;
-                     x++) {
-                    this.screen.render(x * 8, this.screen.h - 16 + y * 8, 12 * 32, Color.get(000, 000, 000, 000), 0);
-                }
-            }
+//            for (int y = 0;
+//                 y < 2;
+//                 y++) {
+//                for (int x = 0;
+//                     x < 20;
+//                     x++) {
+//                    this.screen.render(x * 8, this.screen.h - 16 + y * 8, 12 * 32, Color.get(000, 000, 000, 000), 0);
+//                }
+//            }
+
+            this.screen.renderColored(0, this.screen.h - 16, 160, 16, 0x000000);
 
             for (int i = 0; i < 10; i++) {
                 if (i < this.player.health) {
-                    this.screen.render(i * 8, this.screen.h - 16, 12 * 32, Color.get(000, 200, 500, 533), 0);
+//                    this.screen.render(i * 8, this.screen.h - 16, 12 * 32, Color.get(000, 200, 500, 533), 0);
+                    this.screen.renderSprite(i * 8, this.screen.h - 16, 2 * 32, 2, 0xFFFFFF, 0);
                 } else {
-                    this.screen.render(i * 8, this.screen.h - 16, 12 * 32, Color.get(000, 100, 000, 000), 0);
+//                    this.screen.render(i * 8, this.screen.h - 16, 12 * 32, Color.get(000, 100, 000, 000), 0);
+                    this.screen.renderSprite(i * 8, this.screen.h - 16, 2 * 32 + 2, 2, 0xFFFFFF, 0);
                 }
 
                 if (this.player.staminaRechargeDelay > 0) {
@@ -376,9 +380,11 @@ public class Game extends Canvas implements Runnable {
                     }
                 } else {
                     if (i < this.player.stamina) {
-                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 220, 550, 553), 0);
+//                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 220, 550, 553), 0);
+                        this.screen.renderSprite(i * 8, this.screen.h - 8, 2 * 32 + 1, 2, 0xFFFFFF, 0);
                     } else {
-                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 110, 000, 000), 0);
+//                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 110, 000, 000), 0);
+                        this.screen.renderSprite(i * 8, this.screen.h - 8, 2 * 32 + 3, 2, 0xFFFFFF, 0);
                     }
                 }
             }
@@ -399,27 +405,23 @@ public class Game extends Canvas implements Runnable {
         int w = msg.length();
         int h = 1;
 
-        this.screen.render(xx - 8, yy - 8, 13 * 32, Color.get(-1, 1, 5, 445), 0);
-        this.screen.render(xx + w * 8, yy - 8, 13 * 32, Color.get(-1, 1, 5, 445), 1);
-        this.screen.render(xx - 8, yy + 8, 13 * 32, Color.get(-1, 1, 5, 445), 2);
-        this.screen.render(xx + w * 8, yy + 8, 13 * 32, Color.get(-1, 1, 5, 445), 3);
-        for (int x = 0;
-             x < w;
-             x++) {
-            this.screen.render(xx + x * 8, yy - 8, 1 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
-            this.screen.render(xx + x * 8, yy + 8, 1 + 13 * 32, Color.get(-1, 1, 5, 445), 2);
+        this.screen.renderSprite(xx - 8, yy - 8, 3 * 32, 2, 0);
+        this.screen.renderSprite(xx + w * 8, yy - 8, 3 * 32, 2, 1);
+        this.screen.renderSprite(xx - 8, yy + 8, 3 * 32, 2, 2);
+        this.screen.renderSprite(xx + w * 8, yy + 8, 3 * 32, 2, 3);
+        for (int x = 0; x < w; x++) {
+            this.screen.renderSprite(xx + x * 8, yy - 8, 1 + 3 * 32, 2, 0);
+            this.screen.renderSprite(xx + x * 8, yy + 8, 1 + 3 * 32, 2, 2);
         }
-        for (int y = 0;
-             y < h;
-             y++) {
-            this.screen.render(xx - 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
-            this.screen.render(xx + w * 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 1);
+        for (int y = 0; y < h; y++) {
+            this.screen.renderSprite(xx - 8, yy + y * 8, 2 + 3 * 32, 2, 0);
+            this.screen.renderSprite(xx + w * 8, yy + y * 8, 2 + 3 * 32, 2, 1);
         }
 
         if ((this.tickCount / 20) % 2 == 0) {
-            this.font.draw(msg, this.screen, xx, yy, Color.get(5, 333, 333, 333));
+            this.font.drawWithBackground(msg, this.screen, xx, yy, 0x898989);
         } else {
-            this.font.draw(msg, this.screen, xx, yy, Color.get(5, 555, 555, 555));
+            this.font.drawWithBackground(msg, this.screen, xx, yy, 0xFFFFFF);
         }
     }
 

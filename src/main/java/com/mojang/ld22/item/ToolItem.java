@@ -32,19 +32,19 @@ public class ToolItem extends Item {
     }
 
     public ToolItem(String name, ToolType type, int level) {
-        super(name, type.sprite + 5 * 32, ToolItem.LEVEL_COLORS[level]);
+        super(name, type.sprite + 7 * 32, ToolItem.LEVEL_COLORS[level]);
         this.type = type;
         this.level = level;
         this.maxStackSize = 1;
     }
 
     public void renderIcon(Screen screen, int x, int y) {
-        screen.render(x, y, getSprite(), getColor(), 0);
+        screen.renderSprite(x, y, getSprite() + 32 * this.level, 2, 0);
     }
 
     public void renderInventory(Screen screen, int x, int y) {
-        screen.render(x, y, getSprite(), getColor(), 0);
-        Game.getInstance().font.draw(getName(), screen, x + 8, y, Color.get(-1, 555, 555, 555));
+        screen.renderSprite(x, y, getSprite() + 32 * this.level, 2, 0);
+        Game.getInstance().font.draw(getName(), screen, x + 8, y, 0xFFFFFF);
     }
 
     public void onTake(ItemEntity itemEntity) {

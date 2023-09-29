@@ -306,7 +306,7 @@ public class Player extends Mob {
 
     public void render(Screen screen) {
         int xt = 0;
-        int yt = 14;
+        int yt = 24;
 
         int flip1 = (this.walkDist >> 3) & 1;
         int flip2 = (this.walkDist >> 3) & 1;
@@ -327,12 +327,16 @@ public class Player extends Mob {
         int yo = this.y - 11;
         if (isSwimming()) {
             yo += 4;
-            int waterColor = Color.get(-1, -1, 115, 335);
+//            int waterColor = Color.get(-1, -1, 115, 335);
+//            if (this.tickTime / 8 % 2 == 0) {
+//                waterColor = Color.get(-1, 335, 5, 115);
+//            }
+            int tl = 15 * 32;
             if (this.tickTime / 8 % 2 == 0) {
-                waterColor = Color.get(-1, 335, 5, 115);
+                tl = 13 * 32;
             }
-            screen.render(xo, yo + 3, 5 + 13 * 32, waterColor, 0);
-            screen.render(xo + 8, yo + 3, 5 + 13 * 32, waterColor, 1);
+            screen.renderSprite(xo, yo + 3, tl, 2, 0xFFFFFF, 0);
+            screen.renderSprite(xo + 8, yo + 3, tl, 2, 0xFFFFFF, 1);
         }
 
         if (this.attackTime > 0 && this.attackDir == 1) {
@@ -350,11 +354,11 @@ public class Player extends Mob {
         if (this.activeItem instanceof FurnitureItem) {
             yt += 2;
         }
-        screen.render(xo + 8 * flip1, yo, xt + yt * 32, col, flip1);
-        screen.render(xo + 8 - 8 * flip1, yo, xt + 1 + yt * 32, col, flip1);
+        screen.renderSprite(xo + 8 * flip1, yo, xt + yt * 32, 2, flip1);
+        screen.renderSprite(xo + 8 - 8 * flip1, yo, xt + 1 + yt * 32, 2, flip1);
         if (!isSwimming()) {
-            screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, col, flip2);
-            screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col, flip2);
+            screen.renderSprite(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, 2, flip2);
+            screen.renderSprite(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, 2, flip2);
         }
 
         if (this.attackTime > 0 && this.attackDir == 2) {

@@ -10,8 +10,10 @@ public class Furniture extends Entity {
     public int col, sprite;
     public String name;
     private Player shouldTake;
+    public int itemSprite;
 
-    public Furniture(String name) {
+    public Furniture(String name, int itemSprite) {
+        this.itemSprite = itemSprite;
         this.name = name;
         this.xr = 3;
         this.yr = 3;

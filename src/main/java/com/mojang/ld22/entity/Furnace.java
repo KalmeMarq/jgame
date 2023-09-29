@@ -6,7 +6,7 @@ import com.mojang.ld22.screen.CraftingMenu;
 
 public class Furnace extends Furniture {
     public Furnace() {
-        super("Furnace");
+        super("Furnace", 7 * 32 + 8);
         this.col = Color.get(-1, 000, 222, 333);
         this.sprite = 3;
         this.xr = 3;

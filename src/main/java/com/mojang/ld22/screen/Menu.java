@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.mojang.ld22.Game;
 import com.mojang.ld22.InputHandler;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Font;
 import com.mojang.ld22.gfx.Screen;
 
@@ -73,8 +72,8 @@ public class Menu {
 
         if (renderCursor) {
             int yy = selected + 1 - io + yo;
-            this.font.draw(">", screen, (xo) * 8, yy * 8, Color.get(5, 555, 555, 555));
-            this.font.draw("<", screen, (xo + w) * 8, yy * 8, Color.get(5, 555, 555, 555));
+            this.font.draw(">", screen, (xo) * 8, yy * 8, 0xFFFFFF);
+            this.font.draw("<", screen, (xo + w) * 8, yy * 8, 0xFFFFFF);
         }
     }
 

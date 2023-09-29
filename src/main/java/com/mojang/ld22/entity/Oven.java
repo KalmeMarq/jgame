@@ -6,7 +6,7 @@ import com.mojang.ld22.screen.CraftingMenu;
 
 public class Oven extends Furniture {
     public Oven() {
-        super("Oven");
+        super("Oven", 7 * 32 + 7);
         this.col = Color.get(-1, 000, 332, 442);
         this.sprite = 2;
         this.xr = 3;

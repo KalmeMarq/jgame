@@ -7,7 +7,7 @@ public class Chest extends Furniture {
     public Inventory inventory = new Inventory();
 
     public Chest() {
-        super("Chest");
+        super("Chest", 7 * 32 + 6);
         this.col = Color.get(-1, 110, 331, 552);
         this.sprite = 1;
     }

@@ -24,19 +24,19 @@ public class FlowerTile extends GrassTile {
 
         int data = level.getData(x, y);
         int shape = (data / 16) % 2;
-        int flowerCol = Color.get(10, level.grassColor, 555, 440);
+//        int flowerCol = Color.get(10, level.grassColor, 555, 440);
 
         if (shape == 0) {
-            screen.render(x * 16, y * 16, 1 + 32, flowerCol, 0);
+            screen.renderSprite(x * 16, y * 16, 24 + 32 * 2, 2, 0);
         }
         if (shape == 1) {
-            screen.render(x * 16 + 8, y * 16, 1 + 32, flowerCol, 0);
+            screen.renderSprite(x * 16 + 8, y * 16, 24 + 32 * 2, 2, 0);
         }
         if (shape == 1) {
-            screen.render(x * 16, y * 16 + 8, 1 + 32, flowerCol, 0);
+            screen.renderSprite(x * 16, y * 16 + 8, 24 + 32 * 2, 2, 0);
         }
         if (shape == 0) {
-            screen.render(x * 16 + 8, y * 16 + 8, 1 + 32, flowerCol, 0);
+            screen.renderSprite(x * 16 + 8, y * 16 + 8, 24 + 32 * 2, 2, 0);
         }
     }
 

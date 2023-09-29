@@ -58,14 +58,14 @@ public class TitleMenu extends Menu {
 
         for (int i = 0; i < this.selectEntries.size(); i++) {
             String msg = this.selectEntries.get(i).getText();
-            int col = Color.get(0, 222, 222, 222);
+            int col = 0x9A9A9A;
             if (i == this.selectedEntryIndex) {
                 msg = "> " + msg + " <";
-                col = Color.get(0, 555, 555, 555);
+                col = 0xFFFFFF;
             }
             this.font.draw(msg, screen, (screen.w - msg.length() * 8) / 2, 10 + (8 + i) * 8, col);
         }
 
-        this.font.draw("(Arrow keys,X and C)", screen, 0, screen.h - 8, 0xFF_FF0000);
+        this.font.draw("(Arrow keys,X and C)", screen, 0, screen.h - 8, 0x454545);
     }
 }

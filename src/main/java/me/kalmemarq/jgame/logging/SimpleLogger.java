@@ -26,17 +26,16 @@ public class SimpleLogger implements Logger {
             }
 
             if (message.charAt(cursor) == '{') {
-                if (message.charAt(cursor + 1) == '}') {
+                char chr0 = message.charAt(cursor + 1);
+                if (chr0 == '}') {
                     cursor += 2;
                     sb.append(args[argIdx]);
                     ++argIdx;
                     continue;
                 } else if (message.charAt(cursor + 2) == '}') {
-                    char ch = message.charAt(cursor + 1);
-
-                    if (ch >= '0' && ch <= '9') {
-                        int idx = message.charAt(cursor + 1) - '0';
-                        if (idx >= 0 && idx < args.length) {
+                    if (chr0 >= '0' && chr0 <= '9') {
+                        int idx = chr0 - '0';
+                        if (idx < args.length) {
                             sb.append(args[idx]);
                             cursor += 3;
                         }

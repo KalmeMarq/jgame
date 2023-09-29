@@ -14,7 +14,7 @@ public class FurnitureItem extends Item {
     public boolean placed = false;
 
     public FurnitureItem(String name, Furniture furniture) {
-        super(name, furniture.sprite + 10 * 32, furniture.col);
+        super(name, furniture.itemSprite, furniture.col);
         this.furniture = furniture;
     }
 
@@ -23,16 +23,16 @@ public class FurnitureItem extends Item {
     }
 
     public int getSprite() {
-        return this.furniture.sprite + 10 * 32;
+        return this.furniture.itemSprite;
     }
 
     public void renderIcon(Screen screen, int x, int y) {
-        screen.render(x, y, getSprite(), getColor(), 0);
+        screen.renderSprite(x, y, getSprite(), 2, 0);
     }
 
     public void renderInventory(Screen screen, int x, int y) {
-        screen.render(x, y, getSprite(), getColor(), 0);
-        Game.getInstance().font.draw(this.furniture.name, screen, x + 8, y, Color.get(-1, 555, 555, 555));
+        screen.renderSprite(x, y, getSprite(), 2, 0);
+        Game.getInstance().font.draw(this.furniture.name, screen, x + 8, y, 0xFFFFFF);
     }
 
     public void onTake(ItemEntity itemEntity) {

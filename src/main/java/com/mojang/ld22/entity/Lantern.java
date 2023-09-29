@@ -4,7 +4,7 @@ import com.mojang.ld22.gfx.Color;
 
 public class Lantern extends Furniture {
     public Lantern() {
-        super("Lantern");
+        super("Lantern", 7 * 32 + 10);
         this.col = Color.get(-1, 000, 111, 555);
         this.sprite = 5;
         this.xr = 3;
