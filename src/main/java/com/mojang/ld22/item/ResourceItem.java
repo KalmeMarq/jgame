@@ -3,7 +3,6 @@ package com.mojang.ld22.item;
 import com.mojang.ld22.Game;
 import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.resource.Resource;
 import com.mojang.ld22.level.Level;
@@ -14,12 +13,12 @@ public class ResourceItem extends Item {
     public int count = 1;
 
     public ResourceItem(Resource resource) {
-        super(resource.name, resource.sprite, resource.color);
+        super(resource.name, resource.sprite);
         this.resource = resource;
     }
 
     public ResourceItem(Resource resource, int count) {
-        super(resource.name, resource.sprite, resource.color);
+        super(resource.name, resource.sprite);
         this.resource = resource;
         this.count = count;
     }
@@ -35,7 +34,7 @@ public class ResourceItem extends Item {
         if (cc > 999) {
             cc = 999;
         }
-        Game.getInstance().font.draw("" + cc, screen, x + 8, y, 0xEEEEEE);
+        Game.getInstance().font.draw(String.valueOf(cc), screen, x + 8, y, 0xEEEEEE);
     }
 
     public void onTake(ItemEntity itemEntity) {

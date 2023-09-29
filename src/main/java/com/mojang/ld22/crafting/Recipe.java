@@ -38,8 +38,8 @@ public abstract class Recipe implements ListItem {
     }
 
     public void renderInventory(Screen screen, int x, int y) {
-        screen.render(x, y, this.resultTemplate.getSprite(), this.resultTemplate.getColor(), 0);
-        int textColor = this.canCraft ? Color.get(-1, 555, 555, 555) : Color.get(-1, 222, 222, 222);
+        screen.render(x, y, this.resultTemplate.getSprite(), 2, 0);
+        int textColor = this.canCraft ? 0xFFFFFF : 0x545454;
         Game.getInstance().font.draw(this.resultTemplate.getName(), screen, x + 8, y, textColor);
     }
 

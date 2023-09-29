@@ -1,14 +1,12 @@
 package com.mojang.ld22.entity;
 
 import com.mojang.ld22.crafting.Crafting;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.screen.CraftingMenu;
 
 public class Oven extends Furniture {
     public Oven() {
-        super("Oven", 7 * 32 + 7);
-        this.col = Color.get(-1, 000, 332, 442);
-        this.sprite = 2;
+        super("Oven", 7 * 32 + 6);
+        this.sprite = 24 * 32 + 26;
         this.xr = 3;
         this.yr = 2;
     }

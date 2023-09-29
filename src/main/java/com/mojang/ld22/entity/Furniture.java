@@ -7,7 +7,7 @@ import com.mojang.ld22.item.PowerGloveItem;
 public class Furniture extends Entity {
     private int pushTime = 0;
     private int pushDir = -1;
-    public int col, sprite;
+    public int sprite;
     public String name;
     private Player shouldTake;
     public int itemSprite;
@@ -47,10 +47,10 @@ public class Furniture extends Entity {
     }
 
     public void render(Screen screen) {
-        screen.render(this.x - 8, this.y - 8 - 4, this.sprite * 2 + 8 * 32, this.col, 0);
-        screen.render(this.x, this.y - 8 - 4, this.sprite * 2 + 8 * 32 + 1, this.col, 0);
-        screen.render(this.x - 8, this.y - 4, this.sprite * 2 + 8 * 32 + 32, this.col, 0);
-        screen.render(this.x, this.y - 4, this.sprite * 2 + 8 * 32 + 33, this.col, 0);
+        screen.renderSprite(this.x - 8, this.y - 8 - 4, this.sprite, 2, 0);
+        screen.renderSprite(this.x, this.y - 8 - 4, this.sprite + 1, 2, 0);
+        screen.renderSprite(this.x - 8, this.y - 4, this.sprite + 32, 2, 0);
+        screen.renderSprite(this.x, this.y - 4, this.sprite + 33, 2, 0);
     }
 
     public boolean blocks(Entity e) {

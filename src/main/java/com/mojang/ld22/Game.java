@@ -374,9 +374,9 @@ public class Game extends Canvas implements Runnable {
 
                 if (this.player.staminaRechargeDelay > 0) {
                     if (this.player.staminaRechargeDelay / 4 % 2 == 0) {
-                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 555, 000, 000), 0);
+                        this.screen.renderSprite(i * 8, this.screen.h - 8, 2 * 32 + 4, 2, 0xFFFFFF, 0);
                     } else {
-                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 110, 000, 000), 0);
+                        this.screen.renderSprite(i * 8, this.screen.h - 8, 2 * 32 + 3, 2, 0xFFFFFF, 0);
                     }
                 } else {
                     if (i < this.player.stamina) {

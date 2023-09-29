@@ -33,24 +33,24 @@ public class LavaTile extends Tile {
         boolean sr = r && level.getTile(x + 1, y).connectsToSand;
 
         if (!u && !l) {
-            screen.render(x * 16, y * 16, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16, y * 16, this.wRandom.nextInt(4) + 9 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
             screen.render(x * 16, y * 16, (l ? 14 : 15) + (u ? 0 : 1) * 32, (su || sl) ? transitionColor2 : transitionColor1, 0);
         }
 
         if (!u && !r) {
-            screen.render(x * 16 + 8, y * 16, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16 + 8, y * 16, this.wRandom.nextInt(4) + 9 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
             screen.render(x * 16 + 8, y * 16, (r ? 16 : 15) + (u ? 0 : 1) * 32, (su || sr) ? transitionColor2 : transitionColor1, 0);
         }
 
         if (!d && !l) {
-            screen.render(x * 16, y * 16 + 8, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16, y * 16 + 8, this.wRandom.nextInt(4) + 9 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
             screen.render(x * 16, y * 16 + 8, (l ? 14 : 15) + (d ? 2 : 1) * 32, (sd || sl) ? transitionColor2 : transitionColor1, 0);
         }
         if (!d && !r) {
-            screen.render(x * 16 + 8, y * 16 + 8, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16 + 8, y * 16 + 8, this.wRandom.nextInt(4) + 9 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
             screen.render(x * 16 + 8, y * 16 + 8, (r ? 16 : 15) + (d ? 2 : 1) * 32, (sd || sr) ? transitionColor2 : transitionColor1, 0);
         }

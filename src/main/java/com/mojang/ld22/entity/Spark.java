@@ -57,7 +57,7 @@ public class Spark extends Entity {
         int xt = 8;
         int yt = 13;
 
-        screen.render(this.x - 4, this.y - 4 - 2, xt + yt * 32, Color.get(-1, 555, 555, 555), this.random.nextInt(4));
+        screen.render(this.x - 4, this.y - 4 - 2 + 12, xt + yt * 32, Color.get(-1, 555, 555, 555), this.random.nextInt(4));
         screen.render(this.x - 4, this.y - 4 + 2, xt + yt * 32, Color.get(-1, 000, 000, 000), this.random.nextInt(4));
     }
 }

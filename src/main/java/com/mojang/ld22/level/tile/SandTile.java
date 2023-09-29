@@ -32,30 +32,30 @@ public class SandTile extends Tile {
 
         if (!u && !l) {
             if (!steppedOn) {
-                screen.render(x * 16, y * 16, 0, col, 0);
+                screen.renderSprite(x * 16, y * 16, 10 * 32 + 28, 2, 0);
             } else {
-                screen.render(x * 16, y * 16, 3 + 32, col, 0);
+                screen.renderSprite(x * 16, y * 16, 26 + 2 * 32, 2, 0);
             }
         } else {
             screen.render(x * 16, y * 16, (l ? 11 : 12) + (u ? 0 : 1) * 32, transitionColor, 0);
         }
 
         if (!u && !r) {
-            screen.render(x * 16 + 8, y * 16, 1, col, 0);
+            screen.renderSprite(x * 16 + 8, y * 16, 1 + 10 * 32 + 28, 2, 0);
         } else {
             screen.render(x * 16 + 8, y * 16, (r ? 13 : 12) + (u ? 0 : 1) * 32, transitionColor, 0);
         }
 
         if (!d && !l) {
-            screen.render(x * 16, y * 16 + 8, 2, col, 0);
+            screen.renderSprite(x * 16, y * 16 + 8, 2 + 10 * 32 + 28, 2, 0);
         } else {
             screen.render(x * 16, y * 16 + 8, (l ? 11 : 12) + (d ? 2 : 1) * 32, transitionColor, 0);
         }
         if (!d && !r) {
             if (!steppedOn) {
-                screen.render(x * 16 + 8, y * 16 + 8, 3, col, 0);
+                screen.renderSprite(x * 16 + 8, y * 16 + 8, 3 + 10 * 32 + 28, 2, 0);
             } else {
-                screen.render(x * 16 + 8, y * 16 + 8, 3 + 32, col, 0);
+                screen.renderSprite(x * 16 + 8, y * 16 + 8, 26 + 2 * 32, 2, 0);
             }
 
         } else {

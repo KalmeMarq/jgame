@@ -46,7 +46,7 @@ public class TextParticle extends Entity {
 
     public void render(Screen screen) {
         //		Font.draw(msg, screen, x - msg.length() * 4, y, Color.get(-1, 0, 0, 0));
-        Game.getInstance().font.draw(this.msg, screen, this.x - this.msg.length() * 4 + 1, this.y - (int) (this.zz) + 1, Color.get(-1, 0, 0, 0));
+        Game.getInstance().font.draw(this.msg, screen, this.x - this.msg.length() * 4 + 1, this.y - (int) (this.zz) + 1, 0x0A0A0A);
         Game.getInstance().font.draw(this.msg, screen, this.x - this.msg.length() * 4, this.y - (int) (this.zz), this.col);
     }
 

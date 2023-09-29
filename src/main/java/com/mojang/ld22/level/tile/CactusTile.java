@@ -18,11 +18,11 @@ public class CactusTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
-        int col = Color.get(20, 40, 50, level.sandColor);
-        screen.render(x * 16, y * 16, 8 + 2 * 32, col, 0);
-        screen.render(x * 16 + 8, y * 16, 9 + 2 * 32, col, 0);
-        screen.render(x * 16, y * 16 + 8, 8 + 3 * 32, col, 0);
-        screen.render(x * 16 + 8, y * 16 + 8, 9 + 3 * 32, col, 0);
+        Tile.sand.render(screen, level, x, y);
+        screen.renderSprite(x * 16, y * 16, 28, 2, 0);
+        screen.renderSprite(x * 16 + 8, y * 16, 29, 2, 0);
+        screen.renderSprite(x * 16, y * 16 + 8, 28 + 1 * 32, 2, 0);
+        screen.renderSprite(x * 16 + 8, y * 16 + 8, 29 + 1 * 32, 2, 0);
     }
 
     public boolean mayPass(Level level, int x, int y, Entity e) {
@@ -32,7 +32,7 @@ public class CactusTile extends Tile {
     public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
         int damage = level.getData(x, y) + dmg;
         level.add(new SmashParticle(x * 16 + 8, y * 16 + 8));
-        level.add(new TextParticle("" + dmg, x * 16 + 8, y * 16 + 8, Color.get(-1, 500, 500, 500)));
+        level.add(new TextParticle(String.valueOf(dmg), x * 16 + 8, y * 16 + 8, 0x9E2C2C));
         if (damage >= 10) {
             int count = this.random.nextInt(2) + 1;
             for (int i = 0; i < count; i++) {

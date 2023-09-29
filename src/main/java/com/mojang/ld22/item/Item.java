@@ -11,13 +11,11 @@ import com.mojang.ld22.screen.ListItem;
 public class Item implements ListItem {
     public final String name;
     public final int sprite;
-    public final int color;
     public int maxStackSize = 256;
 
-    public Item(String name, int sprite, int color) {
+    public Item(String name, int sprite) {
         this.name = name;
         this.sprite = sprite;
-        this.color = color;
     }
 
     public void setMaxStackSize(int maxStackSize) {
@@ -26,10 +24,6 @@ public class Item implements ListItem {
 
     public int getMaxStackSize() {
         return this.maxStackSize;
-    }
-
-    public int getColor() {
-        return this.color;
     }
 
     public int getSprite() {

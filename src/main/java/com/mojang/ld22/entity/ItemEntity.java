@@ -1,6 +1,5 @@
 package com.mojang.ld22.entity;
 
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.sound.Sound;
@@ -74,8 +73,8 @@ public class ItemEntity extends Entity {
                 return;
             }
         }
-        screen.render(this.x - 4, this.y - 4, this.item.getSprite(), Color.get(-1, 0, 0, 0), 0);
-        screen.render(this.x - 4, this.y - 4 - (int) (this.zz), this.item.getSprite(), this.item.getColor(), 0);
+        screen.renderSprite(this.x - 4, this.y - 4, this.item.getSprite(), 2, 0);
+        screen.renderSprite(this.x - 4, this.y - 4 - (int) (this.zz), this.item.getSprite(),2, 0);
     }
 
     protected void touchedBy(Entity entity) {

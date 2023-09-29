@@ -33,24 +33,40 @@ public class WaterTile extends Tile {
         boolean sr = r && level.getTile(x + 1, y).connectsToSand;
 
         if (!u && !l) {
-            screen.render(x * 16, y * 16, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16, y * 16, this.wRandom.nextInt(4) + 8 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
-            screen.render(x * 16, y * 16, (l ? 14 : 15) + (u ? 0 : 1) * 32, (su || sl) ? transitionColor2 : transitionColor1, 0);
+            screen.renderSprite(x * 16, y * 16, (l ? 20 : 21) + (u ? 0 : 1) * 32 + 11 * 32, 2, 0);
+            if (su || sl) { // sand
+                screen.renderSprite(x * 16, y * 16, (l ? 23 : 24) + (u ? 0 : 1) * 32 + 14 * 32, 2, 0);
+            } else { // dirt
+                screen.renderSprite(x * 16, y * 16, (l ? 20 : 21) + (u ? 0 : 1) * 32 + 14 * 32, 2, 0);
+            }
         }
 
+//        if (!u && !r) {
+//            screen.renderSprite(x * 16 + 8, y * 16, this.wRandom.nextInt(4) + 8 * 32 + 28, 2, this.wRandom.nextInt(4));
+//        } else {
+//            screen.render(x * 16 + 8, y * 16, (r ? 16 : 15) + (u ? 0 : 1) * 32, (su || sr) ? transitionColor2 : transitionColor1, 0);
+//        }
+
         if (!u && !r) {
-            screen.render(x * 16 + 8, y * 16, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16 + 8, y * 16, this.wRandom.nextInt(4) + 8 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
-            screen.render(x * 16 + 8, y * 16, (r ? 16 : 15) + (u ? 0 : 1) * 32, (su || sr) ? transitionColor2 : transitionColor1, 0);
+            screen.renderSprite(x * 16 + 8, y * 16, (r ? 22 : 21) + (u ? 0 : 1) * 32 + 11 * 32, 2, 0);
+            if (su || sr) {
+                screen.renderSprite(x * 16 + 8, y * 16, (r ? 25 : 24) + (u ? 0 : 1) * 32 + 14 * 32, 2, 0);
+            } else {
+                screen.renderSprite(x * 16 + 8, y * 16, (r ? 22 : 21) + (u ? 0 : 1) * 32 + 14 * 32, 2, 0);
+            }
         }
 
         if (!d && !l) {
-            screen.render(x * 16, y * 16 + 8, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16, y * 16 + 8, this.wRandom.nextInt(4) + 8 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
             screen.render(x * 16, y * 16 + 8, (l ? 14 : 15) + (d ? 2 : 1) * 32, (sd || sl) ? transitionColor2 : transitionColor1, 0);
         }
         if (!d && !r) {
-            screen.render(x * 16 + 8, y * 16 + 8, this.wRandom.nextInt(4), col, this.wRandom.nextInt(4));
+            screen.renderSprite(x * 16 + 8, y * 16 + 8, this.wRandom.nextInt(4) + 8 * 32 + 28, 2, this.wRandom.nextInt(4));
         } else {
             screen.render(x * 16 + 8, y * 16 + 8, (r ? 16 : 15) + (d ? 2 : 1) * 32, (sd || sr) ? transitionColor2 : transitionColor1, 0);
         }

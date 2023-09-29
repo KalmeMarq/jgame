@@ -306,7 +306,7 @@ public class Player extends Mob {
 
     public void render(Screen screen) {
         int xt = 0;
-        int yt = 24;
+        int yt = 22;
 
         int flip1 = (this.walkDist >> 3) & 1;
         int flip2 = (this.walkDist >> 3) & 1;
@@ -327,10 +327,6 @@ public class Player extends Mob {
         int yo = this.y - 11;
         if (isSwimming()) {
             yo += 4;
-//            int waterColor = Color.get(-1, -1, 115, 335);
-//            if (this.tickTime / 8 % 2 == 0) {
-//                waterColor = Color.get(-1, 335, 5, 115);
-//            }
             int tl = 15 * 32;
             if (this.tickTime / 8 % 2 == 0) {
                 tl = 13 * 32;
@@ -340,8 +336,8 @@ public class Player extends Mob {
         }
 
         if (this.attackTime > 0 && this.attackDir == 1) {
-            screen.render(xo, yo - 4, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 0);
-            screen.render(xo + 8, yo - 4, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 1);
+            screen.renderSprite(xo, yo - 4, 1 + 13 * 32, 2, 0);
+            screen.renderSprite(xo + 8, yo - 4, 1 + 13 * 32, 2, 1);
             if (this.attackItem != null) {
                 this.attackItem.renderIcon(screen, xo + 4, yo - 4);
             }
@@ -362,22 +358,22 @@ public class Player extends Mob {
         }
 
         if (this.attackTime > 0 && this.attackDir == 2) {
-            screen.render(xo - 4, yo, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 1);
-            screen.render(xo - 4, yo + 8, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 3);
+            screen.renderSprite(xo - 4, yo, 2 + 13 * 32, 2, 1);
+            screen.renderSprite(xo - 4, yo + 8, 2 + 13 * 32, 2, 3);
             if (this.attackItem != null) {
                 this.attackItem.renderIcon(screen, xo - 4, yo + 4);
             }
         }
         if (this.attackTime > 0 && this.attackDir == 3) {
-            screen.render(xo + 8 + 4, yo, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 0);
-            screen.render(xo + 8 + 4, yo + 8, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 2);
+            screen.renderSprite(xo + 8 + 4, yo, 2 + 13 * 32, 2, 0);
+            screen.renderSprite(xo + 8 + 4, yo + 8, 2 + 13 * 32, 2, 2);
             if (this.attackItem != null) {
                 this.attackItem.renderIcon(screen, xo + 8 + 4, yo + 4);
             }
         }
         if (this.attackTime > 0 && this.attackDir == 0) {
-            screen.render(xo, yo + 8 + 4, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 2);
-            screen.render(xo + 8, yo + 8 + 4, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 3);
+            screen.renderSprite(xo, yo + 8 + 4, 1 + 13 * 32, 2, 2);
+            screen.renderSprite(xo + 8, yo + 8 + 4, 1 + 13 * 32, 2, 3);
             if (this.attackItem != null) {
                 this.attackItem.renderIcon(screen, xo + 4, yo + 8 + 4);
             }
@@ -454,7 +450,7 @@ public class Player extends Mob {
         }
 
         Sound.play(Sound.Event.PLAYER_HURT, 1.0f);
-        this.level.add(new TextParticle("" + damage, this.x, this.y, Color.get(-1, 504, 504, 504)));
+        this.level.add(new TextParticle(String.valueOf(damage), this.x, this.y, 0xA83692));
         this.health -= damage;
         if (attackDir == 0) {
             this.yKnockback = +6;

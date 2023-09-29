@@ -4,12 +4,11 @@ import com.mojang.ld22.Game;
 import com.mojang.ld22.entity.Entity;
 import com.mojang.ld22.entity.Furniture;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 
 public class PowerGloveItem extends Item {
     public PowerGloveItem() {
-        super("Pow glove", 7 + 6 * 32, Color.get(-1, 100, 320, 430));
+        super("Pow glove", 7 + 6 * 32);
     }
 
     public void renderIcon(Screen screen, int x, int y) {

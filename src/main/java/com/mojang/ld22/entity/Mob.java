@@ -1,7 +1,6 @@
 package com.mojang.ld22.entity;
 
 import com.mojang.ld22.entity.particle.TextParticle;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
 import com.mojang.ld22.sound.Sound;
@@ -106,7 +105,7 @@ public class Mob extends Entity {
             return;
         }
 
-        this.level.add(new TextParticle("" + heal, this.x, this.y, Color.get(-1, 50, 50, 50)));
+        this.level.add(new TextParticle(String.valueOf(heal), this.x, this.y, 0x4DC04D));
         this.health += heal;
         if (this.health > this.maxHealth) {
             this.health = this.maxHealth;
@@ -125,7 +124,7 @@ public class Mob extends Entity {
                 Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
             }
         }
-        this.level.add(new TextParticle("" + damage, this.x, this.y, Color.get(-1, 500, 500, 500)));
+        this.level.add(new TextParticle(String.valueOf(damage), this.x, this.y, 0x9E2C2C));
         this.health -= damage;
         if (attackDir == 0) {
             this.yKnockback = +6;

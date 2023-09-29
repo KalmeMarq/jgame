@@ -19,7 +19,7 @@ public class WonMenu extends Menu {
 
     public void render(Screen screen) {
         this.font.renderFrame(screen, "", 1, 3, 18, 9);
-        this.font.draw("You won! Yay!", screen, 2 * 8, 4 * 8, Color.get(-1, 555, 555, 555));
+        this.font.draw("You won! Yay!", screen, 2 * 8, 4 * 8, 0xFFFFFF);
 
         int seconds = this.game.gameTime / 60;
         int minutes = seconds / 60;
@@ -33,9 +33,9 @@ public class WonMenu extends Menu {
         } else {
             timeString = minutes + "m " + (seconds < 10 ? "0" : "") + seconds + "s";
         }
-        this.font.draw("Time:", screen, 2 * 8, 5 * 8, Color.get(-1, 555, 555, 555));
+        this.font.draw("Time:", screen, 2 * 8, 5 * 8, 0xFFFFFF);
         this.font.draw(timeString, screen, (2 + 5) * 8, 5 * 8, Color.get(-1, 550, 550, 550));
-        this.font.draw("Score:", screen, 2 * 8, 6 * 8, Color.get(-1, 555, 555, 555));
+        this.font.draw("Score:", screen, 2 * 8, 6 * 8, 0xFFFFFF);
         this.font.draw("" + this.game.player.score, screen, (2 + 6) * 8, 6 * 8, Color.get(-1, 550, 550, 550));
         this.font.draw("Press C to win", screen, 2 * 8, 8 * 8, Color.get(-1, 333, 333, 333));
     }

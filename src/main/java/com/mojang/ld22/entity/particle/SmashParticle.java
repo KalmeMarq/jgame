@@ -22,10 +22,9 @@ public class SmashParticle extends Entity {
     }
 
     public void render(Screen screen) {
-        int col = Color.get(-1, 555, 555, 555);
-        screen.render(this.x - 8, this.y - 8, 5 + 12 * 32, col, 2);
-        screen.render(this.x, this.y - 8, 5 + 12 * 32, col, 3);
-        screen.render(this.x - 8, this.y, 5 + 12 * 32, col, 0);
-        screen.render(this.x, this.y, 5 + 12 * 32, col, 1);
+        screen.renderSprite(this.x - 8, this.y - 8, 12 * 32, 2, 2);
+        screen.renderSprite(this.x, this.y - 8, 12 * 32, 2, 3);
+        screen.renderSprite(this.x - 8, this.y, 12 * 32, 2, 0);
+        screen.renderSprite(this.x, this.y, 12 * 32, 2, 1);
     }
 }

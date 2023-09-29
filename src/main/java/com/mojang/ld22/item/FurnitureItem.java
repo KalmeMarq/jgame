@@ -14,12 +14,8 @@ public class FurnitureItem extends Item {
     public boolean placed = false;
 
     public FurnitureItem(String name, Furniture furniture) {
-        super(name, furniture.itemSprite, furniture.col);
+        super(name, furniture.itemSprite);
         this.furniture = furniture;
-    }
-
-    public int getColor() {
-        return this.furniture.col;
     }
 
     public int getSprite() {

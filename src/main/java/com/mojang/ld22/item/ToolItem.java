@@ -16,14 +16,6 @@ public class ToolItem extends Item {
         "Wood", "Rock", "Iron", "Gold", "Gem"
     };
 
-    public static final int[] LEVEL_COLORS = {
-        Color.get(-1, 100, 321, 431),
-        Color.get(-1, 100, 321, 111),
-        Color.get(-1, 100, 321, 555),
-        Color.get(-1, 100, 321, 550),
-        Color.get(-1, 100, 321, 055)
-    };
-
     public ToolType type;
     public int level = 0;
 
@@ -32,7 +24,7 @@ public class ToolItem extends Item {
     }
 
     public ToolItem(String name, ToolType type, int level) {
-        super(name, type.sprite + 7 * 32, ToolItem.LEVEL_COLORS[level]);
+        super(name, type.sprite + 7 * 32);
         this.type = type;
         this.level = level;
         this.maxStackSize = 1;

@@ -83,20 +83,20 @@ public class CraftingMenu extends Menu {
             Recipe recipe = this.recipes.get(this.selected);
             int hasResultItems = this.player.inventory.count(recipe.resultTemplate);
             int xo = 13 * 8;
-            screen.render(xo, 2 * 8, recipe.resultTemplate.getSprite(), recipe.resultTemplate.getColor(), 0);
-            this.font.draw("" + hasResultItems, screen, xo + 8, 2 * 8, Color.get(-1, 555, 555, 555));
+            screen.render(xo, 2 * 8, recipe.resultTemplate.getSprite(), 2, 0);
+            this.font.draw(String.valueOf(hasResultItems), screen, xo + 8, 2 * 8, 0xFFFFFF);
 
             List<Item> costs = recipe.costs;
             for (int i = 0; i < costs.size(); i++) {
                 Item item = costs.get(i);
                 int yo = (5 + i) * 8;
-                screen.render(xo, yo, item.getSprite(), item.getColor(), 0);
+                screen.render(xo, yo, item.getSprite(), 2, 0);
                 int requiredAmt = 1;
                 if (item instanceof ResourceItem) {
                     requiredAmt = ((ResourceItem) item).count;
                 }
                 int has = this.player.inventory.count(item);
-                int color = Color.get(-1, 555, 555, 555);
+                int color = 0xFFFFFF;
                 if (has < requiredAmt) {
                     color = Color.get(-1, 222, 222, 222);
                 }

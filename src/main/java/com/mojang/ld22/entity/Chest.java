@@ -1,6 +1,5 @@
 package com.mojang.ld22.entity;
 
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.screen.ContainerMenu;
 
 public class Chest extends Furniture {
@@ -8,8 +7,7 @@ public class Chest extends Furniture {
 
     public Chest() {
         super("Chest", 7 * 32 + 6);
-        this.col = Color.get(-1, 110, 331, 552);
-        this.sprite = 1;
+        this.sprite = 24 * 32 + 22;
     }
 
     public boolean use(Player player, int attackDir) {
