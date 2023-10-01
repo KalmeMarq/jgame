@@ -7,7 +7,6 @@ import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
-import me.kalmemarq.jgame.bso.BsoMap;
 
 public class Entity {
     protected final Random random = new Random();
@@ -47,8 +46,8 @@ public class Entity {
 
     public boolean move(int xa, int ya) {
         if (xa != 0 || ya != 0) {
-            boolean stopped = xa == 0 || !move2(xa, 0);
-            if (ya != 0 && move2(0, ya)) {
+            boolean stopped = xa == 0 || !this.move2(xa, 0);
+            if (ya != 0 && this.move2(0, ya)) {
                 stopped = false;
             }
             if (!stopped) {
@@ -75,31 +74,29 @@ public class Entity {
         int yt0 = ((this.y + ya) - this.yr) >> 4;
         int xt1 = ((this.x + xa) + this.xr) >> 4;
         int yt1 = ((this.y + ya) + this.yr) >> 4;
-        boolean blocked = false;
-        for (int yt = yt0; yt <= yt1; yt++)
+
+        for (int yt = yt0; yt <= yt1; yt++) {
             for (int xt = xt0; xt <= xt1; xt++) {
                 if (xt >= xto0 && xt <= xto1 && yt >= yto0 && yt <= yto1) {
                     continue;
                 }
                 this.level.getTile(xt, yt).bumpedInto(this.level, xt, yt, this);
                 if (!this.level.getTile(xt, yt).mayPass(this.level, xt, yt, this)) {
-                    blocked = true;
                     return false;
                 }
             }
-        if (blocked) {
-            return false;
         }
 
         List<Entity> wasInside = this.level.getEntities(this.x - this.xr, this.y - this.yr, this.x + this.xr, this.y + this.yr);
         List<Entity> isInside = this.level.getEntities(this.x + xa - this.xr, this.y + ya - this.yr, this.x + xa + this.xr, this.y + ya + this.yr);
+
         for (Entity e : isInside) {
             if (e == this) {
                 continue;
             }
-
             e.touchedBy(this);
         }
+
         isInside.removeAll(wasInside);
         for (Entity e : isInside) {
             if (e == this) {
@@ -113,6 +110,19 @@ public class Entity {
 
         this.x += xa;
         this.y += ya;
+
+        if (this.x - 16 < 0) {
+            this.x -= xa;
+        } else if (this.x + 16 >= this.level.w * 16) {
+            this.x -= xa;
+        }
+
+        if (this.y - 16 < 0) {
+            this.y -= ya;
+        } else if (this.y + 16 >= this.level.h * 16) {
+            this.y -= ya;
+        }
+
         return true;
     }
 

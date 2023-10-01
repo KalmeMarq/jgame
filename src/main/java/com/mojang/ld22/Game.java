@@ -6,7 +6,6 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -15,15 +14,14 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import com.mojang.ld22.entity.AirWizard;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Font;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.gfx.SpriteSheet;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
 import com.mojang.ld22.sound.Sound;
+import me.kalmemarq.jgame.logging.Logger;
 import me.kalmemarq.jgame.resource.VanillaResourcePack;
 import com.mojang.ld22.screen.DeadMenu;
 import com.mojang.ld22.screen.LevelTransitionMenu;
@@ -35,6 +33,7 @@ import me.kalmemarq.jgame.argoption.ArgOption;
 import me.kalmemarq.jgame.argoption.ArgOptionParser;
 
 public class Game extends Canvas implements Runnable {
+    private static final Logger LOGGER = LogManager.getLogger();
     public static final String NAME = "Minicraft Minus";
     public static final int HEIGHT = 120;
     public static final int WIDTH = 160;
@@ -49,7 +48,6 @@ public class Game extends Canvas implements Runnable {
     private Screen lightScreen;
     private final InputHandler input = new InputHandler(this);
 
-    private final int[] colors = new int[256];
     private int tickCount = 0;
     public int gameTime = 0;
 
@@ -139,40 +137,16 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void init() {
-        int pp = 0;
-        for (int r = 0;
-             r < 6;
-             r++) {
-            for (int g = 0;
-                 g < 6;
-                 g++) {
-                for (int b = 0;
-                     b < 6;
-                     b++) {
-                    int rr = (r * 255 / 5);
-                    int gg = (g * 255 / 5);
-                    int bb = (b * 255 / 5);
-                    int mid = (rr * 30 + gg * 59 + bb * 11) / 100;
-
-                    int r1 = ((rr + mid) / 2) * 230 / 255 + 10;
-                    int g1 = ((gg + mid) / 2) * 230 / 255 + 10;
-                    int b1 = ((bb + mid) / 2) * 230 / 255 + 10;
-                    this.colors[pp++] = r1 << 16 | g1 << 8 | b1;
-
-                }
-            }
-        }
-
         try {
             SpriteSheet iconsSheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png"))));
             SpriteSheet newIconsSheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/new_icons.png"))));
             SpriteSheet icons2Sheet = new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons2.png"))));
             this.screen = new Screen(Game.WIDTH, Game.HEIGHT, new SpriteSheet[]{ iconsSheet, icons2Sheet, newIconsSheet });
-            this.lightScreen = new Screen(Game.WIDTH, Game.HEIGHT, iconsSheet);
+            this.lightScreen = new Screen(Game.WIDTH, Game.HEIGHT, new SpriteSheet[]{ iconsSheet });
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Failed to initialize screens", e);
         }
-        setMenu(new TitleMenu());
+        this.setMenu(new TitleMenu());
     }
 
     public void run() {
@@ -185,30 +159,26 @@ public class Game extends Canvas implements Runnable {
 
         Sound.load(this.vanillaResourcePack);
         this.settings.load();
-        init();
+        this.init();
 
         while (this.running) {
             long now = System.nanoTime();
             unprocessed += (now - lastTime) / nsPerTick;
             lastTime = now;
-            boolean shouldRender = true;
             while (unprocessed >= 1) {
                 ticks++;
-                tick();
+                this.tick();
                 unprocessed -= 1;
-                shouldRender = true;
             }
 
             try {
                 Thread.sleep(2);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error("Could not thread sleep", e);
             }
 
-            if (shouldRender) {
-                frames++;
-                render();
-            }
+            frames++;
+            this.render();
 
             if (System.currentTimeMillis() - lastTimer1 > 1000) {
                 lastTimer1 += 1000;
@@ -226,7 +196,7 @@ public class Game extends Canvas implements Runnable {
     public void tick() {
         this.tickCount++;
         Sound.tick();
-        if (!hasFocus()) {
+        if (!this.hasFocus()) {
             this.input.releaseAll();
         } else {
             if (this.player != null && !this.player.removed && !this.hasWon) {
@@ -240,17 +210,24 @@ public class Game extends Canvas implements Runnable {
                 if (this.player.removed) {
                     this.playerDeadTime++;
                     if (this.playerDeadTime > 60) {
-                        setMenu(new DeadMenu());
+                        this.setMenu(new DeadMenu());
                     }
                 } else {
                     if (this.pendingLevelChange != 0) {
-                        setMenu(new LevelTransitionMenu(this.pendingLevelChange));
+                        this.setMenu(new LevelTransitionMenu(this.pendingLevelChange));
                         this.pendingLevelChange = 0;
+                    } else {
+                        if (this.input.debug_stair_up.clicked) {
+                            this.changeLevel(1);
+                        }
+                        if (this.input.debug_stair_down.clicked) {
+                            this.changeLevel(-1);
+                        }
                     }
                 }
                 if (this.wonTimer > 0) {
                     if (--this.wonTimer == 0) {
-                        setMenu(new WonMenu());
+                        this.setMenu(new WonMenu());
                     }
                 }
                 this.level.tick();
@@ -269,10 +246,10 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void render() {
-        BufferStrategy bs = getBufferStrategy();
+        BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
-            createBufferStrategy(3);
-            requestFocus();
+            this.createBufferStrategy(3);
+            this.requestFocus();
             return;
         }
 
@@ -298,10 +275,9 @@ public class Game extends Canvas implements Runnable {
 
         if (this.level != null && this.player != null) {
             if (this.currentLevel > 3) {
-                int col = Color.get(20, 20, 121, 121);
                 for (int y = 0; y < 14; y++)
                     for (int x = 0; x < 24; x++) {
-                        this.screen.render(x * 8 - ((xScroll / 4) & 7), y * 8 - ((yScroll / 4) & 7), 0, col, 0);
+                        this.screen.renderSprite(x * 8 - ((xScroll / 4) & 7), y * 8 - ((yScroll / 4) & 7), SpriteSheet.uvTile(224, 32), 2, 0);
                     }
             }
 
@@ -315,10 +291,10 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-        renderGui();
+        this.renderGui();
 
-        if (!hasFocus()) {
-            renderFocusNagger();
+        if (!this.hasFocus()) {
+            this.renderFocusNagger();
         }
 
         for (int y = 0; y < this.screen.h; y++) {
@@ -327,23 +303,13 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-//        for (int y = 0; y < this.screen.h; y++) {
-//            for (int x = 0; x < this.screen.w; x++) {
-//                int cc = this.screen.pixels[x + y * this.screen.w];
-//                if (cc < 255) {
-//                    this.pixels[x + y * Game.WIDTH] = this.colors[cc];
-//                }
-//                this.pixels[x + y * Game.WIDTH] = cc;
-//            }
-//        }
-
         Graphics g = bs.getDrawGraphics();
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         int ww = Game.WIDTH * Game.SCALE;
         int hh = Game.HEIGHT * Game.SCALE;
-        int xo = (getWidth() - ww) / 2;
-        int yo = (getHeight() - hh) / 2;
+        int xo = (this.getWidth() - ww) / 2;
+        int yo = (this.getHeight() - hh) / 2;
         g.drawImage(this.image, xo, yo, ww, hh, null);
         g.dispose();
         bs.show();
@@ -351,24 +317,12 @@ public class Game extends Canvas implements Runnable {
 
     private void renderGui() {
         if (this.player != null) {
-//            for (int y = 0;
-//                 y < 2;
-//                 y++) {
-//                for (int x = 0;
-//                     x < 20;
-//                     x++) {
-//                    this.screen.render(x * 8, this.screen.h - 16 + y * 8, 12 * 32, Color.get(000, 000, 000, 000), 0);
-//                }
-//            }
-
             this.screen.renderColored(0, this.screen.h - 16, 160, 16, 0x000000);
 
             for (int i = 0; i < 10; i++) {
                 if (i < this.player.health) {
-//                    this.screen.render(i * 8, this.screen.h - 16, 12 * 32, Color.get(000, 200, 500, 533), 0);
                     this.screen.renderSprite(i * 8, this.screen.h - 16, 2 * 32, 2, 0xFFFFFF, 0);
                 } else {
-//                    this.screen.render(i * 8, this.screen.h - 16, 12 * 32, Color.get(000, 100, 000, 000), 0);
                     this.screen.renderSprite(i * 8, this.screen.h - 16, 2 * 32 + 2, 2, 0xFFFFFF, 0);
                 }
 
@@ -380,10 +334,8 @@ public class Game extends Canvas implements Runnable {
                     }
                 } else {
                     if (i < this.player.stamina) {
-//                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 220, 550, 553), 0);
                         this.screen.renderSprite(i * 8, this.screen.h - 8, 2 * 32 + 1, 2, 0xFFFFFF, 0);
                     } else {
-//                        this.screen.render(i * 8, this.screen.h - 8, 1 + 12 * 32, Color.get(000, 110, 000, 000), 0);
                         this.screen.renderSprite(i * 8, this.screen.h - 8, 2 * 32 + 3, 2, 0xFFFFFF, 0);
                     }
                 }
@@ -442,9 +394,13 @@ public class Game extends Canvas implements Runnable {
         JFrame frame = new JFrame(Game.NAME);
 
         try {
-            frame.setIconImages(Arrays.asList(ImageIO.read(Game.class.getResourceAsStream("/icons/icon16.png")), ImageIO.read(Game.class.getResourceAsStream("/icons/icon32.png")), ImageIO.read(Game.class.getResourceAsStream("/icons/icon48.png")), ImageIO.read(Game.class.getResourceAsStream("/icons/icon64.png"))));
+            frame.setIconImages(Arrays.asList(
+                ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons/icon16.png"))),
+                ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons/icon32.png"))),
+                ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons/icon48.png"))),
+                ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons/icon64.png")))));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.warn("Could not set window frame icon", e);
         }
 
         Game game = new Game(frame, savePath);

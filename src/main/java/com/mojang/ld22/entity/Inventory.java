@@ -11,12 +11,12 @@ public class Inventory {
     public List<Item> items = new ArrayList<>();
 
     public void add(Item item) {
-        add(this.items.size(), item);
+        this.add(this.items.size(), item);
     }
 
     public void add(int slot, Item item) {
         if (item instanceof ResourceItem toTake) {
-            ResourceItem has = findResource(toTake.resource);
+            ResourceItem has = this.findResource(toTake.resource);
             if (has == null) {
                 this.items.add(slot, toTake);
             } else {
@@ -39,7 +39,7 @@ public class Inventory {
     }
 
     public boolean hasResources(Resource r, int count) {
-        ResourceItem ri = findResource(r);
+        ResourceItem ri = this.findResource(r);
         if (ri == null) {
             return false;
         }
@@ -47,7 +47,7 @@ public class Inventory {
     }
 
     public boolean removeResource(Resource r, int count) {
-        ResourceItem ri = findResource(r);
+        ResourceItem ri = this.findResource(r);
         if (ri == null) {
             return false;
         }
@@ -63,7 +63,7 @@ public class Inventory {
 
     public int count(Item item) {
         if (item instanceof ResourceItem) {
-            ResourceItem ri = findResource(((ResourceItem) item).resource);
+            ResourceItem ri = this.findResource(((ResourceItem) item).resource);
             if (ri != null) {
                 return ri.count;
             }

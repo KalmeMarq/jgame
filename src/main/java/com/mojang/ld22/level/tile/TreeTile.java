@@ -6,7 +6,6 @@ import com.mojang.ld22.entity.Mob;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.entity.particle.SmashParticle;
 import com.mojang.ld22.entity.particle.TextParticle;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
@@ -22,10 +21,6 @@ public class TreeTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
-        int col = Color.get(10, 30, 151, level.grassColor);
-        int barkCol1 = Color.get(10, 30, 430, level.grassColor);
-        int barkCol2 = Color.get(10, 30, 320, level.grassColor);
-
         boolean u = level.getTile(x, y - 1) == this;
         boolean l = level.getTile(x - 1, y) == this;
         boolean r = level.getTile(x + 1, y) == this;
@@ -67,7 +62,7 @@ public class TreeTile extends Tile {
     }
 
     public boolean mayPass(Level level, int x, int y, Entity e) {
-        return false;
+        return e instanceof Player;
     }
 
     public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {

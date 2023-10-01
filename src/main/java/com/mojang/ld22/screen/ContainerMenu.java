@@ -77,10 +77,10 @@ public class ContainerMenu extends Menu {
             screen.setOffset(6 * 8, 0);
         }
         this.font.renderFrame(screen, this.title, 1, 1, 12, 11);
-        renderItemList(screen, 1, 1, 12, 11, this.container.items, this.window == 0 ? this.selected : -this.oSelected - 1);
+        this.renderItemList(screen, 1, 1, 12, 11, this.container.items, this.window == 0 ? this.selected : -this.oSelected - 1);
 
         this.font.renderFrame(screen, "inventory", 13, 1, 13 + 11, 11);
-        renderItemList(screen, 13, 1, 13 + 11, 11, this.player.inventory.items, this.window == 1 ? this.selected : -this.oSelected - 1);
+        this.renderItemList(screen, 13, 1, 13 + 11, 11, this.player.inventory.items, this.window == 1 ? this.selected : -this.oSelected - 1);
         screen.setOffset(0, 0);
     }
 }

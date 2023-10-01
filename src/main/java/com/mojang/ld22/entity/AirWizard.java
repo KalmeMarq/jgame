@@ -1,6 +1,5 @@
 package com.mojang.ld22.entity;
 
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.sound.Sound;
 
@@ -112,8 +111,8 @@ public class AirWizard extends Mob {
     }
 
     public void render(Screen screen) {
-        int xt = 8;
-        int yt = 14;
+        int xt = 0;
+        int yt = 26;
 
         int flip1 = (this.walkDist >> 3) & 1;
         int flip2 = (this.walkDist >> 3) & 1;
@@ -133,28 +132,8 @@ public class AirWizard extends Mob {
         int xo = this.x - 8;
         int yo = this.y - 11;
 
-        int col1 = Color.get(-1, 100, 500, 555);
-        int col2 = Color.get(-1, 100, 500, 532);
-        if (this.health < 200) {
-            if (this.tickTime / 3 % 2 == 0) {
-                col1 = Color.get(-1, 500, 100, 555);
-                col2 = Color.get(-1, 500, 100, 532);
-            }
-        } else if (this.health < 1000) {
-            if (this.tickTime / 5 % 4 == 0) {
-                col1 = Color.get(-1, 500, 100, 555);
-                col2 = Color.get(-1, 500, 100, 532);
-            }
-        }
-        if (this.hurtTime > 0) {
-            col1 = Color.get(-1, 555, 555, 555);
-            col2 = Color.get(-1, 555, 555, 555);
-        }
-
-        screen.render(xo + 8 * flip1, yo, xt + yt * 32, col1, flip1);
-        screen.render(xo + 8 - 8 * flip1, yo, xt + 1 + yt * 32, col1, flip1);
-        screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, col2, flip2);
-        screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col2, flip2);
+        screen.renderTextured(xo, yo, 16, 8, xt + yt * 32, 2, 0xFFFFFF, this.hurtTime > 0, flip1);
+        screen.renderTextured(xo, yo + 8, 16, 8, xt + (yt + 1) * 32, 2, 0xFFFFFF, this.hurtTime > 0, flip2);
     }
 
     protected void touchedBy(Entity entity) {

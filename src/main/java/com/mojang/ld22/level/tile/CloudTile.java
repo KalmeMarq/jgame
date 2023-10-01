@@ -3,8 +3,8 @@ package com.mojang.ld22.level.tile;
 import com.mojang.ld22.entity.Entity;
 import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
+import com.mojang.ld22.gfx.SpriteSheet;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
 import com.mojang.ld22.item.ToolItem;
@@ -18,9 +18,6 @@ public class CloudTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
-        int col = Color.get(444, 444, 555, 555);
-        int transitionColor = Color.get(333, 444, 555, -1);
-
         boolean u = level.getTile(x, y - 1) == Tile.infiniteFall;
         boolean d = level.getTile(x, y + 1) == Tile.infiniteFall;
         boolean l = level.getTile(x - 1, y) == Tile.infiniteFall;
@@ -33,41 +30,41 @@ public class CloudTile extends Tile {
 
         if (!u && !l) {
             if (!ul) {
-                screen.render(x * 16, y * 16, 17, col, 0);
+                screen.renderSprite(x * 16, y * 16, SpriteSheet.uvTile(192, 56), 2, 0);
             } else {
-                screen.render(x * 16, y * 16, 7, transitionColor, 3);
+                screen.renderSprite(x * 16, y * 16, SpriteSheet.uvTile(120, 0), 2, 3);
             }
         } else {
-            screen.render(x * 16, y * 16, (l ? 6 : 5) + (u ? 2 : 1) * 32, transitionColor, 3);
+            screen.renderSprite(x * 16, y * 16, (l ? 19 : 18) + (u ? 2 : 1) * 32, 2, 3);
         }
 
         if (!u && !r) {
             if (!ur) {
-                screen.render(x * 16 + 8, y * 16, 18, col, 0);
+                screen.renderSprite(x * 16 + 8, y * 16, SpriteSheet.uvTile(200, 56), 2, 0);
             } else {
-                screen.render(x * 16 + 8, y * 16, 8, transitionColor, 3);
+                screen.renderSprite(x * 16 + 8, y * 16, SpriteSheet.uvTile(128, 0), 2, 3);
             }
         } else {
-            screen.render(x * 16 + 8, y * 16, (r ? 4 : 5) + (u ? 2 : 1) * 32, transitionColor, 3);
+            screen.renderSprite(x * 16 + 8, y * 16, (r ? 17 : 18) + (u ? 2 : 1) * 32, 2, 3);
         }
 
         if (!d && !l) {
             if (!dl) {
-                screen.render(x * 16, y * 16 + 8, 20, col, 0);
+                screen.renderSprite(x * 16, y * 16 + 8, SpriteSheet.uvTile(208, 56), 2, 0);
             } else {
-                screen.render(x * 16, y * 16 + 8, 7 + 32, transitionColor, 3);
+                screen.renderSprite(x * 16, y * 16 + 8, SpriteSheet.uvTile(120, 8), 2, 3);
             }
         } else {
-            screen.render(x * 16, y * 16 + 8, (l ? 6 : 5) + (d ? 0 : 1) * 32, transitionColor, 3);
+            screen.renderSprite(x * 16, y * 16 + 8, (l ? 19 : 18) + (d ? 0 : 1) * 32, 2, 3);
         }
         if (!d && !r) {
             if (!dr) {
-                screen.render(x * 16 + 8, y * 16 + 8, 19, col, 0);
+                screen.renderSprite(x * 16 + 8, y * 16 + 8, SpriteSheet.uvTile(216, 56), 2, 0);
             } else {
-                screen.render(x * 16 + 8, y * 16 + 8, 8 + 32, transitionColor, 3);
+                screen.renderSprite(x * 16 + 8, y * 16 + 8, SpriteSheet.uvTile(128, 8), 2, 3);
             }
         } else {
-            screen.render(x * 16 + 8, y * 16 + 8, (r ? 4 : 5) + (d ? 0 : 1) * 32, transitionColor, 3);
+            screen.renderSprite(x * 16 + 8, y * 16 + 8, (r ? 17 : 18) + (d ? 0 : 1) * 32, 2, 3);
         }
     }
 

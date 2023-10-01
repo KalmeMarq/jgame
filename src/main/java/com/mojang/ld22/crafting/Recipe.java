@@ -2,7 +2,6 @@ package com.mojang.ld22.crafting;
 
 import com.mojang.ld22.Game;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
@@ -38,7 +37,7 @@ public abstract class Recipe implements ListItem {
     }
 
     public void renderInventory(Screen screen, int x, int y) {
-        screen.render(x, y, this.resultTemplate.getSprite(), 2, 0);
+        screen.renderSprite(x, y, this.resultTemplate.getSprite(), 2, 0);
         int textColor = this.canCraft ? 0xFFFFFF : 0x545454;
         Game.getInstance().font.draw(this.resultTemplate.getName(), screen, x + 8, y, textColor);
     }

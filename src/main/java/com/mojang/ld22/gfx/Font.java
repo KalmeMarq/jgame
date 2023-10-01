@@ -30,7 +30,7 @@ public class Font {
         for (int i = 0; i < msg.length(); i++) {
             int ix = Font.chars.indexOf(msg.charAt(i));
             if (ix >= 0) {
-                screen.renderSprite(x + i * 8 - width / 2, y, ix + 29 * 32, 1, col, 0);
+                screen.renderTextured(x + i * 8 - width / 2, y, 8, 8, ix + 29 * 32, 1, col, 0);
             }
         }
     }
@@ -60,6 +60,6 @@ public class Font {
             }
         }
 
-        this.drawWithBackground(title, screen, x0 * 8 + 8, y0 * 8, 0xEEEE00);
+        this.drawWithBackground(title, screen, x0 * 8 + 8, y0 * 8, 0xE2E26f);
     }
 }

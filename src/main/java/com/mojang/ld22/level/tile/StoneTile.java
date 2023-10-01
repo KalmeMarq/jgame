@@ -1,8 +1,8 @@
 package com.mojang.ld22.level.tile;
 
 import com.mojang.ld22.entity.Entity;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
+import com.mojang.ld22.gfx.SpriteSheet;
 import com.mojang.ld22.level.Level;
 
 public class StoneTile extends Tile {
@@ -11,13 +11,10 @@ public class StoneTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
-        int rc1 = 111;
-        int rc2 = 333;
-        int rc3 = 555;
-        screen.render(x * 16, y * 16, 32, Color.get(rc1, level.dirtColor, rc2, rc3), 0);
-        screen.render(x * 16 + 8, y * 16, 32, Color.get(rc1, level.dirtColor, rc2, rc3), 0);
-        screen.render(x * 16, y * 16 + 8, 32, Color.get(rc1, level.dirtColor, rc2, rc3), 0);
-        screen.render(x * 16 + 8, y * 16 + 8, 32, Color.get(rc1, level.dirtColor, rc2, rc3), 0);
+        screen.renderSprite(x *  16, y * 16, SpriteSheet.uvTile(200, 16), 2, 2);
+        screen.renderSprite(x *  16 + 8, y * 16, SpriteSheet.uvTile(200, 16), 2, 2);
+        screen.renderSprite(x *  16, y * 16 + 8, SpriteSheet.uvTile(200, 16), 2, 2);
+        screen.renderSprite(x *  16 + 8, y * 16 + 8, SpriteSheet.uvTile(200, 16), 2, 2);
     }
 
     public boolean mayPass(Level level, int x, int y, Entity e) {

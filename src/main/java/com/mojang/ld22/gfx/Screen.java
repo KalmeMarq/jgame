@@ -3,11 +3,6 @@ package com.mojang.ld22.gfx;
 import java.util.Arrays;
 
 public class Screen {
-    /*
-     * public static final int MAP_WIDTH = 64; // Must be 2^x public static final int MAP_WIDTH_MASK = MAP_WIDTH - 1;
-     *
-     * public int[] tiles = new int[MAP_WIDTH * MAP_WIDTH]; public int[] colors = new int[MAP_WIDTH * MAP_WIDTH]; public int[] databits = new int[MAP_WIDTH * MAP_WIDTH];
-     */
     public int xOffset;
     public int yOffset;
 
@@ -18,22 +13,11 @@ public class Screen {
     public int[] pixels;
 
     private final SpriteSheet[] sheets;
-    private final SpriteSheet sheet;
 
-    public Screen(int w, int h, SpriteSheet[] sheet) {
-        this.sheet = sheet[0];
-        this.sheets = sheet;
+    public Screen(int w, int h, SpriteSheet[] sheets) {
+        this.sheets = sheets;
         this.w = w;
         this.h = h;
-        this.pixels = new int[w * h];
-    }
-
-    public Screen(int w, int h, SpriteSheet sheet) {
-        this.sheet = sheet;
-        this.sheets = new SpriteSheet[]{ sheet };
-        this.w = w;
-        this.h = h;
-
         this.pixels = new int[w * h];
     }
 
@@ -41,16 +25,12 @@ public class Screen {
         Arrays.fill(this.pixels, color);
     }
 
-    /*
-     * public void renderBackground() { for (int yt = yScroll >> 3; yt <= (yScroll + h) >> 3; yt++) { int yp = yt * 8 - yScroll; for (int xt = xScroll >> 3; xt <= (xScroll + w) >> 3; xt++) { int xp = xt * 8 - xScroll; int ti = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH; render(xp, yp, tiles[ti], colors[ti], databits[ti]); } }
-     *
-     * for (int i = 0; i < sprites.size(); i++) { Sprite s = sprites.get(i); render(s.x, s.y, s.img, s.col, s.bits); } sprites.clear(); }
-     */
-
+    @Deprecated(forRemoval = true)
     public void render(int xp, int yp, int tile, int colors, int bits) {
         this.render(xp, yp, tile, 0, colors, bits);
     }
 
+    @Deprecated(forRemoval = true)
     public void render(int xp, int yp, int tile, int sheet, int colors, int bits) {
         this.render(xp, yp, tile, this.sheets[sheet], colors, bits);
     }
@@ -66,6 +46,62 @@ public class Screen {
                 if (x < 0 || x >= this.w) continue;
 
                 this.pixels[x + y * this.w] = tint | 0xFF << 24;
+            }
+        }
+    }
+
+    public void renderTextured(int xp, int yp, int width, int height, int tile, int sheetIndex, int whiteTint, int bits) {
+        this.renderTextured(xp, yp, width, height, tile, sheetIndex, whiteTint, false, bits);
+    }
+
+    public void renderTextured(int xp, int yp, int width, int height, int tile, int sheetIndex, int whiteTint, boolean fullbright, int bits) {
+        this.renderTextured(xp, yp, width, height, (tile % 32 * 8), (tile / 32 * 8), sheetIndex, whiteTint, fullbright, bits);
+    }
+
+    public void renderTextured(int xp, int yp, int width, int height, int u, int v, int sheetIndex, int whiteTint, int bits) {
+        this.renderTextured(xp, yp, width, height, u, v, sheetIndex, whiteTint, false, bits);
+    }
+
+    public void renderTextured(int xp, int yp, int width, int height, int u, int v, int sheetIndex, int whiteTint, boolean fullbright, int bits) {
+        xp -= this.xOffset;
+        yp -= this.yOffset;
+        boolean mirrorX = (bits & Screen.BIT_MIRROR_X) > 0;
+        boolean mirrorY = (bits & Screen.BIT_MIRROR_Y) > 0;
+
+        u = u % 256;
+        v = v % 256;
+
+        SpriteSheet sheet = this.sheets[sheetIndex];
+        int toffs = u + v * sheet.width;
+
+        for (int y = 0; y < height; y++) {
+            int ys = y;
+            if (mirrorY) {
+                ys = height - 1 - y;
+            }
+            if (y + yp < 0 || y + yp >= this.h) {
+                continue;
+            }
+            for (int x = 0; x < width; x++) {
+                if (x + xp < 0 || x + xp >= this.w) {
+                    continue;
+                }
+
+                int xs = x;
+                if (mirrorX) {
+                    xs = width - 1 - x;
+                }
+                int col = sheet.pixels[xs + ys * sheet.width + toffs];
+                int a = (col >> 24) & 0xFF;
+                if (col == 0xFF_FFFFFF) {
+                    this.pixels[(x + xp) + (y + yp) * this.w] = whiteTint | 255 << 24;
+                } else if (a > 0) {
+                    if (fullbright) {
+                        this.pixels[(x + xp) + (y + yp) * this.w] = 0xFF_FFFFFF;
+                    } else {
+                        this.pixels[(x + xp) + (y + yp) * this.w] = col;
+                    }
+                }
             }
         }
     }
@@ -105,10 +141,6 @@ public class Screen {
                 if (mirrorX) {
                     xs = 7 - x;
                 }
-//                int col = (colors >> (sheet.pixels[xs + ys * sheet.width + toffs] * 8)) & 255;
-//                if (col < 255) {
-//                    this.pixels[(x + xp) + (y + yp) * this.w] = col;
-//                }
                 int col = sheet.pixels[xs + ys * sheet.width + toffs];
                 int a = (col >> 24) & 0xFF;
                 if (col == 0xFF_FFFFFF) {
@@ -120,6 +152,7 @@ public class Screen {
         }
     }
 
+    @Deprecated(forRemoval = true)
     public void render(int xp, int yp, int tile, SpriteSheet sheet, int colors, int bits) {
         xp -= this.xOffset;
         yp -= this.yOffset;
@@ -197,14 +230,12 @@ public class Screen {
         if (y1 > this.h) {
             y1 = this.h;
         }
-        // System.out.println(x0 + ", " + x1 + " -> " + y0 + ", " + y1);
         for (int yy = y0; yy < y1; yy++) {
             int yd = yy - y;
             yd = yd * yd;
             for (int xx = x0; xx < x1; xx++) {
                 int xd = xx - x;
                 int dist = xd * xd + yd;
-                // System.out.println(dist);
                 if (dist <= r * r) {
                     int br = 255 - dist * 255 / (r * r);
                     if (this.pixels[xx + yy * this.w] < br) {

@@ -4,7 +4,6 @@ import com.mojang.ld22.entity.Entity;
 import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Mob;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
@@ -19,21 +18,30 @@ public class WheatTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
+        Tile.farmland.render(screen, level, x, y);
+
         int age = level.getData(x, y);
-        int col = Color.get(level.dirtColor - 121, level.dirtColor - 11, level.dirtColor, 50);
         int icon = age / 10;
-        if (icon >= 3) {
-            col = Color.get(level.dirtColor - 121, level.dirtColor - 11, 50 + (icon) * 100, 40 + (icon - 3) * 2 * 100);
-            if (age == 50) {
-                col = Color.get(0, 0, 50 + (icon) * 100, 40 + (icon - 3) * 2 * 100);
-            }
-            icon = 3;
+        int xt = 27;
+        int yt = 2 * 32;
+
+        if (icon == 1) {
+            xt++;
+        } else if (icon == 2) {
+            xt += 2;
+        } else if (icon == 3) {
+            xt += 3;
+        } else if (icon == 4) {
+            yt += 32;
+        } else if (icon == 5) {
+            xt += 1;
+            yt += 32;
         }
 
-        screen.render(x * 16, y * 16, 4 + 3 * 32 + icon, col, 0);
-        screen.render(x * 16 + 8, y * 16, 4 + 3 * 32 + icon, col, 0);
-        screen.render(x * 16, y * 16 + 8, 4 + 3 * 32 + icon, col, 1);
-        screen.render(x * 16 + 8, y * 16 + 8, 4 + 3 * 32 + icon, col, 1);
+        screen.renderSprite(x * 16, y * 16, xt + yt, 2, 0);
+        screen.renderSprite(x * 16 + 8, y * 16, xt + yt, 2, 0);
+        screen.renderSprite(x * 16, y * 16 + 8, xt + yt, 2, 1);
+        screen.renderSprite(x * 16 + 8, y * 16 + 8, xt + yt, 2, 1);
     }
 
     public void tick(Level level, int xt, int yt) {

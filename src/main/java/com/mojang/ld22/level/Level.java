@@ -27,7 +27,7 @@ public class Level {
     public int grassColor = 141;
     public int dirtColor = 322;
     public int sandColor = 550;
-    private final int depth;
+    public final int depth;
     public int monsterDensity = 8;
 
     public List<Entity> entities = new ArrayList<>();

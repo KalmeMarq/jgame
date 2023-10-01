@@ -7,6 +7,7 @@ import com.mojang.ld22.Game;
 import com.mojang.ld22.InputHandler;
 import com.mojang.ld22.gfx.Font;
 import com.mojang.ld22.gfx.Screen;
+import com.mojang.ld22.sound.Sound;
 
 public class Menu {
     protected Game game;
@@ -22,23 +23,20 @@ public class Menu {
     }
 
     public void tick() {
-        if (this.input.up.clicked) {
-            this.selectedEntryIndex--;
-        }
-        if (this.input.down.clicked) {
-            this.selectedEntryIndex++;
-        }
-
         int len = this.selectEntries.size();
-        if (this.selectedEntryIndex < 0) {
-            this.selectedEntryIndex += len;
-        }
-        if (this.selectedEntryIndex >= len) {
-            this.selectedEntryIndex -= len;
-        }
+        if (len > 0) {
+            if (this.input.up.clicked) {
+                this.selectedEntryIndex = Math.floorMod(this.selectedEntryIndex - 1, len);
+                Sound.play(Sound.Event.CRAFT, 1.0f);
+            }
+            if (this.input.down.clicked) {
+                this.selectedEntryIndex = Math.floorMod(this.selectedEntryIndex + 1, len);
+                Sound.play(Sound.Event.TEST, 1.0f);
+            }
 
-        if (this.input.attack.clicked || this.input.menu.clicked) {
-            this.selectEntries.get(this.selectedEntryIndex).act();
+            if (this.input.attack.clicked || this.input.menu.clicked) {
+                this.selectEntries.get(this.selectedEntryIndex).act();
+            }
         }
     }
 

@@ -70,42 +70,29 @@ public class Slime extends Mob {
     }
 
     public void render(Screen screen) {
-        int xt = (this.lvl - 1) * 32;
-        int yt = 30;
+        int xt = 0;
+        if (this.lvl == 2) {
+            xt = 32;
+        } else if (this.lvl == 3) {
+            xt = 64;
+        } else if (this.lvl == 4) {
+            xt = 96;
+        }
 
         int xo = this.x - 8;
         int yo = this.y - 11;
 
         if (this.jumpTime > 0) {
-            xt += 2;
+            xt += 16;
             yo -= 4;
         }
 
-//        int col = Color.get(-1, 10, 252, 555);
-//        if (this.lvl == 2) {
-//            col = Color.get(-1, 100, 522, 555);
-//        }
-//        if (this.lvl == 3) {
-//            col = Color.get(-1, 111, 444, 555);
-//        }
-//        if (this.lvl == 4) {
-//            col = Color.get(-1, 000, 111, 224);
-//        }
-
-        // TODO: Readd hurt tint
-//        if (this.hurtTime > 0) {
-//            col = Color.get(-1, 555, 555, 555);
-//        }
-
-        screen.renderSprite(xo, yo, xt + yt * 32, 2, 0);
-        screen.renderSprite(xo + 8, yo, xt + 1 + yt * 32, 2, 0);
-        screen.renderSprite(xo, yo + 8, xt + (yt + 1) * 32, 2, 0);
-        screen.renderSprite(xo + 8, yo + 8, xt + 1 + (yt + 1) * 32, 2, 0);
+        screen.renderTextured(xo, yo, 16, 16, xt, 240, 2, 0xFFFFFF, this.hurtTime > 0, 0);
     }
 
     protected void touchedBy(Entity entity) {
-        if (entity instanceof Player) {
-            entity.hurt(this, this.lvl, this.dir);
-        }
+//        if (entity instanceof Player) {
+//            entity.hurt(this, this.lvl, this.dir);
+//        }
     }
 }

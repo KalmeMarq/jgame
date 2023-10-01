@@ -1,22 +1,19 @@
 package com.mojang.ld22.entity.particle;
 
 import com.mojang.ld22.Game;
-import com.mojang.ld22.entity.Entity;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 
-public class TextParticle extends Entity {
-    private final String msg;
-    private final int col;
-    private int time = 0;
+public class TextParticle extends Particle {
+    private final String message;
+    private final int textColor;
     public double xa, ya, za;
     public double xx, yy, zz;
 
-    public TextParticle(String msg, int x, int y, int col) {
-        this.msg = msg;
+    public TextParticle(String message, int x, int y, int textColor) {
+        this.message = message;
         this.x = x;
         this.y = y;
-        this.col = col;
+        this.textColor = textColor;
         this.xx = x;
         this.yy = y;
         this.zz = 2;
@@ -26,9 +23,9 @@ public class TextParticle extends Entity {
     }
 
     public void tick() {
-        this.time++;
+        super.tick();
         if (this.time > 60) {
-            remove();
+            this.remove();
         }
         this.xx += this.xa;
         this.yy += this.ya;
@@ -45,9 +42,8 @@ public class TextParticle extends Entity {
     }
 
     public void render(Screen screen) {
-        //		Font.draw(msg, screen, x - msg.length() * 4, y, Color.get(-1, 0, 0, 0));
-        Game.getInstance().font.draw(this.msg, screen, this.x - this.msg.length() * 4 + 1, this.y - (int) (this.zz) + 1, 0x0A0A0A);
-        Game.getInstance().font.draw(this.msg, screen, this.x - this.msg.length() * 4, this.y - (int) (this.zz), this.col);
+        Game.getInstance().font.draw(this.message, screen, this.x - this.message.length() * 4 + 1, this.y - (int) (this.zz) + 1, 0x0A0A0A);
+        Game.getInstance().font.draw(this.message, screen, this.x - this.message.length() * 4, this.y - (int) (this.zz), this.textColor);
     }
 
 }

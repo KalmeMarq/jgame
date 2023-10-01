@@ -2,7 +2,6 @@ package com.mojang.ld22.screen;
 
 import com.mojang.ld22.crafting.Recipe;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
@@ -77,20 +76,20 @@ public class CraftingMenu extends Menu {
         this.font.renderFrame(screen, "Have", 12, 1, 19, 3);
         this.font.renderFrame(screen, "Cost", 12, 4, 19, 11);
         this.font.renderFrame(screen, "Crafting", 0, 1, 11, 11);
-        renderItemList(screen, 0, 1, 11, 11, this.recipes, this.selected);
+        this.renderItemList(screen, 0, 1, 11, 11, this.recipes, this.selected);
 
         if (!this.recipes.isEmpty()) {
             Recipe recipe = this.recipes.get(this.selected);
             int hasResultItems = this.player.inventory.count(recipe.resultTemplate);
             int xo = 13 * 8;
-            screen.render(xo, 2 * 8, recipe.resultTemplate.getSprite(), 2, 0);
+            screen.renderSprite(xo, 2 * 8, recipe.resultTemplate.getSprite(), 2, 0);
             this.font.draw(String.valueOf(hasResultItems), screen, xo + 8, 2 * 8, 0xFFFFFF);
 
             List<Item> costs = recipe.costs;
             for (int i = 0; i < costs.size(); i++) {
                 Item item = costs.get(i);
                 int yo = (5 + i) * 8;
-                screen.render(xo, yo, item.getSprite(), 2, 0);
+                screen.renderSprite(xo, yo, item.getSprite(), 2, 0);
                 int requiredAmt = 1;
                 if (item instanceof ResourceItem) {
                     requiredAmt = ((ResourceItem) item).count;
@@ -98,7 +97,7 @@ public class CraftingMenu extends Menu {
                 int has = this.player.inventory.count(item);
                 int color = 0xFFFFFF;
                 if (has < requiredAmt) {
-                    color = Color.get(-1, 222, 222, 222);
+                    color = 0x666666;
                 }
                 if (has > 99) {
                     has = 99;
@@ -106,6 +105,5 @@ public class CraftingMenu extends Menu {
                 this.font.draw(requiredAmt + "/" + has, screen, xo + 8, yo, color);
             }
         }
-        // renderItemList(screen, 12, 4, 19, 11, recipes.get(selected).costs, -1);
     }
 }

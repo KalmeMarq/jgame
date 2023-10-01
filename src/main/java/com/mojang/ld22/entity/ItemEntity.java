@@ -6,10 +6,7 @@ import com.mojang.ld22.sound.Sound;
 
 public class ItemEntity extends Entity {
     private final int lifeTime;
-    protected int walkDist = 0;
-    protected int dir = 0;
     public int hurtTime = 0;
-    protected int xKnockback, yKnockback;
     public double xa, ya, za;
     public double xx, yy, zz;
     public Item item;
@@ -33,7 +30,7 @@ public class ItemEntity extends Entity {
     public void tick() {
         this.time++;
         if (this.time >= this.lifeTime) {
-            remove();
+            this.remove();
             return;
         }
         this.xx += this.xa;
@@ -52,7 +49,7 @@ public class ItemEntity extends Entity {
         int ny = (int) this.yy;
         int expectedx = nx - this.x;
         int expectedy = ny - this.y;
-        move(nx - this.x, ny - this.y);
+        this.move(nx - this.x, ny - this.y);
         int gotx = this.x - ox;
         int goty = this.y - oy;
         this.xx += gotx - expectedx;
@@ -87,6 +84,6 @@ public class ItemEntity extends Entity {
         Sound.play(Sound.Event.PICKUP, 1.0f);
         player.score++;
         this.item.onTake(this);
-        remove();
+        this.remove();
     }
 }

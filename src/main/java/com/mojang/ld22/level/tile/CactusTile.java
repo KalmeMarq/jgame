@@ -5,7 +5,6 @@ import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Mob;
 import com.mojang.ld22.entity.particle.SmashParticle;
 import com.mojang.ld22.entity.particle.TextParticle;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.ResourceItem;
 import com.mojang.ld22.item.resource.Resource;
@@ -21,8 +20,8 @@ public class CactusTile extends Tile {
         Tile.sand.render(screen, level, x, y);
         screen.renderSprite(x * 16, y * 16, 28, 2, 0);
         screen.renderSprite(x * 16 + 8, y * 16, 29, 2, 0);
-        screen.renderSprite(x * 16, y * 16 + 8, 28 + 1 * 32, 2, 0);
-        screen.renderSprite(x * 16 + 8, y * 16 + 8, 29 + 1 * 32, 2, 0);
+        screen.renderSprite(x * 16, y * 16 + 8, 28 + 32, 2, 0);
+        screen.renderSprite(x * 16 + 8, y * 16 + 8, 29 + 32, 2, 0);
     }
 
     public boolean mayPass(Level level, int x, int y, Entity e) {

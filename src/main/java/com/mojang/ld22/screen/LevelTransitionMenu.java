@@ -21,16 +21,14 @@ public class LevelTransitionMenu extends Menu {
     }
 
     public void render(Screen screen) {
-        for (int x = 0;
-             x < 40;
-             x++) {
+        for (int x = 0; x < 40; x++) {
             for (int y = 0; y < 30; y++) {
                 int dd = (y + x % 2 * 2 + x / 3) - this.time;
                 if (dd < 0 && dd > -30) {
                     if (this.dir > 0) {
-                        screen.render(x * 8, y * 8, 0, 0, 0);
+                        screen.renderColored(x * 8, y * 8, 8, 8, 0xFF000000);
                     } else {
-                        screen.render(x * 8, screen.h - y * 8 - 8, 0, 0, 0);
+                        screen.renderColored(x * 8, screen.h - y * 8 - 8, 8, 8, 0xFF000000);
                     }
                 }
             }

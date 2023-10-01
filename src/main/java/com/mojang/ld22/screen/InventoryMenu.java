@@ -21,32 +21,24 @@ public class InventoryMenu extends Menu {
             this.game.setMenu(null);
         }
 
-        if (this.input.up.clicked) {
-            this.selected--;
-        }
-        if (this.input.down.clicked) {
-            this.selected++;
-        }
+        int inventorySize = this.player.inventory.items.size();
+        if (inventorySize > 0) {
+            if (this.input.up.clicked) {
+                this.selected = Math.floorMod(this.selected - 1, inventorySize);
+            }
+            if (this.input.down.clicked) {
+                this.selected = Math.floorMod(this.selected + 1, inventorySize);
+            }
 
-        int len = this.player.inventory.items.size();
-        if (len == 0) {
-            this.selected = 0;
-        }
-        if (this.selected < 0) {
-            this.selected += len;
-        }
-        if (this.selected >= len) {
-            this.selected -= len;
-        }
-
-        if (this.input.attack.clicked && len > 0) {
-            this.player.activeItem = this.player.inventory.items.remove(this.selected);
-            this.game.setMenu(null);
+            if (this.input.attack.clicked) {
+                this.player.activeItem = this.player.inventory.items.remove(this.selected);
+                this.game.setMenu(null);
+            }
         }
     }
 
     public void render(Screen screen) {
         this.font.renderFrame(screen, "Inventory", 1, 1, 12, 11);
-        renderItemList(screen, 1, 1, 12, 11, this.player.inventory.items, this.selected);
+        this.renderItemList(screen, 1, 1, 12, 11, this.player.inventory.items, this.selected);
     }
 }

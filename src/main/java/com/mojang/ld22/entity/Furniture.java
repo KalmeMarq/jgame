@@ -22,23 +22,23 @@ public class Furniture extends Entity {
     public void tick() {
         if (this.shouldTake != null) {
             if (this.shouldTake.activeItem instanceof PowerGloveItem) {
-                remove();
+                this.remove();
                 this.shouldTake.inventory.add(0, this.shouldTake.activeItem);
                 this.shouldTake.activeItem = new FurnitureItem(this.name, this);
             }
             this.shouldTake = null;
         }
         if (this.pushDir == 0) {
-            move(0, +1);
+            this.move(0, +1);
         }
         if (this.pushDir == 1) {
-            move(0, -1);
+            this.move(0, -1);
         }
         if (this.pushDir == 2) {
-            move(-1, 0);
+            this.move(-1, 0);
         }
         if (this.pushDir == 3) {
-            move(+1, 0);
+            this.move(+1, 0);
         }
         this.pushDir = -1;
         if (this.pushTime > 0) {

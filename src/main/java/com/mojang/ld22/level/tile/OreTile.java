@@ -6,7 +6,6 @@ import com.mojang.ld22.entity.Mob;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.entity.particle.SmashParticle;
 import com.mojang.ld22.entity.particle.TextParticle;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
@@ -24,10 +23,15 @@ public class OreTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
-        screen.render(x * 16, y * 16, 17 + 32,2, 0);
-        screen.render(x * 16 + 8, y * 16, 18 + 32, 2, 0);
-        screen.render(x * 16, y * 16 + 8, 17 + 2 * 32, 2, 0);
-        screen.render(x * 16 + 8, y * 16 + 8, 18 + 2 * 32, 2, 0);
+        Tile.dirt.render(screen, level, x, y);
+
+        if (this == Tile.ironOre) {
+            screen.renderTextured(x * 16, y * 16, 16, 16, 176, 0, 2, 0xFFFFFF, 0);
+        } else if (this == Tile.goldOre) {
+            screen.renderTextured(x * 16, y * 16, 16, 16, 176, 16, 2, 0xFFFFFF, 0);
+        } else if (this == Tile.gemOre) {
+            screen.renderTextured(x * 16, y * 16, 16, 16, 160, 0, 2, 0xFFFFFF, 0);
+        }
     }
 
     public boolean mayPass(Level level, int x, int y, Entity e) {
@@ -35,14 +39,14 @@ public class OreTile extends Tile {
     }
 
     public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
-        hurt(level, x, y, 0);
+        this.hurt(level, x, y, 0);
     }
 
     public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
         if (item instanceof ToolItem tool) {
             if (tool.type == ToolType.pickaxe) {
                 if (player.payStamina(6 - tool.level)) {
-                    hurt(level, xt, yt, 1);
+                    this.hurt(level, xt, yt, 1);
                     return true;
                 }
             }

@@ -3,7 +3,6 @@ package com.mojang.ld22.level.tile;
 import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Mob;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
@@ -24,7 +23,6 @@ public class FlowerTile extends GrassTile {
 
         int data = level.getData(x, y);
         int shape = (data / 16) % 2;
-//        int flowerCol = Color.get(10, level.grassColor, 555, 440);
 
         if (shape == 0) {
             screen.renderSprite(x * 16, y * 16, 24 + 32 * 2, 2, 0);

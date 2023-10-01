@@ -64,6 +64,6 @@ public class Item implements ListItem {
     }
 
     public boolean matches(Item item) {
-        return item.getClass() == getClass();
+        return item.getClass() == this.getClass();
     }
 }

@@ -6,7 +6,6 @@ import com.mojang.ld22.entity.Mob;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.entity.particle.SmashParticle;
 import com.mojang.ld22.entity.particle.TextParticle;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ToolItem;
@@ -19,11 +18,8 @@ public class CloudCactusTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
-        int color = Color.get(444, 111, 333, 555);
-        screen.render(x * 16, y * 16, 17 + 32, color, 0);
-        screen.render(x * 16 + 8, y * 16, 18 + 32, color, 0);
-        screen.render(x * 16, y * 16 + 8, 17 + 2 * 32, color, 0);
-        screen.render(x * 16 + 8, y * 16 + 8, 18 + 2 * 32, color, 0);
+        Tile.cloud.render(screen, level, x, y);
+        screen.renderTextured(x * 16, y * 16, 16, 16, 160, 16, 2, 0xFFFFFF, 0);
     }
 
     public boolean mayPass(Level level, int x, int y, Entity e) {

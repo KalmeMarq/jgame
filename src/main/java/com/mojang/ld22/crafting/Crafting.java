@@ -53,7 +53,7 @@ public class Crafting {
                 case "tool_recipe" -> {
                     Field toolTypeField = ToolType.class.getField(resultObject.get("tool_type").textValue());
                     ToolType toolType = (ToolType) toolTypeField.get(null);
-                    recipe = new ToolRecipe(toolType, resultObject.get("level").asInt(0));
+                    recipe = new ToolRecipe(toolType, resultObject.get("level").asInt());
                 }
                 case "resource_recipe" -> {
                     Field resourceField = Resource.class.getField(resultObject.get("resource").textValue());
@@ -83,8 +83,6 @@ public class Crafting {
                     case "anvil" -> this.anvilRecipes.add(recipe);
                 }
             }
-
-            LOGGER.info("Loaded recipe '{}'", file.getPath());
         } catch (Exception e) {
             LOGGER.error("Failed to load recipe '{}'", file.getPath());
             LOGGER.error("Could not parse json", e);

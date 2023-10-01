@@ -3,7 +3,6 @@ package com.mojang.ld22.item;
 import com.mojang.ld22.Game;
 import com.mojang.ld22.entity.Entity;
 import com.mojang.ld22.entity.ItemEntity;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 
 import java.util.Random;
@@ -17,7 +16,7 @@ public class ToolItem extends Item {
     };
 
     public ToolType type;
-    public int level = 0;
+    public int level;
 
     public ToolItem(ToolType type, int level) {
         this(ToolItem.LEVEL_NAMES[level] + " " + type.name, type, level);
@@ -31,12 +30,12 @@ public class ToolItem extends Item {
     }
 
     public void renderIcon(Screen screen, int x, int y) {
-        screen.renderSprite(x, y, getSprite() + 32 * this.level, 2, 0);
+        screen.renderSprite(x, y, this.getSprite() + 32 * this.level, 2, 0);
     }
 
     public void renderInventory(Screen screen, int x, int y) {
-        screen.renderSprite(x, y, getSprite() + 32 * this.level, 2, 0);
-        Game.getInstance().font.draw(getName(), screen, x + 8, y, 0xFFFFFF);
+        screen.renderSprite(x, y, this.getSprite() + 32 * this.level, 2, 0);
+        Game.getInstance().font.draw(this.getName(), screen, x + 8, y, 0xFFFFFF);
     }
 
     public void onTake(ItemEntity itemEntity) {

@@ -13,7 +13,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +23,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class Sound {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Map<String, AudioInputStream> map0 = new HashMap<>();
-    private static final List<Clip> clips = new ArrayList<>();
+    private static final Map<String, Supplier<BufferedInputStream>> map0 = new HashMap<>();
+    public static final List<Clip> clips = new ArrayList<>();
 
     private Sound(String name) {
     }
@@ -40,11 +43,16 @@ public class Sound {
                     String soundPath = obj.get("sound").textValue();
                     if (resourcePack.has("sounds/" + soundPath)) {
                         try {
-                           Sound.map0.put(item.getKey(), AudioSystem.getAudioInputStream(new BufferedInputStream(Objects.requireNonNull(resourcePack.get("sounds/" + soundPath)).getInputStream())));
+                           Sound.map0.put(item.getKey(), () -> {
+                               try {
+                                   return new BufferedInputStream(Objects.requireNonNull(resourcePack.get("sounds/" + soundPath)).getInputStream());
+                               } catch (IOException e) {
+                                   throw new RuntimeException(e);
+                               }
+                           });
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
             } catch (Exception e) {
@@ -74,9 +82,8 @@ public class Sound {
         }
 
         if (Sound.map0.get(sound.name()) != null) {
-            AudioInputStream audioInputStream = Sound.map0.get(sound.name());
             Clip clip;
-            try {
+            try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Sound.map0.get(sound.name()).get())) {
                 clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
             } catch (Exception e) {

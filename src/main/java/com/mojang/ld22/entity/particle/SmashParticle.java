@@ -1,13 +1,9 @@
 package com.mojang.ld22.entity.particle;
 
-import com.mojang.ld22.entity.Entity;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.sound.Sound;
 
-public class SmashParticle extends Entity {
-    private int time = 0;
-
+public class SmashParticle extends Particle {
     public SmashParticle(int x, int y) {
         this.x = x;
         this.y = y;
@@ -15,9 +11,9 @@ public class SmashParticle extends Entity {
     }
 
     public void tick() {
-        this.time++;
+        super.tick();
         if (this.time > 10) {
-            remove();
+            this.remove();
         }
     }
 

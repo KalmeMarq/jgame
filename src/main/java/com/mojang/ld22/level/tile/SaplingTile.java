@@ -1,7 +1,6 @@
 package com.mojang.ld22.level.tile;
 
 import com.mojang.ld22.entity.Mob;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.level.Level;
 

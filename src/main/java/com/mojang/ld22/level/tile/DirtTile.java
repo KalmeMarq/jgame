@@ -2,7 +2,6 @@ package com.mojang.ld22.level.tile;
 
 import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Player;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
@@ -18,10 +17,11 @@ public class DirtTile extends Tile {
     }
 
     public void render(Screen screen, Level level, int x, int y) {
-        screen.renderSprite(x * 16, y * 16, 7 * 32 + 28, 2, 0);
-        screen.renderSprite(x * 16 + 8, y * 16, 1 + 7 * 32 + 28, 2, 0);
-        screen.renderSprite(x * 16, y * 16 + 8, 2 + 7 * 32 + 28, 2, 0);
-        screen.renderSprite(x * 16 + 8, y * 16 + 8, 3 + 7 * 32 + 28, 2, 0);
+        boolean isBellowOverworld = level.depth < 0;
+        screen.renderSprite(x * 16, y * 16, (isBellowOverworld ? 6 : 7) * 32 + 28, 2, 0);
+        screen.renderSprite(x * 16 + 8, y * 16, 1 + (isBellowOverworld ? 6 : 7) * 32 + 28, 2, 0);
+        screen.renderSprite(x * 16, y * 16 + 8, 2 + (isBellowOverworld ? 6 : 7) * 32 + 28, 2, 0);
+        screen.renderSprite(x * 16 + 8, y * 16 + 8, 3 + (isBellowOverworld ? 6 : 7) * 32 + 28, 2, 0);
     }
 
     public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {

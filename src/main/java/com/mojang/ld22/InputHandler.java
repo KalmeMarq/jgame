@@ -53,6 +53,9 @@ public class InputHandler implements KeyListener {
     public Key attack = new Key(KeyEvent.VK_SPACE, KeyEvent.VK_CONTROL, KeyEvent.VK_NUMPAD0, KeyEvent.VK_INSERT, KeyEvent.VK_C);
     public Key menu = new Key(KeyEvent.VK_TAB, KeyEvent.VK_ALT, KeyEvent.VK_ALT_GRAPH, KeyEvent.VK_ENTER, KeyEvent.VK_X);
 
+    public Key debug_stair_up = new Key(KeyEvent.VK_F3);
+    public Key debug_stair_down = new Key(KeyEvent.VK_F4);
+
     public void releaseAll() {
         for (Key key : this.keys) {
             key.down = false;

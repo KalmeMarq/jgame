@@ -2,7 +2,6 @@ package com.mojang.ld22.entity;
 
 import java.util.List;
 
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 
 public class Spark extends Entity {
@@ -53,11 +52,7 @@ public class Spark extends Entity {
                 return;
             }
         }
-
-        int xt = 8;
-        int yt = 13;
-
-        screen.render(this.x - 4, this.y - 4 - 2 + 12, xt + yt * 32, Color.get(-1, 555, 555, 555), this.random.nextInt(4));
-        screen.render(this.x - 4, this.y - 4 + 2, xt + yt * 32, Color.get(-1, 000, 000, 000), this.random.nextInt(4));
+        screen.renderTextured(this.x - 4, this.y - 4 - 2 + 12, 8, 8, 24, 104, 2, 0xFFFFFF, this.random.nextInt(4));
+        screen.renderTextured(this.x - 4, this.y - 4 + 2, 8, 8, 24, 104, 2, 0x000000, this.random.nextInt(4));
     }
 }

@@ -1,6 +1,5 @@
 package com.mojang.ld22.screen;
 
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 
 public class WonMenu extends Menu {
@@ -34,9 +33,9 @@ public class WonMenu extends Menu {
             timeString = minutes + "m " + (seconds < 10 ? "0" : "") + seconds + "s";
         }
         this.font.draw("Time:", screen, 2 * 8, 5 * 8, 0xFFFFFF);
-        this.font.draw(timeString, screen, (2 + 5) * 8, 5 * 8, Color.get(-1, 550, 550, 550));
+        this.font.draw(timeString, screen, (2 + 5) * 8, 5 * 8, 0xe2e26f);
         this.font.draw("Score:", screen, 2 * 8, 6 * 8, 0xFFFFFF);
-        this.font.draw("" + this.game.player.score, screen, (2 + 6) * 8, 6 * 8, Color.get(-1, 550, 550, 550));
-        this.font.draw("Press C to win", screen, 2 * 8, 8 * 8, Color.get(-1, 333, 333, 333));
+        this.font.draw("" + this.game.player.score, screen, (2 + 6) * 8, 6 * 8, 0xe2e26f);
+        this.font.draw("Press C to win", screen, 2 * 8, 8 * 8, 0x949494);
     }
 }

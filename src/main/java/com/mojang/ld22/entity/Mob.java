@@ -24,11 +24,11 @@ public class Mob extends Entity {
     public void tick() {
         this.tickTime++;
         if (this.level.getTile(this.x >> 4, this.y >> 4) == Tile.lava) {
-            hurt(this, 4, this.dir ^ 1);
+            this.hurt(this, 4, this.dir ^ 1);
         }
 
         if (this.health <= 0) {
-            die();
+            this.die();
         }
         if (this.hurtTime > 0) {
             this.hurtTime--;
@@ -36,29 +36,29 @@ public class Mob extends Entity {
     }
 
     protected void die() {
-        remove();
+        this.remove();
     }
 
     public boolean move(int xa, int ya) {
-        if (isSwimming()) {
+        if (this.isSwimming()) {
             if (this.swimTimer++ % 2 == 0) {
                 return true;
             }
         }
         if (this.xKnockback < 0) {
-            move2(-1, 0);
+            this.move2(-1, 0);
             this.xKnockback++;
         }
         if (this.xKnockback > 0) {
-            move2(1, 0);
+            this.move2(1, 0);
             this.xKnockback--;
         }
         if (this.yKnockback < 0) {
-            move2(0, -1);
+            this.move2(0, -1);
             this.yKnockback++;
         }
         if (this.yKnockback > 0) {
-            move2(0, 1);
+            this.move2(0, 1);
             this.yKnockback--;
         }
         if (this.hurtTime > 0) {
@@ -93,11 +93,11 @@ public class Mob extends Entity {
 
     public void hurt(Tile tile, int x, int y, int damage) {
         int attackDir = this.dir ^ 1;
-        doHurt(damage, attackDir);
+        this.doHurt(damage, attackDir);
     }
 
     public void hurt(Mob mob, int damage, int attackDir) {
-        doHurt(damage, attackDir);
+        this.doHurt(damage, attackDir);
     }
 
     public void heal(int heal) {

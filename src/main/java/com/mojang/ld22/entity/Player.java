@@ -3,7 +3,6 @@ package com.mojang.ld22.entity;
 import com.mojang.ld22.Game;
 import com.mojang.ld22.InputHandler;
 import com.mojang.ld22.entity.particle.TextParticle;
-import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.FurnitureItem;
 import com.mojang.ld22.item.Item;
@@ -51,7 +50,7 @@ public class Player extends Mob {
         Tile onTile = this.level.getTile(this.x >> 4, this.y >> 4);
         if (onTile == Tile.stairsDown || onTile == Tile.stairsUp) {
             if (this.onStairDelay == 0) {
-                changeLevel((onTile == Tile.stairsUp) ? 1 : -1);
+                this.changeLevel((onTile == Tile.stairsUp) ? 1 : -1);
                 this.onStairDelay = 10;
                 return;
             }
@@ -72,7 +71,7 @@ public class Player extends Mob {
 
         if (this.staminaRechargeDelay == 0) {
             this.staminaRecharge++;
-            if (isSwimming()) {
+            if (this.isSwimming()) {
                 this.staminaRecharge = 0;
             }
             while (this.staminaRecharge > 10) {
@@ -97,27 +96,27 @@ public class Player extends Mob {
         if (this.input.right.down) {
             xa++;
         }
-        if (isSwimming() && this.tickTime % 60 == 0) {
+        if (this.isSwimming() && this.tickTime % 60 == 0) {
             if (this.stamina > 0) {
                 this.stamina--;
             } else {
-                hurt(this, 1, this.dir ^ 1);
+                this.hurt(this, 1, this.dir ^ 1);
             }
         }
 
         if (this.staminaRechargeDelay % 2 == 0) {
-            move(xa, ya);
+            this.move(xa, ya);
         }
 
-        if (this.input.attack.clicked) {
+        if (this.input.attack.clicked && this.attackTime <= 0) {
             if (this.stamina != 0) {
                 this.stamina--;
                 this.staminaRecharge = 0;
-                attack();
+                this.attack();
             }
         }
         if (this.input.menu.clicked) {
-            if (!use()) {
+            if (!this.use()) {
                 this.game.setMenu(new InventoryMenu(this));
             }
         }
@@ -128,16 +127,16 @@ public class Player extends Mob {
 
     private boolean use() {
         int yo = -2;
-        if (this.dir == 0 && use(this.x - 8, this.y + 4 + yo, this.x + 8, this.y + 12 + yo)) {
+        if (this.dir == 0 && this.use(this.x - 8, this.y + 4 + yo, this.x + 8, this.y + 12 + yo)) {
             return true;
         }
-        if (this.dir == 1 && use(this.x - 8, this.y - 12 + yo, this.x + 8, this.y - 4 + yo)) {
+        if (this.dir == 1 && this.use(this.x - 8, this.y - 12 + yo, this.x + 8, this.y - 4 + yo)) {
             return true;
         }
-        if (this.dir == 3 && use(this.x + 4, this.y - 8 + yo, this.x + 12, this.y + 8 + yo)) {
+        if (this.dir == 3 && this.use(this.x + 4, this.y - 8 + yo, this.x + 12, this.y + 8 + yo)) {
             return true;
         }
-        if (this.dir == 2 && use(this.x - 12, this.y - 8 + yo, this.x - 4, this.y + 8 + yo)) {
+        if (this.dir == 2 && this.use(this.x - 12, this.y - 8 + yo, this.x - 4, this.y + 8 + yo)) {
             return true;
         }
 
@@ -174,16 +173,16 @@ public class Player extends Mob {
             this.attackTime = 10;
             int yo = -2;
             int range = 12;
-            if (this.dir == 0 && interact(this.x - 8, this.y + 4 + yo, this.x + 8, this.y + range + yo)) {
+            if (this.dir == 0 && this.interact(this.x - 8, this.y + 4 + yo, this.x + 8, this.y + range + yo)) {
                 done = true;
             }
-            if (this.dir == 1 && interact(this.x - 8, this.y - range + yo, this.x + 8, this.y - 4 + yo)) {
+            if (this.dir == 1 && this.interact(this.x - 8, this.y - range + yo, this.x + 8, this.y - 4 + yo)) {
                 done = true;
             }
-            if (this.dir == 3 && interact(this.x + 4, this.y - 8 + yo, this.x + range, this.y + 8 + yo)) {
+            if (this.dir == 3 && this.interact(this.x + 4, this.y - 8 + yo, this.x + range, this.y + 8 + yo)) {
                 done = true;
             }
-            if (this.dir == 2 && interact(this.x - range, this.y - 8 + yo, this.x - 4, this.y + 8 + yo)) {
+            if (this.dir == 2 && this.interact(this.x - range, this.y - 8 + yo, this.x - 4, this.y + 8 + yo)) {
                 done = true;
             }
             if (done) {
@@ -229,16 +228,16 @@ public class Player extends Mob {
             int yo = -2;
             int range = 20;
             if (this.dir == 0) {
-                hurt(this.x - 8, this.y + 4 + yo, this.x + 8, this.y + range + yo);
+                this.hurt(this.x - 8, this.y + 4 + yo, this.x + 8, this.y + range + yo);
             }
             if (this.dir == 1) {
-                hurt(this.x - 8, this.y - range + yo, this.x + 8, this.y - 4 + yo);
+                this.hurt(this.x - 8, this.y - range + yo, this.x + 8, this.y - 4 + yo);
             }
             if (this.dir == 3) {
-                hurt(this.x + 4, this.y - 8 + yo, this.x + range, this.y + 8 + yo);
+                this.hurt(this.x + 4, this.y - 8 + yo, this.x + range, this.y + 8 + yo);
             }
             if (this.dir == 2) {
-                hurt(this.x - range, this.y - 8 + yo, this.x - 4, this.y + 8 + yo);
+                this.hurt(this.x - range, this.y - 8 + yo, this.x - 4, this.y + 8 + yo);
             }
 
             int xt = this.x >> 4;
@@ -291,7 +290,7 @@ public class Player extends Mob {
         List<Entity> entities = this.level.getEntities(x0, y0, x1, y1);
         for (Entity e : entities) {
             if (e != this) {
-                e.hurt(this, getAttackDamage(e), this.attackDir);
+                e.hurt(this, this.getAttackDamage(e), this.attackDir);
             }
         }
     }
@@ -306,7 +305,6 @@ public class Player extends Mob {
 
     public void render(Screen screen) {
         int xt = 0;
-        int yt = 22;
 
         int flip1 = (this.walkDist >> 3) & 1;
         int flip2 = (this.walkDist >> 3) & 1;
@@ -325,12 +323,16 @@ public class Player extends Mob {
 
         int xo = this.x - 8;
         int yo = this.y - 11;
-        if (isSwimming()) {
+        if (this.isSwimming()) {
             yo += 4;
-            int tl = 15 * 32;
-            if (this.tickTime / 8 % 2 == 0) {
-                tl = 13 * 32;
+            int tl = 15;
+            if (this.level.getTile(this.x >> 4, this.y >> 4) == Tile.lava) {
+                tl += 1;
             }
+            if (this.tickTime / 8 % 2 == 0) {
+                tl -= 2;
+            }
+            tl *= 32;
             screen.renderSprite(xo, yo + 3, tl, 2, 0xFFFFFF, 0);
             screen.renderSprite(xo + 8, yo + 3, tl, 2, 0xFFFFFF, 1);
         }
@@ -342,19 +344,11 @@ public class Player extends Mob {
                 this.attackItem.renderIcon(screen, xo + 4, yo - 4);
             }
         }
-        int col = Color.get(-1, 100, 220, 532);
-        if (this.hurtTime > 0) {
-            col = Color.get(-1, 555, 555, 555);
-        }
 
-        if (this.activeItem instanceof FurnitureItem) {
-            yt += 2;
-        }
-        screen.renderSprite(xo + 8 * flip1, yo, xt + yt * 32, 2, flip1);
-        screen.renderSprite(xo + 8 - 8 * flip1, yo, xt + 1 + yt * 32, 2, flip1);
-        if (!isSwimming()) {
-            screen.renderSprite(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, 2, flip2);
-            screen.renderSprite(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, 2, flip2);
+        boolean hasFurnitureOverHead = this.activeItem instanceof FurnitureItem;
+        screen.renderTextured(xo, yo, 16, 8, xt * 8, 176 + (hasFurnitureOverHead ? 16 : 0), 2, 0xFFFFFF, this.hurtTime > 0, flip1);
+        if (!this.isSwimming()) {
+            screen.renderTextured(xo, yo + 8, 16, 8, xt * 8, 184 + (hasFurnitureOverHead ? 16 : 0), 2, 0xFFFFFF, this.hurtTime > 0, flip2);
         }
 
         if (this.attackTime > 0 && this.attackDir == 2) {
