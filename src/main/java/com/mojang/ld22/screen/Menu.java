@@ -2,6 +2,8 @@ package com.mojang.ld22.screen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import com.mojang.ld22.Game;
 import com.mojang.ld22.InputHandler;
@@ -76,16 +78,20 @@ public class Menu {
     }
 
     public static class SelectEntry {
-        private final String text;
-        private final Runnable onAction;
+        private String text;
+        private final Consumer<SelectEntry> onAction;
 
-        public SelectEntry(String text, Runnable onAction) {
+        public SelectEntry(String text, Consumer<SelectEntry> onAction) {
             this.text = text;
             this.onAction = onAction;
         }
 
+        public void setText(String text) {
+            this.text = text;
+        }
+
         public void act() {
-            this.onAction.run();
+            this.onAction.accept(this);
         }
 
         public String getText() {

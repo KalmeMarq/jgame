@@ -25,21 +25,21 @@ public class TitleMenu extends Menu {
             this.splash = TitleMenu.splashes.get(TitleMenu.RANDOM.nextInt(TitleMenu.splashes.size()));
         }
 
-        this.selectEntries.add(new SelectEntry(Language.translate("menu.start_game"), () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.start_game"), (entry) -> {
             Sound.play(Sound.Event.TEST, 1.0f);
             this.game.resetGame();
             this.game.setMenu(null);
         }));
-        this.selectEntries.add(new SelectEntry(Language.translate("menu.how_to_play"), () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.how_to_play"), (entry) -> {
             this.game.setMenu(new InstructionsMenu(this));
         }));
-        this.selectEntries.add(new SelectEntry(Language.translate("menu.about"), () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.about"), (entry) -> {
             this.game.setMenu(new AboutMenu(this));
         }));
-        this.selectEntries.add(new SelectEntry(Language.translate("menu.options"), () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.options"), (entry) -> {
             this.game.setMenu(new OptionsMenu(this));
         }));
-        this.selectEntries.add(new SelectEntry(Language.translate("menu.quit"), () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.quit"), (entry) -> {
             this.game.stop();
         }));
     }

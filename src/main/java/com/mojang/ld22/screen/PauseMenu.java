@@ -6,11 +6,15 @@ import com.mojang.ld22.sound.Sound;
 
 public class PauseMenu extends Menu {
     public PauseMenu() {
-        this.selectEntries.add(new SelectEntry(Language.translate("pause.menu.return_to_game"), () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("pause.menu.return_to_game"), (entry) -> {
             Sound.play(Sound.Event.TEST, 1.0f);
             this.game.setMenu(null);
         }));
-        this.selectEntries.add(new SelectEntry(Language.translate("pause.menu.quit_to_title"), () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.options"), (entry) -> {
+            Sound.play(Sound.Event.TEST, 1.0f);
+            this.game.setMenu(new OptionsMenu(this));
+        }));
+        this.selectEntries.add(new SelectEntry(Language.translate("pause.menu.quit_to_title"), (entry) -> {
             Sound.play(Sound.Event.TEST, 1.0f);
             this.game.leaveWorld();
             this.game.setMenu(new TitleMenu());
@@ -27,7 +31,7 @@ public class PauseMenu extends Menu {
 
     @Override
     public void render(Screen screen) {
-        this.font.renderFrame(screen, Language.translate("pause.menu.title"), 1, 3, 17, 8);
+        this.font.renderFrame(screen, Language.translate("pause.menu.title"), 0, 3, 19, 8);
 
         for (int i = 0; i < this.selectEntries.size(); i++) {
             String msg = this.selectEntries.get(i).getText();
