@@ -1,5 +1,6 @@
 package com.mojang.ld22.screen;
 
+import com.mojang.ld22.Language;
 import com.mojang.ld22.gfx.Screen;
 
 public class AboutMenu extends Menu {
@@ -18,13 +19,13 @@ public class AboutMenu extends Menu {
     public void render(Screen screen) {
         screen.clear(0);
 
-        this.font.draw("About Minicraft", screen, 2 * 8 + 4, 8, 0xFFFFFF);
-        this.font.draw("Minicraft was made", screen, 4, 3 * 8, 0x949494);
-        this.font.draw("by Markus Persson", screen, 4, 4 * 8, 0x949494);
-        this.font.draw("For the 22'nd ludum", screen, 4, 5 * 8, 0x949494);
-        this.font.draw("dare competition in", screen, 4, 6 * 8, 0x949494);
-        this.font.draw("december 2011.", screen, 4, 7 * 8, 0x949494);
-        this.font.draw("it is dedicated to", screen, 4, 9 * 8, 0x949494);
-        this.font.draw("my father. <3", screen, 4, 10 * 8, 0x949494);
+        this.font.draw(Language.translate("about.menu.title"), screen, 2 * 8 + 4, 8, 0xFFFFFF);
+        this.font.draw(Language.translate("about.menu.line0"), screen, 4, 3 * 8, 0x949494);
+        this.font.draw(Language.translate("about.menu.line1"), screen, 4, 4 * 8, 0x949494);
+        this.font.draw(Language.translate("about.menu.line2"), screen, 4, 5 * 8, 0x949494);
+        this.font.draw(Language.translate("about.menu.line3"), screen, 4, 6 * 8, 0x949494);
+        this.font.draw(Language.translate("about.menu.line4"), screen, 4, 7 * 8, 0x949494);
+        this.font.draw(Language.translate("about.menu.line5"), screen, 4, 9 * 8, 0x949494);
+        this.font.draw(Language.translate("about.menu.line6"), screen, 4, 10 * 8, 0x949494);
     }
 }

@@ -1,5 +1,6 @@
 package com.mojang.ld22.screen;
 
+import com.mojang.ld22.Language;
 import com.mojang.ld22.crafting.Recipe;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.gfx.Screen;
@@ -73,9 +74,9 @@ public class CraftingMenu extends Menu {
     }
 
     public void render(Screen screen) {
-        this.font.renderFrame(screen, "Have", 12, 1, 19, 3);
-        this.font.renderFrame(screen, "Cost", 12, 4, 19, 11);
-        this.font.renderFrame(screen, "Crafting", 0, 1, 11, 11);
+        this.font.renderFrame(screen, Language.translate("crafting.menu.have"), 12, 1, 19, 3);
+        this.font.renderFrame(screen, Language.translate("crafting.menu.cost"), 12, 4, 19, 11);
+        this.font.renderFrame(screen, Language.translate("crafting.menu.title"), 0, 1, 11, 11);
         this.renderItemList(screen, 0, 1, 11, 11, this.recipes, this.selected);
 
         if (!this.recipes.isEmpty()) {

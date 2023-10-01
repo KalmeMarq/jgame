@@ -1,6 +1,7 @@
 package com.mojang.ld22.crafting;
 
 import com.mojang.ld22.Game;
+import com.mojang.ld22.Language;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.ToolItem;
@@ -20,7 +21,7 @@ public class ToolRecipe extends Recipe {
     public void renderInventory(Screen screen, int x, int y) {
         screen.renderSprite(x, y, this.resultTemplate.getSprite() + this.level * 32, 2, 0);
         int textColor = this.canCraft ? 0xFFFFFF : 0x545454;
-        Game.getInstance().font.draw(this.resultTemplate.getName(), screen, x + 8, y, textColor);
+        Game.getInstance().font.draw(Language.translate(this.resultTemplate.getName()), screen, x + 8, y, textColor);
     }
 
     public void craft(Player player) {

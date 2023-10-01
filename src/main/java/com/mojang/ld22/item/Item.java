@@ -30,6 +30,10 @@ public class Item implements ListItem {
         return this.sprite;
     }
 
+    public String getTranslationKey() {
+        return this.getName();
+    }
+
     public void onTake(ItemEntity itemEntity) {
     }
 

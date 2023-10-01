@@ -1,6 +1,7 @@
 package com.mojang.ld22.item;
 
 import com.mojang.ld22.Game;
+import com.mojang.ld22.Language;
 import com.mojang.ld22.entity.Furniture;
 import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Player;
@@ -27,7 +28,7 @@ public class FurnitureItem extends Item {
 
     public void renderInventory(Screen screen, int x, int y) {
         screen.renderSprite(x, y, this.getSprite(), 2, 0);
-        Game.getInstance().font.draw(this.furniture.name, screen, x + 8, y, 0xFFFFFF);
+        Game.getInstance().font.draw(Language.translate(this.furniture.name), screen, x + 8, y, 0xFFFFFF);
     }
 
     public void onTake(ItemEntity itemEntity) {

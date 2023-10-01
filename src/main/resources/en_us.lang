@@ -1,0 +1,73 @@
+menu.start_game=Start Game
+menu.how_to_play=How to Play
+menu.about=About
+menu.quit=Quit
+title.menu.tip=(Arrow keys,X and C)
+
+about.menu.title=About Minicraft
+about.menu.line0=Minicraft was made
+about.menu.line1=by Markus Persson
+about.menu.line2=For the 22'nd ludum
+about.menu.line3=dare competition in
+about.menu.line4=december 2011.
+about.menu.line5=it is dedicated to
+about.menu.line6=my father. <3
+
+how_to_play.menu.title=How to Play
+how_to_play.menu.line0=Move your character
+how_to_play.menu.line1=with the arrow keys
+how_to_play.menu.line2=press C to attack
+how_to_play.menu.line3=and X to open the
+how_to_play.menu.line4=inventory and to
+how_to_play.menu.line5=use items.
+how_to_play.menu.line6=Select an item in
+how_to_play.menu.line7=the inventory to
+how_to_play.menu.line8=equip it.
+how_to_play.menu.line9=Kill the air wizard
+how_to_play.menu.line10=to win the game!
+
+inventory.menu.title=Inventory
+crafting.menu.title=Crafting
+crafting.menu.cost=Cost
+crafting.menu.have=Have
+
+menu.time=Time:
+menu.score=Score:
+dead.menu.died=You died! Aww!
+won.menu.won="You won! Yay!"
+dead.menu.lose=Press C to lose
+won.menu.win=Press C to win
+
+minicraft.anvil=Anvil
+minicraft.chest=Chest
+minicraft.furnace=Furnace
+minicraft.lantern=Lantern
+minicraft.oven=Oven
+minicraft.workbench=Workbench
+
+minicraft.item.pow_glove=Pow Glove
+minicraft.item.wood_swrd=Wood Swrd
+minicraft.item.rock_swrd=Rock Swrd
+minicraft.item.iron_swrd=Iron Swrd
+minicraft.item.gold_swrd=Gold Swrd
+minicraft.item.gem_swrd=Gem Swrd
+minicraft.item.wood_hoe=Wood Hoe
+minicraft.item.rock_hoe=Rock Hoe
+minicraft.item.iron_hoe=Iron Hoe
+minicraft.item.gold_hoe=Gold Hoe
+minicraft.item.gem_hoe=Gem Hoe
+minicraft.item.wood_axe=Wood Axe
+minicraft.item.rock_axe=Rock Axe
+minicraft.item.iron_axe=Iron Axe
+minicraft.item.gold_axe=Gold Axe
+minicraft.item.gem_axe=Gem Axe
+minicraft.item.wood_pick=Wood Pick
+minicraft.item.rock_pick=Rock Pick
+minicraft.item.iron_pick=Iron Pick
+minicraft.item.gold_pick=Gold Pick
+minicraft.item.gem_pick=Gem Pick
+minicraft.item.wood_shvl=Wood Shvl
+minicraft.item.rock_shvl=Rock Shvl
+minicraft.item.iron_shvl=Iron Shvl
+minicraft.item.gold_shvl=Gold Shvl
+minicraft.item.gem_shvl=Gem Shvl

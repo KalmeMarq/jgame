@@ -1,5 +1,6 @@
 package com.mojang.ld22.screen;
 
+import com.mojang.ld22.Language;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.gfx.Screen;
 
@@ -38,7 +39,7 @@ public class InventoryMenu extends Menu {
     }
 
     public void render(Screen screen) {
-        this.font.renderFrame(screen, "Inventory", 1, 1, 12, 11);
+        this.font.renderFrame(screen, Language.translate("inventory.menu.title"), 1, 1, 12, 11);
         this.renderItemList(screen, 1, 1, 12, 11, this.player.inventory.items, this.selected);
     }
 }

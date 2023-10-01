@@ -1,5 +1,6 @@
 package com.mojang.ld22.screen;
 
+import com.mojang.ld22.Language;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.sound.Sound;
 import me.kalmemarq.jgame.StringHelper;
@@ -24,18 +25,18 @@ public class TitleMenu extends Menu {
             this.splash = TitleMenu.splashes.get(TitleMenu.RANDOM.nextInt(TitleMenu.splashes.size()));
         }
 
-        this.selectEntries.add(new SelectEntry("Start Game", () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.start_game"), () -> {
             Sound.play(Sound.Event.TEST, 1.0f);
             this.game.resetGame();
             this.game.setMenu(null);
         }));
-        this.selectEntries.add(new SelectEntry("How to play", () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.how_to_play"), () -> {
             this.game.setMenu(new InstructionsMenu(this));
         }));
-        this.selectEntries.add(new SelectEntry("About", () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.about"), () -> {
             this.game.setMenu(new AboutMenu(this));
         }));
-        this.selectEntries.add(new SelectEntry("Quit", () -> {
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.quit"), () -> {
             this.game.stop();
         }));
     }
@@ -57,6 +58,6 @@ public class TitleMenu extends Menu {
             this.font.drawCentered(msg, screen, screen.w / 2, 10 + (8 + i) * 8, color);
         }
 
-        this.font.draw("(Arrow keys,X and C)", screen, 0, screen.h - 8, 0x383838);
+        this.font.draw(Language.translate("title.menu.tip"), screen, 0, screen.h - 8, 0x383838);
     }
 }

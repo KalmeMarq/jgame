@@ -6,7 +6,7 @@ public class Chest extends Furniture {
     public Inventory inventory = new Inventory();
 
     public Chest() {
-        super("Chest", 7 * 32 + 6);
+        super("minicraft.chest", 7 * 32 + 6);
         this.sprite = 24 * 32 + 22;
     }
 

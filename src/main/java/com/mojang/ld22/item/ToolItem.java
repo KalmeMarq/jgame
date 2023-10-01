@@ -1,6 +1,7 @@
 package com.mojang.ld22.item;
 
 import com.mojang.ld22.Game;
+import com.mojang.ld22.Language;
 import com.mojang.ld22.entity.Entity;
 import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.gfx.Screen;
@@ -19,7 +20,7 @@ public class ToolItem extends Item {
     public int level;
 
     public ToolItem(ToolType type, int level) {
-        this(ToolItem.LEVEL_NAMES[level] + " " + type.name, type, level);
+        this("minicraft.item." + ToolItem.LEVEL_NAMES[level].toLowerCase() + "_" + type.name.toLowerCase(), type, level);
     }
 
     public ToolItem(String name, ToolType type, int level) {
@@ -35,7 +36,7 @@ public class ToolItem extends Item {
 
     public void renderInventory(Screen screen, int x, int y) {
         screen.renderSprite(x, y, this.getSprite() + 32 * this.level, 2, 0);
-        Game.getInstance().font.draw(this.getName(), screen, x + 8, y, 0xFFFFFF);
+        Game.getInstance().font.draw(Language.translate(this.getName()), screen, x + 8, y, 0xFFFFFF);
     }
 
     public void onTake(ItemEntity itemEntity) {

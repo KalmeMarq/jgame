@@ -5,7 +5,7 @@ import com.mojang.ld22.screen.CraftingMenu;
 
 public class Oven extends Furniture {
     public Oven() {
-        super("Oven", 7 * 32 + 7);
+        super("minicraft.oven", 7 * 32 + 7);
         this.sprite = 24 * 32 + 26;
         this.xr = 3;
         this.yr = 2;

@@ -1,5 +1,6 @@
 package com.mojang.ld22.screen;
 
+import com.mojang.ld22.Language;
 import com.mojang.ld22.gfx.Screen;
 
 public class DeadMenu extends Menu {
@@ -19,7 +20,7 @@ public class DeadMenu extends Menu {
 
     public void render(Screen screen) {
         this.font.renderFrame(screen, "", 1, 3, 18, 9);
-        this.font.draw("You died! Aww!", screen, 2 * 8, 4 * 8, 0xFFFFFF);
+        this.font.draw(Language.translate("dead.menu.died"), screen, 2 * 8, 4 * 8, 0xFFFFFF);
 
         int seconds = this.game.gameTime / 60;
         int minutes = seconds / 60;
@@ -33,10 +34,10 @@ public class DeadMenu extends Menu {
         } else {
             timeString = minutes + "m " + (seconds < 10 ? "0" : "") + seconds + "s";
         }
-        this.font.draw("Time:", screen, 2 * 8, 5 * 8, 0xFFFFFF);
+        this.font.draw(Language.translate("menu.time"), screen, 2 * 8, 5 * 8, 0xFFFFFF);
         this.font.draw(timeString, screen, (2 + 5) * 8, 5 * 8, 0xe2e26f);
-        this.font.draw("Score:", screen, 2 * 8, 6 * 8, 0xFFFFFF);
+        this.font.draw(Language.translate("menu.score"), screen, 2 * 8, 6 * 8, 0xFFFFFF);
         this.font.draw("" + this.game.player.score, screen, (2 + 6) * 8, 6 * 8, 0xe2e26f);
-        this.font.draw("Press C to lose", screen, 2 * 8, 8 * 8, 0x949494);
+        this.font.draw(Language.translate("dead.menu.lose"), screen, 2 * 8, 8 * 8, 0x949494);
     }
 }

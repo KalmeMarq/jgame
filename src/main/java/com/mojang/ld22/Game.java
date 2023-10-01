@@ -159,6 +159,7 @@ public class Game extends Canvas implements Runnable {
 
         Sound.load(this.vanillaResourcePack);
         this.settings.load();
+        Language.load(this.vanillaResourcePack);
         this.init();
 
         while (this.running) {

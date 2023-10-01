@@ -2,7 +2,7 @@ package com.mojang.ld22.entity;
 
 public class Lantern extends Furniture {
     public Lantern() {
-        super("Lantern", 7 * 32 + 10);
+        super("minicraft.lantern", 7 * 32 + 10);
         this.sprite = 24 * 32 + 29;
         this.xr = 3;
         this.yr = 2;
