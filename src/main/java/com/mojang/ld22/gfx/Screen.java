@@ -12,7 +12,7 @@ public class Screen {
     public final int w, h;
     public int[] pixels;
 
-    private final SpriteSheet[] sheets;
+    protected final SpriteSheet[] sheets;
 
     public Screen(int w, int h, SpriteSheet[] sheets) {
         this.sheets = sheets;

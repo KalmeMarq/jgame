@@ -1,6 +1,7 @@
 menu.start_game=Start Game
 menu.how_to_play=How to Play
 menu.about=About
+menu.options=Options
 menu.quit=Quit
 title.menu.tip=(Arrow keys,X and C)
 

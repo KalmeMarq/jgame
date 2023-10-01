@@ -34,6 +34,8 @@ public class Sound {
     }
 
     public static void load(ResourcePack resourcePack) {
+        clips.forEach(Clip::close);
+        clips.clear();
         PackResource resource = resourcePack.get("sounds.json");
         if (resource != null) {
             try (InputStream inputStream = resource.getInputStream()) {

@@ -36,6 +36,9 @@ public class TitleMenu extends Menu {
         this.selectEntries.add(new SelectEntry(Language.translate("menu.about"), () -> {
             this.game.setMenu(new AboutMenu(this));
         }));
+        this.selectEntries.add(new SelectEntry(Language.translate("menu.options"), () -> {
+            this.game.setMenu(new OptionsMenu(this));
+        }));
         this.selectEntries.add(new SelectEntry(Language.translate("menu.quit"), () -> {
             this.game.stop();
         }));
@@ -44,9 +47,9 @@ public class TitleMenu extends Menu {
     public void render(Screen screen) {
         screen.clear(0);
 
-        screen.renderTextured((screen.w - 104) / 2, 24, 104, 16, 0, 0, 2, 0xFFFFFF, 0);
+        screen.renderTextured((screen.w - 104) / 2, 19, 104, 16, 0, 0, 2, 0xFFFFFF, 0);
 
-        this.font.drawCentered(this.splash, screen, screen.w / 2, 55, 0xFFFFFF);
+        this.font.drawCentered(this.splash, screen, screen.w / 2, 50, 0xFFFFFF);
 
         for (int i = 0; i < this.selectEntries.size(); i++) {
             String msg = this.selectEntries.get(i).getText();
@@ -55,7 +58,7 @@ public class TitleMenu extends Menu {
                 msg = "> " + msg + " <";
                 color = 0xFFFFFF;
             }
-            this.font.drawCentered(msg, screen, screen.w / 2, 10 + (8 + i) * 8, color);
+            this.font.drawCentered(msg, screen, screen.w / 2, 5 + (8 + i) * 8, color);
         }
 
         this.font.draw(Language.translate("title.menu.tip"), screen, 0, screen.h - 8, 0x383838);
