@@ -13,14 +13,14 @@ public class ToolItem extends Item {
 
     public static final int MAX_LEVEL = 5;
     public static final String[] LEVEL_NAMES = {
-        "Wood", "Rock", "Iron", "Gold", "Gem"
+        "wood", "rock", "iron", "gold", "gem"
     };
 
     public ToolType type;
     public int level;
 
     public ToolItem(ToolType type, int level) {
-        this("minicraft.item." + ToolItem.LEVEL_NAMES[level].toLowerCase() + "_" + type.name.toLowerCase(), type, level);
+        this("minicraft.item." + ToolItem.LEVEL_NAMES[level] + "_" + type.name, type, level);
     }
 
     public ToolItem(String name, ToolType type, int level) {

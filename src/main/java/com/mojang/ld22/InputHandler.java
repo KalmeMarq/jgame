@@ -55,6 +55,7 @@ public class InputHandler implements KeyListener {
 
     public Key debug_stair_up = new Key(KeyEvent.VK_F3);
     public Key debug_stair_down = new Key(KeyEvent.VK_F4);
+    public Key pause_game = new Key(KeyEvent.VK_ESCAPE);
 
     public void releaseAll() {
         for (Key key : this.keys) {

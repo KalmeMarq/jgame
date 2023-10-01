@@ -13,6 +13,7 @@ public class WonMenu extends Menu {
         if (this.inputDelay > 0) {
             this.inputDelay--;
         } else if (this.input.attack.clicked || this.input.menu.clicked) {
+            this.game.leaveWorld();
             this.game.setMenu(new TitleMenu());
         }
     }

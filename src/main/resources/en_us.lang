@@ -31,6 +31,10 @@ crafting.menu.title=Crafting
 crafting.menu.cost=Cost
 crafting.menu.have=Have
 
+pause.menu.title=Game Menu
+pause.menu.return_to_game=Return to Game
+pause.menu.quit_to_title=Quit to Title
+
 menu.time=Time:
 menu.score=Score:
 dead.menu.died=You died! Aww!

@@ -20,6 +20,7 @@ import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.gfx.SpriteSheet;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
+import com.mojang.ld22.screen.PauseMenu;
 import com.mojang.ld22.sound.Sound;
 import me.kalmemarq.jgame.logging.Logger;
 import me.kalmemarq.jgame.resource.VanillaResourcePack;
@@ -208,6 +209,10 @@ public class Game extends Canvas implements Runnable {
             if (this.menu != null) {
                 this.menu.tick();
             } else {
+                if (this.input.pause_game.clicked) {
+                    this.setMenu(new PauseMenu());
+                }
+
                 if (this.player.removed) {
                     this.playerDeadTime++;
                     if (this.playerDeadTime > 60) {
