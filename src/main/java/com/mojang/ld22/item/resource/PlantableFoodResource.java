@@ -9,11 +9,11 @@ import java.util.List;
 
 public class PlantableFoodResource extends Resource {
     private final List<Tile> sourceTiles;
-    private final Tile targetTile;
+    private final int targetTile;
     private final int heal;
     private final int staminaCost;
 
-    public PlantableFoodResource(String name, int sprite, int heal, int staminaCost, Tile targetTile, List<Tile> sourceTiles) {
+    public PlantableFoodResource(String name, int sprite, int heal, int staminaCost, int targetTile, List<Tile> sourceTiles) {
         super(name, sprite);
         this.heal = heal;
         this.staminaCost = staminaCost;
@@ -23,7 +23,7 @@ public class PlantableFoodResource extends Resource {
 
     public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
         if (this.sourceTiles.contains(tile)) {
-            level.setTile(xt, yt, this.targetTile, 0);
+            level.setTile(xt, yt, Tile.tiles[this.targetTile], 0);
             return true;
         } else if (player.health < player.maxHealth && player.payStamina(this.staminaCost)) {
             player.heal(this.heal);

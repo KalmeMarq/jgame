@@ -9,7 +9,10 @@ import com.mojang.ld22.entity.Zombie;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.level.levelgen.LevelGen;
 import com.mojang.ld22.level.tile.Tile;
+import me.kalmemarq.jgame.bso.BsoList;
+import me.kalmemarq.jgame.bso.BsoMap;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -33,14 +36,23 @@ public class Level {
     public List<Entity> entities = new ArrayList<>();
     private final Comparator<Entity> spriteSorter = Comparator.comparingInt(e0 -> e0.y);
 
-    @SuppressWarnings("unchecked")
     public Level(int w, int h, int level, Level parentLevel) {
+        this(w, h, level, parentLevel, true);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Level(int w, int h, int level, Level parentLevel, boolean create) {
         if (level < 0) {
             this.dirtColor = 222;
         }
         this.depth = level;
         this.w = w;
         this.h = h;
+
+        if (!create) {
+            return;
+        }
+
         byte[][] maps;
 
         if (level == 1) {
@@ -99,6 +111,44 @@ public class Level {
             aw.x = w * 8;
             aw.y = h * 8;
             add(aw);
+        }
+    }
+
+    public void writeData(BsoMap map) {
+        map.putInt("width", this.w);
+        map.putInt("height", this.h);
+        map.putInt("depth", this.depth);
+        map.putByteArray("tiles", this.tiles);
+        map.putByteArray("data", this.data);
+        map.putInt("monsterDensity", this.monsterDensity);
+        BsoList entityList = new BsoList();
+        for (Entity entity : this.entities) {
+            if (entity instanceof Player) continue;
+            BsoMap entityData = new BsoMap();
+            entityData.putString("className", entity.getClass().getName());
+            entity.writeData(entityData);
+            entityList.add(entityData);
+        }
+        map.put("entities", entityList);
+    }
+
+    public void loadData(BsoMap map) {
+        this.w = map.getInt("width");
+        this.h = map.getInt("height");
+        this.tiles = map.getByteArray("tiles");
+        this.data = map.getByteArray("data");
+        this.monsterDensity = map.getInt("monsterDensity");
+        BsoList entityList = map.getList("entities");
+        for (int i = 0; i < entityList.size(); ++i) {
+            BsoMap entityData = entityList.getMap(i);
+            try {
+                Entity entity = (Entity) Class.forName(entityData.getString("className")).getConstructor(new Class[0]).newInstance();
+                entity.level = this;
+                entity.loadData(entityData);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

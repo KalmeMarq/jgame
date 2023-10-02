@@ -493,7 +493,7 @@ public final class BsoTypes {
         }
     };
 
-    private static final BsoType<?>[] VALUES = { BsoTypes.BYTE, BsoTypes.SHORT, BsoTypes.INT, BsoTypes.LONG, BsoTypes.FLOAT, BsoTypes.DOUBLE, BsoTypes.STRING, BsoTypes.MAP, BsoTypes.BYTE_ARRAY,BsoTypes.SHORT_ARRAY, BsoTypes.INT_ARRAY };
+    private static final BsoType<?>[] VALUES = { BsoTypes.BYTE, BsoTypes.SHORT, BsoTypes.INT, BsoTypes.LONG, BsoTypes.FLOAT, BsoTypes.DOUBLE, BsoTypes.STRING, BsoTypes.MAP, BsoTypes.LIST, BsoTypes.BYTE_ARRAY,BsoTypes.SHORT_ARRAY, BsoTypes.INT_ARRAY, BsoTypes.FLOAT_ARRAY, BsoTypes.DOUBLE };
 
     private BsoTypes() {
     }

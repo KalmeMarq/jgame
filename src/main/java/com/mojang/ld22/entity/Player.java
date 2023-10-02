@@ -11,6 +11,7 @@ import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
 import com.mojang.ld22.screen.InventoryMenu;
 import com.mojang.ld22.sound.Sound;
+import me.kalmemarq.jgame.bso.BsoMap;
 
 import java.util.List;
 
@@ -38,6 +39,25 @@ public class Player extends Mob {
         this.stamina = this.maxStamina;
         this.inventory.add(new FurnitureItem("Workbench", new Workbench()));
         this.inventory.add(new PowerGloveItem());
+    }
+
+    @Override
+    public void writeData(BsoMap map) {
+        super.writeData(map);
+        map.putInt("attackTime", this.attackTime);
+        map.putInt("attackDir", this.attackDir);
+        map.putInt("stamina", this.stamina);
+        map.putInt("staminaRecharge", this.staminaRecharge);
+        map.putInt("staminaRechargeDelay", this.staminaRechargeDelay);
+        map.putInt("score", this.score);
+        map.putInt("maxStamina", this.maxStamina);
+        map.putInt("onStairDelay", this.onStairDelay);
+        map.putInt("invulnerableTime", this.invulnerableTime);
+    }
+
+    @Override
+    public void loadData(BsoMap map) {
+        super.loadData(map);
     }
 
     public void tick() {

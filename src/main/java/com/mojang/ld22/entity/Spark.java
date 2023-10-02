@@ -5,11 +5,14 @@ import java.util.List;
 import com.mojang.ld22.gfx.Screen;
 
 public class Spark extends Entity {
-    private final int lifeTime;
+    private int lifeTime;
     public double xa, ya;
     public double xx, yy;
     private int time;
-    private final AirWizard owner;
+    private AirWizard owner;
+
+    public Spark() {
+    }
 
     public Spark(AirWizard owner, double xa, double ya) {
         this.owner = owner;

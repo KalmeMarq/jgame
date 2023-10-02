@@ -2,15 +2,20 @@ package com.mojang.ld22.entity;
 
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
+import com.mojang.ld22.item.ResourceItem;
 import com.mojang.ld22.sound.Sound;
+import me.kalmemarq.jgame.bso.BsoMap;
 
 public class ItemEntity extends Entity {
-    private final int lifeTime;
+    private int lifeTime;
     public int hurtTime = 0;
     public double xa, ya, za;
     public double xx, yy, zz;
     public Item item;
     private int time = 0;
+
+    public ItemEntity() {
+    }
 
     public ItemEntity(Item item, int x, int y) {
         this.item = item;
@@ -25,6 +30,39 @@ public class ItemEntity extends Entity {
         this.za = this.random.nextFloat() * 0.7 + 1;
 
         this.lifeTime = 60 * 10 + this.random.nextInt(60);
+    }
+
+    @Override
+    public void writeData(BsoMap map) {
+        super.writeData(map);
+        map.putInt("lifeTime", this.lifeTime);
+        map.putInt("hurtTime", this.hurtTime);
+        map.putInt("time", this.time);
+        map.putDouble("xa", this.xa);
+        map.putDouble("ya", this.ya);
+        map.putDouble("za", this.za);
+        map.putDouble("xx", this.xx);
+        map.putDouble("yy", this.yy);
+        map.putDouble("zz", this.zz);
+        map.putString("item", this.item.getName());
+        if (this.item instanceof ResourceItem resourceItem) {
+            map.putInt("itemCount", resourceItem.count);
+        }
+    }
+
+    @Override
+    public void loadData(BsoMap map) {
+        super.loadData(map);
+        this.lifeTime = map.getInt("lifeTime");
+        this.hurtTime = map.getInt("hurtTime");
+        this.time = map.getInt("time");
+        this.xa = map.getDouble("xa");
+        this.ya = map.getDouble("ya");
+        this.za = map.getDouble("za");
+        this.xx = map.getDouble("xx");
+        this.yy = map.getDouble("yy");
+        this.zz = map.getDouble("zz");
+        String name = map.getString("item");
     }
 
     public void tick() {

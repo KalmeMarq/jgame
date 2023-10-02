@@ -153,6 +153,10 @@ public class BsoMap extends BsoTag {
         return this.hasOfType(key, BsoTypes.MAP) ? (BsoMap) this.entries.get(key) : new BsoMap();
     }
 
+    public BsoList getList(String key) {
+        return this.hasOfType(key, BsoTypes.LIST) ? (BsoList) this.entries.get(key) : new BsoList();
+    }
+
     public byte[] getByteArray(String key) {
         return this.hasOfType(key, BsoTypes.BYTE_ARRAY) ? ((BsoByteArray) this.entries.get(key)).getValues() : new byte[0];
     }

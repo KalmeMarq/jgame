@@ -4,6 +4,7 @@ import com.mojang.ld22.entity.particle.TextParticle;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
 import com.mojang.ld22.sound.Sound;
+import me.kalmemarq.jgame.bso.BsoMap;
 
 public class Mob extends Entity {
     protected int walkDist = 0;
@@ -19,6 +20,32 @@ public class Mob extends Entity {
         this.x = this.y = 8;
         this.xr = 4;
         this.yr = 3;
+    }
+
+    @Override
+    public void writeData(BsoMap map) {
+        super.writeData(map);
+        map.putInt("walkDist", this.walkDist);
+        map.putInt("dir", this.dir);
+        map.putInt("hurtTime", this.hurtTime);
+        map.putInt("xKnockback", this.xKnockback);
+        map.putInt("yKnockback", this.yKnockback);
+        map.putInt("maxHealth", this.maxHealth);
+        map.putInt("health", this.health);
+        map.putInt("swimTimer", this.swimTimer);
+    }
+
+    @Override
+    public void loadData(BsoMap map) {
+        super.loadData(map);
+        this.walkDist = map.getInt("walkDist");
+        this.dir = map.getInt("dir");
+        this.hurtTime = map.getInt("hurtTime");
+        this.xKnockback = map.getInt("xKnockback");
+        this.yKnockback = map.getInt("yKnockback");
+        this.maxHealth = map.getInt("maxHealth");
+        this.health = map.getInt("health");
+        this.swimTimer = map.getInt("swimTimer");
     }
 
     public void tick() {

@@ -3,6 +3,7 @@ package me.kalmemarq.jgame;
 import com.mojang.ld22.Game;
 import com.mojang.ld22.InputHandler;
 import com.mojang.ld22.Language;
+import com.mojang.ld22.entity.AirWizard;
 import com.mojang.ld22.gfx.Font;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.gfx.SpriteSheet;
@@ -25,27 +26,12 @@ public class Main {
     private static final int SCALE = 3;
 
     public static void main(String[] args) throws IOException {
-        if (!GLFW.glfwInit()) {
-            System.out.println("Could not initialized GLFW!");
+        GameWindow window = new GameWindow(WIDTH * SCALE, HEIGHT * SCALE, "GLFW Window");
+        window.setVsync(false);
+
+        if (!window.init()) {
             return;
         }
-
-        GLFW.glfwDefaultWindowHints();
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
-        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
-
-        long handle = GLFW.glfwCreateWindow(WIDTH * SCALE, HEIGHT * SCALE, "GLFW Window", 0L, 0L);
-
-        if (handle == 0L) {
-            System.out.println("Could not create GLFW window!");
-            GLFW.glfwTerminate();
-            return;
-        }
-
-        GLFW.glfwMakeContextCurrent(handle);
-        GL.createCapabilities();
-        GLFW.glfwSwapInterval(1);
-        GLFW.glfwShowWindow(handle);
 
         VanillaResourcePack vanillaResourcePack = new VanillaResourcePack();
         Language.load(vanillaResourcePack);
@@ -75,9 +61,17 @@ public class Main {
         long lastFrameTime = milliTime();
         int frameCount = 0;
 
-        while (!GLFW.glfwWindowShouldClose(handle)) {
-            GLFW.glfwPollEvents();
+        GLFW.glfwSetKeyCallback(window.getHandle(), ((window1, key, scancode, action, mods) -> {
+            if (key == GLFW.GLFW_KEY_F3 && action == GLFW.GLFW_RELEASE) {
+                window.setMaximized(!window.isMaximized());
+            }
 
+            if (key == GLFW.GLFW_KEY_F4 && action == GLFW.GLFW_RELEASE) {
+                window.setVsync(!window.isVsyncEnabled());
+            }
+        }));
+
+        while (!window.shouldClose()) {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
             GL11.glMatrixMode(GL11.GL_PROJECTION);
             GL11.glLoadIdentity();
@@ -88,20 +82,19 @@ public class Main {
 
             menu.render(screen);
 
-            GLFW.glfwSwapBuffers(handle);
+            window.update();
 
             ++frameCount;
 
             if (milliTime() - lastFrameTime > 1000L) {
                 lastFrameTime += 1000L;
-                GLFW.glfwSetWindowTitle(handle, "GLFW Window " + frameCount + " FPS");
+                window.setTitle("GLFW Window " + frameCount + " FPS");
                 frameCount = 0;
             }
         }
 
         screen.destroy();
-
-        GLFW.glfwTerminate();
+        window.destroy();
     }
 
     private static long milliTime() {

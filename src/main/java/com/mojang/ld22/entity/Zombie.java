@@ -3,17 +3,40 @@ package com.mojang.ld22.entity;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.ResourceItem;
 import com.mojang.ld22.item.resource.Resource;
+import me.kalmemarq.jgame.bso.BsoMap;
 
 public class Zombie extends Mob {
     private int xa, ya;
-    private final int lvl;
+    private int lvl;
     private int randomWalkTime = 0;
+
+    public Zombie() {
+        this(0);
+    }
 
     public Zombie(int lvl) {
         this.lvl = lvl;
         this.x = this.random.nextInt(64 * 16);
         this.y = this.random.nextInt(64 * 16);
         this.health = this.maxHealth = lvl * lvl * 10;
+    }
+
+    @Override
+    public void writeData(BsoMap map) {
+        super.writeData(map);
+        map.putInt("xa", this.xa);
+        map.putInt("ya", this.ya);
+        map.putInt("lvl", this.lvl);
+        map.putInt("randomWalkTime", this.randomWalkTime);
+    }
+
+    @Override
+    public void loadData(BsoMap map) {
+        super.loadData(map);
+        this.xa = map.getInt("xa");
+        this.ya = map.getInt("ya");
+        this.lvl = map.getInt("lvl");
+        this.randomWalkTime = map.getInt("randomWalkTime");
     }
 
     public void tick() {

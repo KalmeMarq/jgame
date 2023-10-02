@@ -3,17 +3,40 @@ package com.mojang.ld22.entity;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.ResourceItem;
 import com.mojang.ld22.item.resource.Resource;
+import me.kalmemarq.jgame.bso.BsoMap;
 
 public class Slime extends Mob {
     private int xa, ya;
     private int jumpTime = 0;
-    private final int lvl;
+    private int lvl;
+
+    public Slime() {
+        this(0);
+    }
 
     public Slime(int lvl) {
         this.lvl = lvl;
         this.x = this.random.nextInt(64 * 16);
         this.y = this.random.nextInt(64 * 16);
         this.health = this.maxHealth = lvl * lvl * 5;
+    }
+
+    @Override
+    public void writeData(BsoMap map) {
+        super.writeData(map);
+        map.putInt("xa", this.xa);
+        map.putInt("ya", this.ya);
+        map.putInt("lvl", this.lvl);
+        map.putInt("jumpTime", this.jumpTime);
+    }
+
+    @Override
+    public void loadData(BsoMap map) {
+        super.loadData(map);
+        this.xa = map.getInt("xa");
+        this.ya = map.getInt("ya");
+        this.lvl = map.getInt("lvl");
+        this.jumpTime = map.getInt("jumpTime");
     }
 
     public void tick() {
@@ -33,13 +56,13 @@ public class Slime extends Mob {
                             this.xa = -1;
                         }
                         if (xd > 0) {
-                            this.xa = +1;
+                            this.xa = 1;
                         }
                         if (yd < 0) {
                             this.ya = -1;
                         }
                         if (yd > 0) {
-                            this.ya = +1;
+                            this.ya = 1;
                         }
                     }
                 }

@@ -20,8 +20,8 @@ public class Resource {
     public static Resource bread = new FoodResource("Bread", 8 + 6 * 32, 2, 5);
     public static Resource apple = new FoodResource("Apple", 9 + 6 * 32, 1, 5);
 
-    public static Resource carrot = new PlantableFoodResource("Carrot", SpriteSheet.uvTile(96, 64), 1, 5, Tile.carrot, Arrays.asList(Tile.farmland));
-    public static Resource potato = new PlantableFoodResource("Potato", SpriteSheet.uvTile(80, 64), 1, 5, Tile.potato, Arrays.asList(Tile.farmland));
+    public static Resource carrot = new PlantableFoodResource("Carrot", SpriteSheet.uvTile(96, 64), 1, 5, 24, Arrays.asList(Tile.farmland));
+    public static Resource potato = new PlantableFoodResource("Potato", SpriteSheet.uvTile(80, 64), 1, 5, 23, Arrays.asList(Tile.farmland));
     public static Resource bakedPotato = new FoodResource("B. Pot", SpriteSheet.uvTile(72, 64), 2, 5);
 
     public static Resource coal = new Resource("COAL", SpriteSheet.uvTile(96, 56));

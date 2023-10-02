@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Objects;
@@ -24,6 +25,8 @@ import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
 import com.mojang.ld22.screen.PauseMenu;
 import com.mojang.ld22.sound.Sound;
+import me.kalmemarq.jgame.bso.BsoIo;
+import me.kalmemarq.jgame.bso.BsoMap;
 import me.kalmemarq.jgame.logging.Logger;
 import me.kalmemarq.jgame.resource.VanillaResourcePack;
 import com.mojang.ld22.screen.DeadMenu;
@@ -92,6 +95,25 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void leaveWorld() {
+        LOGGER.info("Saving levels...");
+        for (Level levell : this.levels) {
+            BsoMap levelData = new BsoMap();
+            levell.writeData(levelData);
+            BsoIo.writeGzipCompressed(this.savePath.resolve("level" + levell.depth + ".bso"), levelData);
+        }
+        LOGGER.info("Saving player data...");
+        BsoMap playerData = new BsoMap();
+        this.player.writeData(playerData);
+        BsoIo.writeGzipCompressed(this.savePath.resolve("player.bso"), playerData);
+        LOGGER.info("Saving game data...");
+        BsoMap gameData = new BsoMap();
+        gameData.putInt("gameTime", this.gameTime);
+        gameData.putInt("currentLevel", this.currentLevel);
+        gameData.putInt("playerDeadTime", this.playerDeadTime);
+        gameData.putInt("pendingLevelChange", this.pendingLevelChange);
+        gameData.putInt("wonTimer", this.wonTimer);
+        gameData.putBoolean("hasWon", this.hasWon);
+        BsoIo.writeGzipCompressed(this.savePath.resolve("game.bso"), gameData);
         this.player = null;
         this.levels = null;
         this.level = null;
@@ -114,6 +136,36 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void resetGame() {
+//        if (Files.exists(this.savePath.resolve("game.bso"))) {
+//            BsoMap gameData = (BsoMap) BsoIo.readGzipCompressed(this.savePath.resolve("game.bso"));
+//            this.playerDeadTime = gameData.getInt("playerDeadTime");
+//            this.wonTimer = gameData.getInt("wonTimer");
+//            this.gameTime = gameData.getInt("gameTime");
+//            this.hasWon = gameData.getBoolean("hasWon");
+//
+//            this.levels = new Level[5];
+//            this.currentLevel = gameData.getInt("currentLevel");
+//            this.levels[4] = new Level(128, 128, 1, null, false);
+//            this.levels[4].loadData((BsoMap) BsoIo.readGzipCompressed(this.savePath.resolve("level1.bso")));
+//            this.levels[3] = new Level(128, 128, 0, this.levels[4], false);
+//            this.levels[3].loadData((BsoMap) BsoIo.readGzipCompressed(this.savePath.resolve("level0.bso")));
+//            this.levels[2] = new Level(128, 128, -1, this.levels[3], false);
+//            this.levels[2].loadData((BsoMap) BsoIo.readGzipCompressed(this.savePath.resolve("level-1.bso")));
+//            this.levels[1] = new Level(128, 128, -2, this.levels[2], false);
+//            this.levels[1].loadData((BsoMap) BsoIo.readGzipCompressed(this.savePath.resolve("level-2.bso")));
+//            this.levels[0] = new Level(128, 128, -3, this.levels[1], false);
+//            this.levels[0].loadData((BsoMap) BsoIo.readGzipCompressed(this.savePath.resolve("level-3.bso")));
+//
+//            this.level = this.levels[this.currentLevel];
+//            this.player = new Player(this, this.input);
+//            this.player.findStartPos(this.level);
+//            this.player.loadData((BsoMap) BsoIo.readGzipCompressed(this.savePath.resolve("player.bso")));
+//
+//            this.level.add(this.player);
+//
+//            return;
+//        }
+
         this.playerDeadTime = 0;
         this.wonTimer = 0;
         this.gameTime = 0;
@@ -195,6 +247,28 @@ public class Game extends Canvas implements Runnable {
         System.out.println("Closing game");
         this.settings.save();
         this.frame.dispose();
+    }
+
+    private void saveGameState() {
+        LOGGER.info("Saving levels...");
+        for (Level levell : this.levels) {
+            BsoMap levelData = new BsoMap();
+            levell.writeData(levelData);
+            BsoIo.writeGzipCompressed(this.savePath.resolve("level" + levell.depth + ".bso"), levelData);
+        }
+        LOGGER.info("Saving player data...");
+        BsoMap playerData = new BsoMap();
+        this.player.writeData(playerData);
+        BsoIo.writeGzipCompressed(this.savePath.resolve("player.bso"), playerData);
+        LOGGER.info("Saving game data...");
+        BsoMap gameData = new BsoMap();
+        gameData.putInt("gameTime", this.gameTime);
+        gameData.putInt("currentLevel", this.currentLevel);
+        gameData.putInt("playerDeadTime", this.playerDeadTime);
+        gameData.putInt("pendingLevelChange", this.pendingLevelChange);
+        gameData.putInt("wonTimer", this.wonTimer);
+        gameData.putBoolean("hasWon", this.hasWon);
+        BsoIo.writeGzipCompressed(this.savePath.resolve("game.bso"), gameData);
     }
 
     public void tick() {

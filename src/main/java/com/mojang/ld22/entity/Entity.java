@@ -7,6 +7,7 @@ import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
+import me.kalmemarq.jgame.bso.BsoMap;
 
 public class Entity {
     protected final Random random = new Random();
@@ -15,6 +16,23 @@ public class Entity {
     public int yr = 6;
     public boolean removed;
     public Level level;
+
+    public void writeData(BsoMap map) {
+        map.putInt("x", this.x);
+        map.putInt("y", this.y);
+        map.putInt("xr", this.xr);
+        map.putInt("yr", this.yr);
+        map.putBoolean("removed", this.removed);
+        map.putInt("level", this.level.depth);
+    }
+
+    public void loadData(BsoMap map) {
+        this.x = map.getInt("x");
+        this.y = map.getInt("y");
+        this.xr = map.getInt("xr");
+        this.yr = map.getInt("yr");
+        this.removed = map.getBoolean("removed");
+    }
 
     public void render(Screen screen) {
     }

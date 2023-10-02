@@ -3,6 +3,7 @@ package com.mojang.ld22.entity;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.FurnitureItem;
 import com.mojang.ld22.item.PowerGloveItem;
+import me.kalmemarq.jgame.bso.BsoMap;
 
 public class Furniture extends Entity {
     private int pushTime = 0;
@@ -17,6 +18,20 @@ public class Furniture extends Entity {
         this.name = name;
         this.xr = 3;
         this.yr = 3;
+    }
+
+    @Override
+    public void writeData(BsoMap map) {
+        super.writeData(map);
+        map.putInt("pushTime", this.pushTime);
+        map.putInt("pushDir", this.pushDir);
+    }
+
+    @Override
+    public void loadData(BsoMap map) {
+        super.loadData(map);
+        this.pushTime = map.getInt("pushTime");
+        this.pushDir = map.getInt("pushDir");
     }
 
     public void tick() {

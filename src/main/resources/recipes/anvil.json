@@ -8,6 +8,6 @@
     }
   ],
   "result": {
-    "furniture": "com.mojang.ld22.entity.Anvil"
+    "furniture": "anvil"
   }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mojang.ld22.Game;
+import com.mojang.ld22.entity.EntityType;
 import com.mojang.ld22.entity.Furniture;
 import com.mojang.ld22.item.ToolType;
 import com.mojang.ld22.item.resource.Resource;
@@ -28,7 +29,6 @@ public class Crafting {
         for (PackResource resource : Game.getInstance().vanillaResourcePack.getFiles("recipes", name -> name.endsWith(".json"))) {
             this.loadRecipe(resource);
         }
-        LOGGER.info("Recipes: Expected={} Found={}", 35, this.anvilRecipes.size() + this.ovenRecipes.size() + this.furnaceRecipes.size() + this.workbenchRecipes.size());
     }
 
     @SuppressWarnings("unchecked")
@@ -47,8 +47,8 @@ public class Crafting {
             Recipe recipe;
             switch (json.get("type").textValue()) {
                 case "furniture_recipe" -> {
-                    Class<? extends Furniture> clazz = (Class<? extends Furniture>) Class.forName(resultObject.get("furniture").textValue());
-                    recipe = new FurnitureRecipe(clazz);
+                    EntityType<? extends Furniture> furniture = (EntityType<? extends Furniture>) EntityType.FURNITURE_REGISTRY.get(resultObject.get("furniture").textValue());
+                    recipe = new FurnitureRecipe(furniture);
                 }
                 case "tool_recipe" -> {
                     Field toolTypeField = ToolType.class.getField(resultObject.get("tool_type").textValue());
