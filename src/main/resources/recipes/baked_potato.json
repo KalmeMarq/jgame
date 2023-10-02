@@ -1,0 +1,13 @@
+{
+  "for": ["oven"],
+  "type": "resource_recipe",
+  "cost": [
+    {
+      "resource": "potato",
+      "count": 1
+    }
+  ],
+  "result": {
+    "resource": "bakedPotato"
+  }
+}

@@ -80,6 +80,12 @@ public class GrassTile extends Tile {
                     if (this.random.nextInt(5) == 0) {
                         level.add(new ItemEntity(new ResourceItem(Resource.seeds), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
                         return true;
+                    } else if (this.random.nextInt(7) == 0) {
+                        level.add(new ItemEntity(new ResourceItem(Resource.potato), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
+                        return true;
+                    } else if (this.random.nextInt(8) == 0) {
+                        level.add(new ItemEntity(new ResourceItem(Resource.carrot), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
+                        return true;
                     }
                 }
             }
@@ -88,6 +94,12 @@ public class GrassTile extends Tile {
                     Sound.play(Sound.Event.MONSTER_HURT, 1.0f);
                     if (this.random.nextInt(5) == 0) {
                         level.add(new ItemEntity(new ResourceItem(Resource.seeds), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
+                        return true;
+                    } else if (this.random.nextInt(7) == 0) {
+                        level.add(new ItemEntity(new ResourceItem(Resource.potato), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
+                        return true;
+                    } else if (this.random.nextInt(8) == 0) {
+                        level.add(new ItemEntity(new ResourceItem(Resource.carrot), xt * 16 + this.random.nextInt(10) + 3, yt * 16 + this.random.nextInt(10) + 3));
                         return true;
                     }
                     level.setTile(xt, yt, Tile.farmland, 0);

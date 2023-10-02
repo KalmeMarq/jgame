@@ -38,6 +38,8 @@ public class Tile {
     public static Tile goldOre = new OreTile(20, Resource.goldOre);
     public static Tile gemOre = new OreTile(21, Resource.gem);
     public static Tile cloudCactus = new CloudCactusTile(22);
+    public static Tile potato = new PotatoTile(23);
+    public static Tile carrot = new CarrotTile(24);
 
     public final byte id;
 
