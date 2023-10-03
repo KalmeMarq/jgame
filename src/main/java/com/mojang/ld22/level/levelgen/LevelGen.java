@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import com.mojang.ld22.level.tile.Tile;
 
 public class LevelGen {
-    private static final Random random = new Random();
+    private static final Random random = new Random(0);
     public double[] values;
     private final int w;
     private final int h;
@@ -76,6 +76,8 @@ public class LevelGen {
 
     public static byte[][] createAndValidateTopMap(int w, int h) {
         int attempt = 0;
+
+        LevelGen.random.setSeed(1000L);
         do {
             byte[][] result = LevelGen.createTopMap(w, h);
 
@@ -107,6 +109,8 @@ public class LevelGen {
 
     public static byte[][] createAndValidateUndergroundMap(int w, int h, int depth) {
         int attempt = 0;
+
+        LevelGen.random.setSeed(1000L);
         do {
             byte[][] result = LevelGen.createUndergroundMap(w, h, depth);
 
@@ -137,6 +141,7 @@ public class LevelGen {
 
     public static byte[][] createAndValidateSkyMap(int w, int h) {
         int attempt = 0;
+        LevelGen.random.setSeed(1000L);
         do {
             byte[][] result = LevelGen.createSkyMap(w, h);
 
@@ -167,6 +172,7 @@ public class LevelGen {
 
         byte[] map = new byte[w * h];
         byte[] data = new byte[w * h];
+
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
                 int i = x + y * w;
@@ -183,7 +189,7 @@ public class LevelGen {
                 if (yd < 0) {
                     yd = -yd;
                 }
-                double dist = xd >= yd ? xd : yd;
+                double dist = Math.max(xd, yd);
                 dist = dist * dist * dist * dist;
                 dist = dist * dist * dist * dist;
                 val = val + 1 - dist * 20;
@@ -255,7 +261,7 @@ public class LevelGen {
         for (int i = 0; i < w * h / 100; i++) {
             int xx = LevelGen.random.nextInt(w);
             int yy = LevelGen.random.nextInt(h);
-            if (xx >= 0 && yy >= 0 && xx < w && yy < h) {
+            if (xx < w && yy < h) {
                 if (map[xx + yy * w] == Tile.sand.id) {
                     map[xx + yy * w] = Tile.cactus.id;
                 }

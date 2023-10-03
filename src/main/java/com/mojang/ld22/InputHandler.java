@@ -70,7 +70,7 @@ public class InputHandler implements KeyListener {
     }
 
     public InputHandler(Game game) {
-        game.addKeyListener(this);
+        game.canvas.addKeyListener(this);
     }
 
     public void keyPressed(KeyEvent ke) {

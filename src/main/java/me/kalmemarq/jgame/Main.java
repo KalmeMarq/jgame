@@ -3,7 +3,6 @@ package me.kalmemarq.jgame;
 import com.mojang.ld22.Game;
 import com.mojang.ld22.InputHandler;
 import com.mojang.ld22.Language;
-import com.mojang.ld22.entity.AirWizard;
 import com.mojang.ld22.gfx.Font;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.gfx.SpriteSheet;
@@ -11,7 +10,6 @@ import com.mojang.ld22.screen.Menu;
 import com.mojang.ld22.screen.TitleMenu;
 import me.kalmemarq.jgame.resource.VanillaResourcePack;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
 import javax.imageio.ImageIO;

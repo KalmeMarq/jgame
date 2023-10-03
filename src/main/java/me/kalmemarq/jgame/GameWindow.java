@@ -8,12 +8,8 @@ import java.nio.IntBuffer;
 
 public class GameWindow {
     private long handle;
-    private int x;
-    private int y;
     private int width;
     private int height;
-    private int windowedWidth;
-    private int windowedHeight;
     private int framebufferWidth;
     private int framebufferHeight;
     private String title;
@@ -65,8 +61,6 @@ public class GameWindow {
             GLFW.glfwGetWindowPos(this.handle, pX, pY);
             GLFW.glfwGetWindowSize(this.handle, pW, pH);
             GLFW.glfwGetFramebufferSize(this.handle, pFW, pFH);
-            this.x = pX.get(0);
-            this.y = pY.get(0);
             this.width = pW.get(0);
             this.height = pH.get(0);
             this.framebufferWidth = pFW.get(0);
@@ -82,34 +76,26 @@ public class GameWindow {
 
     private void onMaximized(long window, boolean maximized) {
         this.maximized = maximized;
-        System.out.println("maximized[" + maximized + "]");
     }
 
     private void onIconify(long window, boolean iconified) {
-        System.out.println("iconify[" + iconified + "]");
     }
 
     private void onFocus(long window, boolean focused) {
         this.focused = focused;
-        System.out.println("focus[" + focused + "]");
     }
 
     private void onWindowPos(long window, int x, int y) {
-        this.x = x;
-        this.y = y;
-        System.out.println("windowpos[" + x + ";" + y + "]");
     }
 
     private void onWindowSize(long window, int width, int height) {
         this.width = width;
         this.height = height;
-        System.out.println("windowsize[" + width + ";" + height + "]");
     }
 
     private void onFramebufferSize(long window, int width, int height) {
         this.framebufferWidth = width;
         this.framebufferHeight = height;
-        System.out.println("framebuffersize[" + width + ";" + height + "]");
     }
 
     public void setTitle(String title) {
@@ -130,13 +116,7 @@ public class GameWindow {
     }
 
     public void setMaximized(boolean maximized) {
-        if (this.handle != 0L) {
-            if (maximized) {
-                GLFW.glfwMaximizeWindow(this.handle);
-            } else {
-                GLFW.glfwRestoreWindow(this.handle);
-            }
-        } else {
+        if (this.handle == 0L) {
             this.maximized = maximized;
         }
     }

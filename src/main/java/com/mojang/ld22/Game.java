@@ -38,7 +38,7 @@ import me.kalmemarq.jgame.logging.LogManager;
 import me.kalmemarq.jgame.argoption.ArgOption;
 import me.kalmemarq.jgame.argoption.ArgOptionParser;
 
-public class Game extends Canvas implements Runnable {
+public class Game implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final String NAME = "Minicraft Minus";
     public static final int HEIGHT = 120;
@@ -47,6 +47,7 @@ public class Game extends Canvas implements Runnable {
 
     private static Game instance;
 
+    protected final Canvas canvas = new Canvas();
     private final BufferedImage image = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
     private final int[] pixels = ((DataBufferInt) this.image.getRaster().getDataBuffer()).getData();
     private boolean running = false;
@@ -274,7 +275,7 @@ public class Game extends Canvas implements Runnable {
     public void tick() {
         this.tickCount++;
         Sound.tick();
-        if (!this.hasFocus()) {
+        if (!this.canvas.hasFocus()) {
             this.input.releaseAll();
         } else {
             if (this.player != null && !this.player.removed && !this.hasWon) {
@@ -328,10 +329,10 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void render() {
-        BufferStrategy bs = this.getBufferStrategy();
+        BufferStrategy bs = this.canvas.getBufferStrategy();
         if (bs == null) {
-            this.createBufferStrategy(3);
-            this.requestFocus();
+            this.canvas.createBufferStrategy(3);
+            this.canvas.requestFocus();
             return;
         }
 
@@ -375,7 +376,7 @@ public class Game extends Canvas implements Runnable {
 
         this.renderGui();
 
-        if (!this.hasFocus()) {
+        if (!this.canvas.hasFocus()) {
             this.renderFocusNagger();
         }
 
@@ -386,12 +387,12 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g.fillRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
 
         int ww = Game.WIDTH * Game.SCALE;
         int hh = Game.HEIGHT * Game.SCALE;
-        int xo = (this.getWidth() - ww) / 2;
-        int yo = (this.getHeight() - hh) / 2;
+        int xo = (this.canvas.getWidth() - ww) / 2;
+        int yo = (this.canvas.getHeight() - hh) / 2;
         g.drawImage(this.image, xo, yo, ww, hh, null);
         g.dispose();
         bs.show();
@@ -486,13 +487,13 @@ public class Game extends Canvas implements Runnable {
         }
 
         Game game = new Game(frame, savePath);
-        game.setMinimumSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
-        game.setMaximumSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
-        game.setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
+        game.canvas.setMinimumSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
+        game.canvas.setMaximumSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
+        game.canvas.setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
 
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.add(game, BorderLayout.CENTER);
+        frame.add(game.canvas, BorderLayout.CENTER);
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
