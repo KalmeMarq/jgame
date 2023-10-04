@@ -30,7 +30,7 @@ public class Sound {
     private static final Map<String, Supplier<BufferedInputStream>> map0 = new HashMap<>();
     public static final List<Clip> clips = new ArrayList<>();
 
-    private Sound(String name) {
+    private Sound() {
     }
 
     public static void load(ResourcePack resourcePack) {

@@ -468,12 +468,12 @@ public class LevelGen {
     public static void main(String[] args) {
         int d = 0;
         while (true) {
-            int w = 128;
-            int h = 128;
+            int w = 256;
+            int h = 256;
 
-            // byte[] map = LevelGen.createAndValidateTopMap(w, h)[0];
+             byte[] map = LevelGen.createAndValidateTopMap(w, h)[0];
             // byte[] map = LevelGen.createAndValidateUndergroundMap(w, h, (d++ % 3) + 1)[0];
-            byte[] map = LevelGen.createAndValidateSkyMap(w, h)[0];
+//            byte[] map = LevelGen.createAndValidateSkyMap(w, h)[0];
 
             BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
             int[] pixels = new int[w * h];
@@ -517,7 +517,7 @@ public class LevelGen {
                 }
             }
             img.setRGB(0, 0, w, h, pixels, 0, w);
-            JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(w * 4, h * 4, Image.SCALE_AREA_AVERAGING)));
+            JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(w * 2, h * 2, Image.SCALE_AREA_AVERAGING)));
         }
     }
 }

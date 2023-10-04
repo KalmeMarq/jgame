@@ -27,7 +27,7 @@ public class TitleMenu extends Menu {
 
         this.selectEntries.add(new SelectEntry(Language.translate("menu.start_game"), (entry) -> {
             Sound.play(Sound.Event.TEST, 1.0f);
-            this.game.resetGame();
+            this.game.startGame();
             this.game.setMenu(null);
         }));
         this.selectEntries.add(new SelectEntry(Language.translate("menu.how_to_play"), (entry) -> {

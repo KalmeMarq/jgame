@@ -25,7 +25,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         GameWindow window = new GameWindow(WIDTH * SCALE, HEIGHT * SCALE, "GLFW Window");
-        window.setVsync(false);
+        window.setVsync(true);
 
         if (!window.init()) {
             return;

@@ -22,7 +22,7 @@ public class DeadMenu extends Menu {
         this.font.renderFrame(screen, "", 1, 3, 18, 9);
         this.font.draw(Language.translate("dead.menu.died"), screen, 2 * 8, 4 * 8, 0xFFFFFF);
 
-        int seconds = this.game.gameTime / 60;
+        int seconds = this.game.world.gameTime / 60;
         int minutes = seconds / 60;
         int hours = minutes / 60;
         minutes %= 60;
