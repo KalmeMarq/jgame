@@ -9,8 +9,10 @@ import com.mojang.ld22.gfx.SpriteSheet;
 import com.mojang.ld22.screen.Menu;
 import com.mojang.ld22.screen.TitleMenu;
 import me.kalmemarq.jgame.resource.VanillaResourcePack;
+import org.checkerframework.checker.units.qual.K;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.system.Configuration;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -24,6 +26,11 @@ public class Main {
     private static final int SCALE = 3;
 
     public static void main(String[] args) throws IOException {
+        Configuration.DEBUG.set(true);
+        Configuration.DEBUG_MEMORY_ALLOCATOR.set(true);
+        Configuration.DEBUG_STACK.set(true);
+        Configuration.DEBUG_LOADER.set(true);
+        Configuration.DEBUG_STREAM.set(true);
         GameWindow window = new GameWindow(WIDTH * SCALE, HEIGHT * SCALE, "GLFW Window");
         window.setVsync(true);
 
@@ -59,18 +66,26 @@ public class Main {
         long lastFrameTime = milliTime();
         int frameCount = 0;
 
-        GLFW.glfwSetKeyCallback(window.getHandle(), ((window1, key, scancode, action, mods) -> {
-            if (key == GLFW.GLFW_KEY_F3 && action == GLFW.GLFW_RELEASE) {
-                window.setMaximized(!window.isMaximized());
-            }
+        window.setKeyboardHandler(new GameWindow.KeyboardEventHandler() {
+            @Override
+            public void onKey(int key, int scancode, int action, int modifiers) {
+                if (key == GLFW.GLFW_KEY_F3 && action == GLFW.GLFW_RELEASE) {
+                    window.setMaximized(!window.isMaximized());
+                }
 
-            if (key == GLFW.GLFW_KEY_F4 && action == GLFW.GLFW_RELEASE) {
-                window.setVsync(!window.isVsyncEnabled());
+                if (key == GLFW.GLFW_KEY_F4 && action == GLFW.GLFW_RELEASE) {
+                    window.setVsync(!window.isVsyncEnabled());
+                }
+
+                if (key == GLFW.GLFW_KEY_F5 && action == GLFW.GLFW_RELEASE) {
+                    window.setFullscreen(!window.isFullscreen());
+                }
             }
-        }));
+        });
 
         while (!window.shouldClose()) {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+
             GL11.glMatrixMode(GL11.GL_PROJECTION);
             GL11.glLoadIdentity();
             GL11.glOrtho(0, WIDTH, HEIGHT, 0, 1000.0f, 3000.0f);
@@ -84,7 +99,7 @@ public class Main {
 
             ++frameCount;
 
-            if (milliTime() - lastFrameTime > 1000L) {
+            while (milliTime() - lastFrameTime > 1000L) {
                 lastFrameTime += 1000L;
                 window.setTitle("GLFW Window " + frameCount + " FPS");
                 frameCount = 0;

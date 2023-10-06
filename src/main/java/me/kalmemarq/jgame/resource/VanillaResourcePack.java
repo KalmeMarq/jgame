@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Objects;
 
-public class VanillaResourcePack extends DirectoryResourcePack {
+public class VanillaResourcePack extends DirectoryPackResources {
     private static Path jarPath;
 
     public VanillaResourcePack() {
@@ -23,7 +23,7 @@ public class VanillaResourcePack extends DirectoryResourcePack {
             throw new RuntimeException(e);
         } catch (FileSystemNotFoundException e) {
             try {
-                FileSystem fs = FileSystems.newFileSystem(VanillaResourcePack.class.getResource("/.root").toURI(), Collections.emptyMap());
+                FileSystem fs = FileSystems.newFileSystem(Objects.requireNonNull(VanillaResourcePack.class.getResource("/.root")).toURI(), Collections.emptyMap());
                 jarPath = fs.getPath("/.root");
             } catch (URISyntaxException | IOException e1) {
                 throw new RuntimeException(e1);

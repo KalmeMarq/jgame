@@ -10,14 +10,14 @@ import java.util.function.Predicate;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class ZipResourcePack implements ResourcePack {
+public class ZipPackResources implements PackResources {
     @Nullable
     protected ZipFile zipFile;
     protected boolean failedToOpen;
 
     private final Path filePath;
 
-    public ZipResourcePack(Path zipFilePath) {
+    public ZipPackResources(Path zipFilePath) {
         this.filePath = zipFilePath;
     }
 

@@ -7,13 +7,12 @@ import me.kalmemarq.jgame.JsonHelper;
 import me.kalmemarq.jgame.logging.LogManager;
 import me.kalmemarq.jgame.logging.Logger;
 import me.kalmemarq.jgame.resource.PackResource;
-import me.kalmemarq.jgame.resource.ResourcePack;
+import me.kalmemarq.jgame.resource.PackResources;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +32,7 @@ public class Sound {
     private Sound() {
     }
 
-    public static void load(ResourcePack resourcePack) {
+    public static void load(PackResources resourcePack) {
         clips.forEach(Clip::close);
         clips.clear();
         PackResource resource = resourcePack.get("sounds.json");

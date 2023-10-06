@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class DirectoryResourcePack implements ResourcePack {
+public class DirectoryPackResources implements PackResources {
     private final Path root;
 
-    public DirectoryResourcePack(Path root) {
+    public DirectoryPackResources(Path root) {
         this.root = root;
     }
 

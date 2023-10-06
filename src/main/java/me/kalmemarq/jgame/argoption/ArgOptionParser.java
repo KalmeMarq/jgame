@@ -40,9 +40,7 @@ public class ArgOptionParser {
 
         List<String> values = null;
 
-        for (int i = 0;
-             i < argv.length;
-             ++i) {
+        for (int i = 0; i < argv.length; ++i) {
             if (argv[i].charAt(0) == '-' && argv[i].charAt(1) == '-' && argv[i].length() >= 3) {
                 values = new ArrayList<>();
                 String name = argv[i].substring(2);

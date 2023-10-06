@@ -3,6 +3,10 @@ package me.kalmemarq.jgame.logging;
 import java.util.function.Supplier;
 
 public interface Logger {
+    /**
+     * Returns the name of this logger.
+     * @return the name of this logger
+     */
     String getName();
 
     void info(Object message);

@@ -3,7 +3,6 @@ package com.mojang.ld22;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -24,7 +23,6 @@ import com.mojang.ld22.screen.TitleMenu;
 import me.kalmemarq.jgame.logging.LogManager;
 import me.kalmemarq.jgame.argoption.ArgOption;
 import me.kalmemarq.jgame.argoption.ArgOptionParser;
-import org.lwjgl.glfw.GLFW;
 
 public class Game implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger();

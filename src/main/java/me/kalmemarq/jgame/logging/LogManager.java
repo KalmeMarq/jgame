@@ -16,10 +16,20 @@ public class LogManager {
     protected static final List<StreamEntry> streams = new ArrayList<>();
     protected static boolean enableAnsi = true;
 
+    /**
+     * Creates an instance of Logger with the specified name.
+     * @param name the name of the logger
+     * @return a logger with the specified name
+     */
     public static Logger getLogger(String name) {
         return new SimpleLogger(name);
     }
 
+    /**
+     * Creates an instance of Logger with the name of the specified class.
+     * @param clazz the class to give the name for the logger
+     * @return a logger with the name of the specified class
+     */
     public static Logger getLogger(Class<?> clazz) {
         return new SimpleLogger(clazz.getSimpleName());
     }
@@ -43,14 +53,24 @@ public class LogManager {
         }
     }
 
+    /**
+     * Sets the maximum log level allowed to be printed.
+     * @param level the log level
+     */
     public static void setLevel(Logger.LogLevel level) {
         LogManager.logLevel = level;
     }
 
+    /**
+     * Enables ANSI terminal colors
+     */
     public static void enableAnsi() {
         LogManager.enableAnsi = true;
     }
 
+    /**
+     * Disables ANSI terminal colors
+     */
     public static void disableAnsi() {
         LogManager.enableAnsi = false;
     }
